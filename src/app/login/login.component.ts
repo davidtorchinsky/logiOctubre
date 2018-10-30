@@ -7,7 +7,8 @@ import {UsuarioService} from '../usuario/user.service';
 
 
 @Component({
-    templateUrl: './login.component.html'
+    templateUrl: './login.component.html',
+styleUrls: ['/css/main.css']
 })
 
 export class LoginComponent implements OnInit {

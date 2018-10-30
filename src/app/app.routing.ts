@@ -8,5 +8,6 @@ import { BarraComponent } from './login/barra/barra.component';
 
 export const routes: ModuleWithProviders = RouterModule.forRoot
   ([
+    {path: '', redirectTo: '/login', pathMatch: 'full' },
     {path: 'login', component: LoginComponent},
     {path: 'barra', component: BarraComponent}]);

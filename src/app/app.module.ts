@@ -8,8 +8,13 @@ import {AuthenticationService} from './auth/auth.service';
 import {AuthGuard} from './auth/auth.guard';
 import { WINDOW_PROVIDERS} from './window.provider';
 import { UrlService } from './window.provider.service';
+import {FormsModule} from '@angular/forms';
+
 
 import {routes} from './app.routing';
+import {HttpModule} from '@angular/http';
+import {AlertService} from './alert/alert.service';
+import {UsuarioService} from './usuario/user.service';
 
 
 @NgModule({
@@ -20,13 +25,18 @@ import {routes} from './app.routing';
   ],
   imports: [
     BrowserModule,
-    routes
+    routes,
+    HttpModule,
+    FormsModule
+
   ],
   providers: [
   AuthenticationService,
   AuthGuard,
   WINDOW_PROVIDERS,
-  UrlService
+  UrlService,
+  AlertService,
+  UsuarioService
   ],
   bootstrap: [AppComponent]
 })
