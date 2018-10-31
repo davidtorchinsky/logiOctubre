@@ -1,0 +1,36 @@
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
+    <div class="list-group">
+        <a routerLink="/inicio" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fas fa-tachometer-alt fa-fw" ></i>&nbsp;
+            Inicio
+        </a>
+        <a [routerLink]="['/medicos']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fas fa-user-md fa-fw" ></i>&nbsp;
+            Medicos
+        </a>
+        <a [routerLink]="['/pacientes']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fas fa-diagnoses fa-fw" ></i>&nbsp;
+            Pacientes
+        </a>
+        <a [routerLink]="['/medicamentos']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fas fa-pills fa-fw"></i>&nbsp;
+            Medicamientos
+        </a>
+        <a [routerLink]="['/pedidos']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fas fa-clipboard-list fa-fw" ></i>&nbsp;
+            Pedidos
+        </a>
+        <a [routerLink]="['/repartidores']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fas fa-truck-loading fa-fw" ></i>&nbsp;
+            Repartidores
+        </a>
+        <a [routerLink]="['/usuarios']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fas fa-user fa-fw" ></i>&nbsp;
+            Usuarios
+        </a>
+    </div>
+    <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
+        <i class="fa fa-fw fa-angle-double-left"></i>&nbsp;
+        <span>{{'Minimizar'}}</span>
+    </div>
+</nav>
