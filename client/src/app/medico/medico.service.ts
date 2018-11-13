@@ -29,8 +29,20 @@ export class MedicoService {
 
     }
 
-    saveMedico() {
+    saveMedico(
+        dniMed: string,
+        nombreMed: string,
+        apellidoMed: string,
+        telefonoMed: string,
+        matriculaMed: string) {
 
+        return this.http.post(this.medicoURL,
+            JSON.stringify({dniMedico: dniMed, nombreMedico: nombreMed,
+                            apellidoMedico: apellidoMed, telefonoMedico: telefonoMed,
+                            matriculaMedico: matriculaMed}), {headers: this.headers})
+        .toPromise()
+        .then(response => response.json().obj as Medico[])
+        .catch(this.handleError);
     }
 
     deleteMedico() {

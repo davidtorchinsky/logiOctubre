@@ -4,6 +4,7 @@ import swal from 'sweetalert2';
 
 import { Medico } from './medico';
 import { MedicoService } from './medico.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'app-productos',
@@ -12,23 +13,27 @@ import { MedicoService } from './medico.service';
     animations: [routerTransition()]
 })
 export class MedicoComponent implements OnInit {
-
+  model: any = {};
   medicos: Medico[];
   cols: any[];
   selectedMedico;
+  modalAgregarMedico = false;
 
   constructor(
     private medicoService: MedicoService
   ) {
       this.medicos = [
-        {_id: '01', nombre: 'John', apellido: 'Doe'},
-        {_id: '02', nombre: 'Anna', apellido: 'Smith'},
-        {_id: '03', nombre: 'Peter', apellido: 'Jones'}
+        {_id: '01', dni: '1234', nombre: 'John', apellido: 'Doe', telefono: '0800-1234-456', matricula: 'hola'},
+        {_id: '02', dni: '1234', nombre: 'Anna', apellido: 'Smith',  telefono: '0800-1234-456', matricula: 'hola'},
+        {_id: '03', dni: '1234', nombre: 'Peter', apellido: 'Jones',  telefono: '0800-1234-456', matricula: 'hola'}
       ];
 
       this.cols = [
+        { field: 'dni', header: 'DNI' },
         { field: 'nombre', header: 'Nombre' },
-        { field: 'apellido', header: 'Apellido' }
+        { field: 'apellido', header: 'Apellido' },
+        { field: 'telefono', header: 'Telefono' },
+        { field: 'matricula', header: 'Matricula' }
       ];
   }
 
@@ -41,6 +46,25 @@ export class MedicoComponent implements OnInit {
     .then(medicos => {
         this.medicos = medicos;
     });
+  }
+
+  cargarMedico(
+    dniMedico: string,
+    nombreMedico: string,
+    apellidoMedico: string,
+    telefonoMedico: string,
+    matriculaMedico: string,
+    f: NgForm) {
+
+    this.modalAgregarMedico = false;
+
+    this.medicoService.saveMedico(dniMedico,nombreMedico,apellidoMedico,telefonoMedico,matriculaMedico);
+
+    f.resetForm();
+  }
+
+  mostrarModalAgregarMedico() {
+    this.modalAgregarMedico = true;
   }
 
 }

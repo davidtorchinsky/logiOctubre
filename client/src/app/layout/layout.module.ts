@@ -30,6 +30,7 @@ import { DataTableModule } from 'primeng/primeng';
 import { TableModule } from 'primeng/components/table/table';
 import { WINDOW_PROVIDERS } from '../shared/WindowProvider/window.provider';
 import { UrlService } from '../shared/WindowProvider/window.provider.service';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
     imports: [
@@ -45,6 +46,7 @@ import { UrlService } from '../shared/WindowProvider/window.provider.service';
         SharedModule,
         DataTableModule,
         TableModule,
+        DialogModule,
         NgbDropdownModule.forRoot()
     ],
     declarations: [
