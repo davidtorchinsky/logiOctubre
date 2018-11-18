@@ -23,9 +23,9 @@ export class MedicoComponent implements OnInit {
     private medicoService: MedicoService
   ) {
       this.medicos = [
-        {_id: '01', dni: '1234', nombre: 'John', apellido: 'Doe', telefono: '0800-1234-456', matricula: 'hola'},
-        {_id: '02', dni: '1234', nombre: 'Anna', apellido: 'Smith',  telefono: '0800-1234-456', matricula: 'hola'},
-        {_id: '03', dni: '1234', nombre: 'Peter', apellido: 'Jones',  telefono: '0800-1234-456', matricula: 'hola'}
+        {_id: '01', dni: '1234', nombre: 'John', apellido: 'Doe', telefono: '0800-1234-456', matricula: 'hola1'},
+        {_id: '02', dni: '12345', nombre: 'Anna', apellido: 'Smith',  telefono: '0800-1234-456', matricula: 'hola2'},
+        {_id: '03', dni: '123456', nombre: 'Peter', apellido: 'Jones',  telefono: '0800-1234-456', matricula: 'hola3'}
       ];
 
       this.cols = [

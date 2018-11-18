@@ -28,22 +28,40 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <p-table [columns]="cols" [value]="medicos">
+                        <p-table #dt [columns]="cols" [value]="medicos">
+                            <ng-template pTemplate="caption">
+                                 <div style="text-align: right">        
+                                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                    <input type="text" pInputText size="50" placeholder="Filtro" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                                </div>
+                            </ng-template>
                             <ng-template pTemplate="header" let-columns>
                                 <tr>
                                     <th *ngFor="let col of columns">
                                         {{col.header}}
                                     </th>
                                 </tr>
-                            </ng-template>
-                            <ng-template pTemplate="body" let-medico let-columns="columns">
                                 <tr>
+                                  <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                                     <input *ngSwitchCase="'dni'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                     <input *ngSwitchCase="'apellido'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                     <input *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                    
+                                  </th>
+                                </tr>
+                            </ng-template>
+
+                            <ng-template pTemplate="body" let-medico let-columns="columns">
+                                <tr [pSelectableRow]="medico">
                                     <td *ngFor="let col of columns">
                                             {{medico[col.field]}}
                                     </td>
                                 </tr>
                             </ng-template>
                         </p-table>
+                
+                        
+
                     </div>
                     <div class="card-footer">
                         <div class="pull-right">
