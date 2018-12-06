@@ -45,7 +45,10 @@ export class MedicoService {
         .catch(this.handleError);
     }
 
-    deleteMedico() {
+    deleteMedico(
+        dniMed: string
+    ) {
+
 
     }
 

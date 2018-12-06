@@ -63,6 +63,12 @@
     border-color: black;
     color: white;
   }
+
+    btn btn-primary btn-lg r {
+    background-color: red;
+    border-color: black;
+    color: white;
+  }
   
   .ui-button-danger:not([disabled]):hover {
     background-color: darkred;

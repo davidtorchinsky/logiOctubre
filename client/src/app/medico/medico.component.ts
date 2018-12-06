@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../router.animations';
-import swal from 'sweetalert2';
-
 import { Medico } from './medico';
 import { MedicoService } from './medico.service';
 import { NgForm } from '@angular/forms';
@@ -18,6 +16,9 @@ export class MedicoComponent implements OnInit {
   cols: any[];
   selectedMedico;
   modalAgregarMedico = false;
+  modalEditarMedico = false;
+  modalEliminarMedico = false;
+
 
   constructor(
     private medicoService: MedicoService
@@ -55,10 +56,8 @@ export class MedicoComponent implements OnInit {
     telefonoMedico: string,
     matriculaMedico: string,
     f: NgForm) {
-
     this.modalAgregarMedico = false;
-
-    this.medicoService.saveMedico(dniMedico,nombreMedico,apellidoMedico,telefonoMedico,matriculaMedico);
+    this.medicoService.saveMedico(dniMedico, nombreMedico, apellidoMedico, telefonoMedico, matriculaMedico);
 
     f.resetForm();
   }
@@ -67,4 +66,29 @@ export class MedicoComponent implements OnInit {
     this.modalAgregarMedico = true;
   }
 
+ mostrarModalEditar(  medico: Medico
+   ) {
+    if (medico != null) {
+       this.modalEditarMedico = true;
+    }
+
+  }
+   mostrarModalEliminar(
+     medico: Medico
+   ) {
+    if (medico != null) {
+       this.modalEliminarMedico = true;
+    }
+
+  }
+
+  eliminarMedico(
+    medicoDelete: Medico
+  ) {
+    this.medicoService.deleteMedico(medicoDelete.dni);
+    this.modalEliminarMedico = false;
+
+  }
+
 }
+
