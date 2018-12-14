@@ -15,10 +15,14 @@ export class MedicoService {
     ) {}
 
     getMedicos(): Promise<Medico[]> {
-        return this.http.get(this.medicoURL)
+        return this.http.get(this.medicoURL) 
         .toPromise()
         .then(response => response.json().obj as Medico[])
         .catch(this.handleError);
+    }
+    getTodosLosMedicos(): Medico[]
+    {   
+        return this.medico;
     }
 
     getMedico() {

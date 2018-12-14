@@ -185,15 +185,15 @@
 
 
 
-<p-dialog [(visible)]="modalEditarMedico" [width]="500" [contentStyle]="{'max-height':'40%'}">
+<p-dialog [(visible)]="modalEditarMedico" [width]="500" [contentStyle]="{'max-height':'40%'}" action="#selectedMedico" >
     <p-header>
         Editar Medico 
     </p-header>
     
-    <form name="form" (ngSubmit)="f.form.valid && cargarMedico(dniMedico.value,nombreMedico.value,apellidoMedico.value, telefonoMedico.value, matriculaMedico.value, f);" #f="ngForm" novalidate>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !dniMedico.valid }">
+    <form name="form" (ngSubmit)="f.form.valid && cargarMedico(dniMedico.value,nombreMedico.value,apellidoMedico.value, telefonoMedico.value, matriculaMedico.value, f);" #f="ngForm" novalidate >
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !dniMedico.valid }" >
             <label for="dniMedico">DNI:</label>
-            <input type="text" class="form-control" name="dniMedico" [(ngModel)]="model.dniMedico" #dniMedico="ngModel" value= required />
+            <input type="text" class="form-control" name="dniMedico" [(ngModel)]="model.dniMedico" #dniMedico="ngModel" required  />
             <div *ngIf="f.submitted && !dniMedico.valid" role="alert" class="alert alert-danger">Ingresar el DNI del Medico</div>
         </div>
 
