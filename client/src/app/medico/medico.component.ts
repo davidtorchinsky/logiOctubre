@@ -29,7 +29,7 @@ export class MedicoComponent implements OnInit {
         {_id: '03', dni: '123456', nombre: 'Peter', apellido: 'Jones',  telefono: '0800-1234-456', matricula: 'hola3'}
       ];
       //this.medicos =this.getTodosLosMedicos;
-
+  this.getMedicos();
       this.cols = [
         { field: 'dni', header: 'DNI' },
         { field: 'nombre', header: 'Nombre' },

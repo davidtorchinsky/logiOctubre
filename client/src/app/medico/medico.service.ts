@@ -4,23 +4,31 @@ import { UrlService } from '../shared/WindowProvider/window.provider.service';
 import { Medico } from './medico';
 import { default as swal } from 'sweetalert2';
 
+
+
 @Injectable()
 export class MedicoService {
     private headers = new Headers({'Content-Type': 'application/json'});
     private medicoURL = this.urlService.getRestApiUrl() + '/medico';  // URL a la api
+    private urltest = '/app/config-bd/medicoServer';
 
+
+    
     constructor(
         private http: Http,
         private urlService: UrlService
     ) {}
 
     getMedicos(): Promise<Medico[]> {
-        return this.http.get(this.medicoURL) 
+        console.log(this.urltest);
+        console.log(this.medicoURL);
+        return this.http.get(this.urltest)
         .toPromise()
         .then(response => response.json().obj as Medico[])
         .catch(this.handleError);
     }
-    getTodosLosMedicos(): Medico[]
+/**
+   getTodosLosMedicos(): Medico[]
     {   
         return this.medico;
     }
@@ -32,6 +40,8 @@ export class MedicoService {
     updateMedico() {
 
     }
+     * 
+ */ 
 
     saveMedico(
         dniMed: string,

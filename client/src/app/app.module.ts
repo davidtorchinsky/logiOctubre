@@ -6,6 +6,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
+import {CalendarModule} from 'primeng/calendar';
+import { FormsModule } from '@angular/forms';
+
+
 
 // PrimeNG
 import {AccordionModule} from 'primeng/primeng';
@@ -13,6 +17,7 @@ import { SharedModule, PanelModule } from 'primeng/primeng';
 import { ButtonModule } from 'primeng/button';
 import { DataTableModule } from 'primeng/primeng';
 import { TableModule } from 'primeng/components/table/table';
+//import { CalendarioComponent } from './calendario/calendario.component';
 
 
 
@@ -28,7 +33,9 @@ import { TableModule } from 'primeng/components/table/table';
         PanelModule,
         SharedModule,
         DataTableModule,
-        TableModule
+        TableModule,
+     
+        FormsModule
     ],
     declarations: [AppComponent],
     providers: [AuthGuard],

@@ -8,6 +8,7 @@ import { MedicamentoComponent } from '../medicamento/medicamento.component';
 import { PedidoComponent } from '../pedido/pedido.component';
 import { RepartidorComponent } from '../repartidor/repartidor.component';
 import { MedicoComponent } from '../medico/medico.component';
+import { CalendarioComponent } from "../calendario/calendario.component";
 
 const routes: Routes = [
     {
@@ -21,7 +22,8 @@ const routes: Routes = [
             { path: 'medicamentos', component: MedicamentoComponent },
             { path: 'pedidos', component: PedidoComponent },
             { path: 'repartidores', component: RepartidorComponent },
-            { path: 'medicos', component: MedicoComponent }
+            { path: 'medicos', component: MedicoComponent },
+            { path: 'calendario', component: CalendarioComponent }
 
         ]
     }

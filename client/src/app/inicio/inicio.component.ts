@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../router.animations';
 
+
 @Component({
     selector: 'app-inicio',
     templateUrl: './inicio.component.html',
@@ -11,7 +12,7 @@ export class InicioComponent implements OnInit {
     public alerts: Array<any> = [];
     public sliders: Array<any> = [];
 
-    private empresas = [];
+   
 
     constructor() {
         this.sliders.push(

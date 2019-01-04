@@ -18,12 +18,13 @@ import { MedicamentoComponent } from '../medicamento/medicamento.component';
 import { PedidoComponent } from '../pedido/pedido.component';
 import { RepartidorComponent } from '../repartidor/repartidor.component';
 import { MedicoComponent } from '../medico/medico.component';
+import { CalendarioComponent } from "../calendario/calendario.component";
 
 // SERVICIOS
 import { MedicoService } from '../medico/medico.service';
 
 // PrimeNG
-import {AccordionModule} from 'primeng/primeng';
+import {AccordionModule, CalendarModule} from 'primeng/primeng';
 import { SharedModule, PanelModule } from 'primeng/primeng';
 import { ButtonModule } from 'primeng/button';
 import { DataTableModule } from 'primeng/primeng';
@@ -47,6 +48,7 @@ import { DialogModule } from 'primeng/dialog';
         DataTableModule,
         TableModule,
         DialogModule,
+        CalendarModule,
         NgbDropdownModule.forRoot()
     ],
     declarations: [
@@ -59,7 +61,8 @@ import { DialogModule } from 'primeng/dialog';
         MedicamentoComponent,
         PedidoComponent,
         RepartidorComponent,
-        MedicoComponent
+        MedicoComponent,
+        CalendarioComponent
     ],
     providers: [
         WINDOW_PROVIDERS,
