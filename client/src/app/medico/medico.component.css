@@ -83,3 +83,8 @@
     color: white;
     box-shadow: 3px 3px 1px #888888;
   }
+  .divider{
+    width:18px;
+    height:auto;
+    display:inline-block;
+}

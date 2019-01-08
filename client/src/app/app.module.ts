@@ -34,6 +34,7 @@ import { TableModule } from 'primeng/components/table/table';
         SharedModule,
         DataTableModule,
         TableModule,
+        CalendarModule,
      
         FormsModule
     ],

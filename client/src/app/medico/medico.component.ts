@@ -82,6 +82,19 @@ export class MedicoComponent implements OnInit {
     }
 
   }
+  cerrarModalEditar(){
+    
+    this.modalEditarMedico=false;
+    
+  }
+
+  cerrarModalEliminar(){
+    this.modalEliminarMedico = false;
+  }
+
+  cerrarModalAgregar(){
+    this.modalAgregarMedico = false;
+  }
 
   eliminarMedico(
     medicoDelete: Medico

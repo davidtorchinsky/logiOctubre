@@ -19,7 +19,7 @@ export class CalendarioComponent implements OnInit {
 
   date1: Date;
 
-  date2: Date;
+  daqte2: Date;
 
   date3: Date;
 
