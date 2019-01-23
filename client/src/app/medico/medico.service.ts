@@ -10,19 +10,15 @@ import { default as swal } from 'sweetalert2';
 export class MedicoService {
     private headers = new Headers({'Content-Type': 'application/json'});
     private medicoURL = this.urlService.getRestApiUrl() + '/medico';  // URL a la api
-    private urltest = '/app/config-bd/medicoServer';
 
-
-    
     constructor(
         private http: Http,
         private urlService: UrlService
     ) {}
 
     getMedicos(): Promise<Medico[]> {
-        console.log(this.urltest);
         console.log(this.medicoURL);
-        return this.http.get(this.urltest)
+        return this.http.get(this.medicoURL)
         .toPromise()
         .then(response => response.json().obj as Medico[])
         .catch(this.handleError);
