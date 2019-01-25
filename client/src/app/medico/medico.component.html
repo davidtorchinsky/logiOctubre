@@ -190,34 +190,34 @@
         Editar Medico 
     </p-header>
     
-    <form name="form" (ngSubmit)="f.form.valid && cargarMedico(dniMedico.value,nombreMedico.value,apellidoMedico.value, telefonoMedico.value, matriculaMedico.value, f);" #f="ngForm" novalidate >
+    <form name="form" (ngSubmit)="f.form.valid && updateMedico(dniMedico.value,nombreMedico.value,apellidoMedico.value, telefonoMedico.value, matriculaMedico.value, f);" #f="ngForm" novalidate >
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !dniMedico.valid }" >
             <label for="dniMedico">DNI:</label>
-            <input type="text" class="form-control" name="dniMedico" [(ngModel)]="selectedMedico.dniMedico" #dniMedico="ngModel" required  />
+            <input type="text" class="form-control" name="dniMedico" [(ngModel)]="selectedMedico.dni" #dniMedico="ngModel" disabled />
             <div *ngIf="f.submitted && !dniMedico.valid" role="alert" class="alert alert-danger">Ingresar el DNI del Medico</div>
         </div>
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !nombreMedico.valid }">
             <label for="nombreMedico">Nombre:</label>
-            <input type="text" class="form-control" name="nombreMedico" [(ngModel)]="selectedMedico.nombreMedico" #nombreMedico="ngModel" autocomplete="on" required />
+            <input type="text" class="form-control" name="nombreMedico" [(ngModel)]="selectedMedico.nombre" #nombreMedico="ngModel" autocomplete="on" required />
             <div *ngIf="f.submitted && !nombreMedico.valid" role="alert" class="alert alert-danger">Ingresar el Nombre del Medico</div>
         </div>
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !apellidoMedico.valid }">
             <label for="apellidoMedico">Apellido:</label>
-            <input type="text" class="form-control" name="apellidoMedico" [(ngModel)]="selectedMedico.apellidoMedico" #apellidoMedico="ngModel" autocomplete="off" required />
+            <input type="text" class="form-control" name="apellidoMedico" [(ngModel)]="selectedMedico.apellido" #apellidoMedico="ngModel" autocomplete="off" required />
             <div *ngIf="f.submitted && !apellidoMedico.valid" role="alert" class="alert alert-danger">Ingresar el Apellido del Medico</div>
         </div>
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !telefonoMedico.valid }">
             <label for="telefonoMedico">Telefono:</label>
-            <input type="text" class="form-control" name="telefonoMedico" [(ngModel)]="selectedMedico.telefonoMedico" #telefonoMedico="ngModel" autocomplete="off" required />
+            <input type="text" class="form-control" name="telefonoMedico" [(ngModel)]="selectedMedico.telefono" #telefonoMedico="ngModel" autocomplete="off" required />
             <div *ngIf="f.submitted && !telefonoMedico.valid" role="alert" class="alert alert-danger">Ingresar el Telefono del Medico</div>
         </div>
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !matriculaMedico.valid }">
             <label for="matriculaMedico">Matricula:</label>
-            <input type="text" class="form-control" name="matriculaMedico" [(ngModel)]="selectedMedico.matriculaMedico" #matriculaMedico="ngModel" autocomplete="off" required />
+            <input type="text" class="form-control" name="matriculaMedico" [(ngModel)]="selectedMedico.matricula" #matriculaMedico="ngModel" autocomplete="off" required />
             <div *ngIf="f.submitted && !matriculaMedico.valid" role="alert" class="alert alert-danger">Ingresar el Matricula del Medico</div>
         </div>
     
@@ -228,7 +228,8 @@
                 class="ui-button-success"
                 label="Aceptar"
                 icon="fas fa-check"
-                type="submit">
+                type="submit"
+                (click)="cerrarModalEditar()">
             </button>
         </p-footer>
     </form>
