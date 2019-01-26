@@ -6,6 +6,11 @@ const port = 3000
 
 var app = express()
 
+var mongoose = require('mongoose');
+mongoose.set('useCreateIndex', true);
+
+mongoose.connect("mongodb://localhost:27017/Logi_Oct", { useNewUrlParser: true });
+
 app.use(bodyParser.urlencoded({extended: true},{limit: '100mb'}));
 app.use(bodyParser.json({limit: '100mb'}));
 app.use(express.static(__dirname));
