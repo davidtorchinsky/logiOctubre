@@ -1,18 +1,18 @@
 'use strict'
 
-var Medico = require('../models/medico');
+var Obra = require('../models/obras');
 
 // FUNCIONES
-function getMedicos(req, res){
-    console.log('- GET MEDICOS -')
-    Medico.find({}, function (err, medicos) {
+function getObras(req, res){
+    console.log('- GET OBRAS -')
+    Obra.find({}, function (err, obras) {
         if (err) {
             return res.status(400).json({
                 title: 'Error',
                 error: err
             });
         }
-        if (!medicos) {
+        if (!obras) {
             return res.status(404).json({
                 title: 'Error',
                 error: err
@@ -20,64 +20,64 @@ function getMedicos(req, res){
         }
         res.status(200).json({
             message: 'Success',
-            obj: medicos
+            obj: obras
         });
     });
 }
 
-function cargarMedico(req, res) {
-    console.log('CARGAR MEDICO')
-    if (!req.body.dniMedico) {
+function cargarObra(req, res) {
+    console.log('CARGAR OBRA')
+    if (!req.body.cuitObraSocial) {
         return res.status(400).json({
             title: 'Error',
             error: err
         });
     }
-    if (!req.body.nombreMedico) {
+    if (!req.body.nombreObra) {
         return res.status(400).json({
             title: 'Error',
             error: err
         });
     }
-    if (!req.body.apellidoMedico) {
+    if (!req.body.direccionObra) {
         return res.status(400).json({
             title: 'Error',
             error: err
         });
     }
-    if (!req.body.telefonoMedico) {
+    if (!req.body.telefonoObra) {
         return res.status(400).json({
             title: 'Error',
             error: err
         });
     }
-    if (!req.body.matriculaMedico) {
+    if (!req.body.emailObra) {
         return res.status(400).json({
             title: 'Error',
             error: err
         });
     }
 
-    var nuevoMedico = new Medico({
-        dni: req.body.dniMedico,
-        nombre: req.body.nombreMedico,
-        apellido: req.body.apellidoMedico,
-        telefono: req.body.telefonoMedico,
-        matricula: req.body.matriculaMedico
+    var nuevaObra = new Obra({
+        cuit: req.body.cuitObraSocial,
+        nombre: req.body.nombreObra,
+        direccion: req.body.direccionObra,
+        telefono: req.body.telefonoObra,
+        email: req.body.emailObra
     })
 
-    nuevoMedico.save().then(function (nuevoMedico) {
+    nuevaObra.save().then(function (nuevaObra) {
         res.status(201).json({
-            message: 'Medico creado',
-            obj: nuevoMedico
+            message: 'Obra social creada',
+            obj: nuevaObra
         });
 
     }, function (err) {
         if (err.code == 11000) {
             var msj = ""
             //Catching index name inside errmsg reported by mongo to determine the correct error and showing propper message
-            if (err.errmsg.toString().includes("dni"))
-                msj = "Dni de Medico";
+            if (err.errmsg.toString().includes("cuit"))
+                msj = "Cuid Obra Social";
            
             return res.status(404).json({
                 title: 'Error',
@@ -91,32 +91,32 @@ function cargarMedico(req, res) {
     });
 }
 
-function editarMedico(req, res) {
-    console.log('EDITAR MEDICO');
-    console.log(req.params.idMedico);
-    Medico.findById(req.params.idMedico, function (err, medico) {
+function editarObra(req, res) {
+    console.log('EDITAR OBRA SOCIAL');
+    console.log(req.params.idObra);
+    Obra.findById(req.params.idObra, function (err, obra) {
         if (err) {
             return res.status(400).json({
                 title: 'An error occurred',
                 error: err
             });
         }
-        if (!medico) {
+        if (!obra) {
             return res.status(404).json({
                 title: 'Error',
-                error: 'Medico no encontrado'
+                error: 'Obra Social no encontrada'
             });
         }
 
-        medico.nombre = req.body.nombreMedico;
-        medico.apellido = req.body.apellidoMedico;
-        medico.telefono = req.body.telefonoMedico;
-        medico.matricula = req.body.matriculaMedico;
+        obra.nombre = req.body.nombreObra;
+        obra.apellido = req.body.direccionObra;
+        obra.telefono = req.body.telefonoObra;
+        obra.matricula = req.body.emailObra;
 
-        medico.save().then(function (medico) {
+        obra.save().then(function (obra) {
             res.status(200).json({
                 message: 'Success',
-                obj: medico
+                obj: obra
             });
         }, function (err) {
             return res.status(404).json({
@@ -127,16 +127,16 @@ function editarMedico(req, res) {
     });
 }
 
-function eliminarMedico(req, res){
-    console.log('ELIMINAR MEDICO')
+function eliminarObra(req, res){
+    console.log('ELIMINAR OBRA SOCIAL')
     
-    Medico.findOne({'_id': req.params.idMedico})
-    .exec(function (err, medico) {
-        if (medico) {
-            medico.remove().then(function (medicoEliminado) {
+    Obra.findOne({'_id': req.params.idObra})
+    .exec(function (err, obra) {
+        if (obra) {
+            obra.remove().then(function (obraEliminada) {
                 return res.status(200).json({
-                    message: 'Medico eliminado correctamente',
-                    obj: medicoEliminado
+                    message: 'Obra Social eliminada correctamente',
+                    obj: obraEliminada
                 });
             }, function (err) {
                 return res.status(400).json({
@@ -156,9 +156,9 @@ function eliminarMedico(req, res){
 
 // EXPORT
 module.exports = {
-    getMedicos,
-    cargarMedico,
-    editarMedico,
-    eliminarMedico
+    getObras,
+    cargarObra,
+    editarObra,
+    eliminarObra
 }
 

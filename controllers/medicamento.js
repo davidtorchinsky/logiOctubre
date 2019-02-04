@@ -1,18 +1,18 @@
 'use strict'
 
-var Medico = require('../models/medico');
+var Medicamento = require('../models/medicamento');
 
 // FUNCIONES
-function getMedicos(req, res){
-    console.log('- GET MEDICOS -')
-    Medico.find({}, function (err, medicos) {
+function getMedicamentos(req, res){
+    console.log('- GET MEDICAMENTOS -')
+    Medicamento.find({}, function (err, medicamentos) {
         if (err) {
             return res.status(400).json({
                 title: 'Error',
                 error: err
             });
         }
-        if (!medicos) {
+        if (!medicamentos) {
             return res.status(404).json({
                 title: 'Error',
                 error: err
@@ -20,64 +20,64 @@ function getMedicos(req, res){
         }
         res.status(200).json({
             message: 'Success',
-            obj: medicos
+            obj: medicamentos
         });
     });
 }
 
-function cargarMedico(req, res) {
-    console.log('CARGAR MEDICO')
-    if (!req.body.dniMedico) {
+function cargarMedicamento(req, res) {
+    console.log('CARGAR MEDICAMENTO')
+    if (!req.body.idMedicamento) {
         return res.status(400).json({
             title: 'Error',
             error: err
         });
     }
-    if (!req.body.nombreMedico) {
+    if (!req.body.nombreMedicamento) {
         return res.status(400).json({
             title: 'Error',
             error: err
         });
     }
-    if (!req.body.apellidoMedico) {
+    if (!req.body.dosisMedicamento) {
         return res.status(400).json({
             title: 'Error',
             error: err
         });
     }
-    if (!req.body.telefonoMedico) {
+    if (!req.body.cadenaFrioMedicamento) {
         return res.status(400).json({
             title: 'Error',
             error: err
         });
     }
-    if (!req.body.matriculaMedico) {
+    if (!req.body.cantidadComprimidosMedicamento) {
         return res.status(400).json({
             title: 'Error',
             error: err
         });
     }
 
-    var nuevoMedico = new Medico({
-        dni: req.body.dniMedico,
-        nombre: req.body.nombreMedico,
-        apellido: req.body.apellidoMedico,
-        telefono: req.body.telefonoMedico,
-        matricula: req.body.matriculaMedico
+    var nuevoMedicamento = new Medicamento({
+        idMedicam: req.body.idMedicamento,
+        nombre: req.body.nombreMedicamento,
+        dosis: req.body.dosisMedicamento,
+        cadenaFrio: req.body.cadenaFrioMedicamento,
+        cantidadComprimidos: req.body.cadenaFrioMedicamento
     })
 
-    nuevoMedico.save().then(function (nuevoMedico) {
+    nuevoMedicamento.save().then(function (nuevoMedicamento) {
         res.status(201).json({
-            message: 'Medico creado',
-            obj: nuevoMedico
+            message: 'Medicamento creado',
+            obj: nuevoMedicamento
         });
 
     }, function (err) {
         if (err.code == 11000) {
             var msj = ""
             //Catching index name inside errmsg reported by mongo to determine the correct error and showing propper message
-            if (err.errmsg.toString().includes("dni"))
-                msj = "Dni de Medico";
+            if (err.errmsg.toString().includes("idMedicam"))
+                msj = "Id Medicamento";
            
             return res.status(404).json({
                 title: 'Error',
@@ -91,32 +91,32 @@ function cargarMedico(req, res) {
     });
 }
 
-function editarMedico(req, res) {
-    console.log('EDITAR MEDICO');
-    console.log(req.params.idMedico);
-    Medico.findById(req.params.idMedico, function (err, medico) {
+function editarMedicamento(req, res) {
+    console.log('EDITAR MEDICAMENTO');
+    console.log(req.params.idMedicamento);
+    Medicamento.findById(req.params.idMedicamento, function (err, medicamento) {
         if (err) {
             return res.status(400).json({
                 title: 'An error occurred',
                 error: err
             });
         }
-        if (!medico) {
+        if (!medicamento) {
             return res.status(404).json({
                 title: 'Error',
-                error: 'Medico no encontrado'
+                error: 'Medicamento no encontrado'
             });
         }
 
-        medico.nombre = req.body.nombreMedico;
-        medico.apellido = req.body.apellidoMedico;
-        medico.telefono = req.body.telefonoMedico;
-        medico.matricula = req.body.matriculaMedico;
+        medicamento.nombre = req.body.nombreMedicamento;
+        medicamento.dosis = req.body.dosisMedicamento;
+        medicamento.cadenaFrio = req.body.cadenaFrioMedicamento;
+        medicamento.cantidadComprimidos = req.body.cantidadComprimidosMedicamento;
 
-        medico.save().then(function (medico) {
+        medmedicamentoico.save().then(function (medicamento) {
             res.status(200).json({
                 message: 'Success',
-                obj: medico
+                obj: medicamento
             });
         }, function (err) {
             return res.status(404).json({
@@ -127,16 +127,16 @@ function editarMedico(req, res) {
     });
 }
 
-function eliminarMedico(req, res){
-    console.log('ELIMINAR MEDICO')
+function eliminarMedicamento(req, res){
+    console.log('ELIMINAR medicamento')
     
-    Medico.findOne({'_id': req.params.idMedico})
-    .exec(function (err, medico) {
-        if (medico) {
-            medico.remove().then(function (medicoEliminado) {
+    Medicamento.findOne({'_id': req.params.idMedicamento})
+    .exec(function (err, medicamento) {
+        if (medicamento) {
+            medicamento.remove().then(function (medicamentoEliminado) {
                 return res.status(200).json({
-                    message: 'Medico eliminado correctamente',
-                    obj: medicoEliminado
+                    message: 'medicamento eliminado correctamente',
+                    obj: medicamentoEliminado
                 });
             }, function (err) {
                 return res.status(400).json({
@@ -156,9 +156,9 @@ function eliminarMedico(req, res){
 
 // EXPORT
 module.exports = {
-    getMedicos,
-    cargarMedico,
-    editarMedico,
-    eliminarMedico
+    getMedicamentos,
+    cargarMedicamento,
+    editarMedicamento,
+    eliminarMedicamento
 }
 
