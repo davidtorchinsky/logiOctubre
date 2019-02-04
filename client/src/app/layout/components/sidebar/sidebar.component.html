@@ -28,6 +28,10 @@
             <i class="fas fa-user fa-fw" ></i>&nbsp;
             Usuarios
         </a>
+        <a [routerLink]="['/obras']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fas fa-user fa-fw" ></i>&nbsp;
+            obraSocial
+        </a>
     </div>
     <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
         <i class="fa fa-fw fa-angle-double-left"></i>&nbsp;
