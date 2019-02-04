@@ -17,4 +17,4 @@ api.post('/',MedicamentoController.cargarMedicamento);
 // DELETE
 api.delete('/:idMedicamentos', MedicamentoController.eliminarMedicamento)
 
-module.exports = api;
+module.exports = api; 
