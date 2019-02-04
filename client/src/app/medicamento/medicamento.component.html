@@ -1,4 +1,220 @@
+
 <div [@routerTransition]>
-        <h3 class="text-muted">Medicamentos</h3>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class='page-header'>
+                    <h2>Medicamentos</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card card-default mb-3">
+                    <div class="card-header">
+                        <div>
+                            <a>
+                                <strong style="text-decoration: none;color: #333;">Administración de Medicamentos</strong>
+                                <div class = 'pull-left'>
+                                </div>
+                            </a>
+                            <button
+                                pButton
+                                class="ui-button-primario pull-right"
+                                label="Nuevo Medicamento"
+                                icon="fas fa-plus"
+                                (click)="mostrarModalAgregarMedicamento()">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p-table #dt [columns]="cols" [value]="medicamentos" selectionMode="single" [(selection)]="selectedMedicamento">
+                            <ng-template pTemplate="caption">
+                                 <div style="text-align: right">        
+                                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                    <input type="text" pInputText size="50" placeholder="Filtro" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="header" let-columns>
+                                <tr>
+                                    <th *ngFor="let col of columns">
+                                        {{col.header}}
+                                    </th>
+                                </tr>
+                                <tr>
+                                  <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                                     <input *ngSwitchCase="'idMedicamento'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                     <input *ngSwitchCase="'dosis'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                     <input *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                    
+                                  </th>
+                                </tr>
+                            </ng-template>
+
+                            <ng-template pTemplate="body" let-medicamento let-columns="columns">
+                                <tr [pSelectableRow]="medicamento">
+                                    <td *ngFor="let col of columns">
+                                            {{medicamento[col.field]}}
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                
+                        
+
+                    </div>
+                    <div class="card-footer">
+                        <div class="pull-right">
+                            <!--Boton Editar (Deshabilitado)-->
+                                <button
+                                    pButton
+                                    *ngIf="!selectedMedicamento"
+                                    class="ui-button-warning"
+                                    label="Editar"
+                                    icon="fas fa-pencil-alt"
+                                    disabled>
+                                </button>
+
+                            <!--Boton Editar (Habilitado)-->
+                                <button
+                                    pButton
+                                    *ngIf="selectedMedicamento"
+                                    class="ui-button-warning"
+                                    label="Editar"
+                                    icon="fas fa-pencil-alt"
+                                    data-toggle="modal"
+                                    data-target="#"
+                                (click)="mostrarModalEditar(selectedMedicamento)">
+                                </button>
+                            
+                            &nbsp;
+                        
+                            <!--Boton Eliminar (Deshabilitado)-->
+                                <button
+                                    pButton
+                                    *ngIf="!selectedMedicamento"
+                                    class="ui-button-danger"
+                                    label="Eliminar"
+                                    icon="fas fa-times"
+                                    disabled>
+                                </button>
+
+                            <!--Boton Eliminar (Habilitado)-->
+                                <button
+                                    pButton
+                                    *ngIf="selectedMedicamento"
+                                    class="ui-button-danger"
+                                    label="Eliminar"
+                                    icon="fas fa-times"
+                                    data-toggle="modal"
+                                    data-target="#"
+                                    (click)="eliminarMedicamento()">
+                                </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+
+<!-- MODAL AGREGAR MEDICO -->
+<p-dialog [(visible)]="modalAgregarMedicamento" [width]="400" [contentStyle]="{'max-height':'40%'}" medicamento="selectedMedicamento" >
+    <p-header>
+        Nuevo Medicamento
+    </p-header>
+
+    <form name="form" (ngSubmit)="f.form.valid && cargarMedicamento(idMedicamento.value,nombreMedicamento.value, dosisMedicamento.value,cadenaFrioMedicamento.value, cantidadComprimidosMedicamento.value, f);" #f="ngForm" novalidate>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !idMedicamento.valid }">
+            <label for="idMedicamento">Id:</label>
+            <input type="text" class="form-control" name="idMedicamento" [(ngModel)]="model.idMedicamento" #idMedicamento="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !idMedicamento.valid" role="alert" class="alert alert-danger">Ingresar el Id del Medicamento</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !nombreMedicamento.valid }">
+            <label for="nombreMedicamento">Nombre:</label>
+            <input type="text" class="form-control" name="nombreMedicamento" [(ngModel)]="model.nombreMedicamento" #nombreMedicamento="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !nombreMedicamento.valid" role="alert" class="alert alert-danger">Ingresar el Nombre del Medicaemtno</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !dosisMedicamento.valid }">
+            <label for="dosisMedicamento">Dosis:</label>
+            <input type="text" class="form-control" name="dosisMedicamento" [(ngModel)]="model.dosisMedicamento" #dosisMedicamento="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !dosisMedicamento.valid" role="alert" class="alert alert-danger">Ingresar la dosis del Medicamento</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !cadenaFrioMedicamento.valid }">
+            <label for="cadenaFrioMedicamento">Cadena de Frio:</label>
+            <input type="text" class="form-control" name="cadenaFrioMedicamento" [(ngModel)]="model.cadenaFrioMedicamento" #cadenaFrioMedicamento="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !cadenaFrioMedicamento.valid" role="alert" class="alert alert-danger">Ingresar la cadena de frio</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !cantidadComprimidosMedicamento.valid }">
+            <label for="cantidadComprimidosMedicamento">Cantidad de Comprimidos:</label>
+            <input type="text" class="form-control" name="cantidadComprimidosMedicamento" [(ngModel)]="model.cantidadComprimidosMedicamento" #cantidadComprimidosMedicamento="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !cantidadComprimidosMedicamento.valid" role="alert" class="alert alert-danger">Ingresar la cantidad</div>
+        </div>
     
+    
+        <p-footer>
+            <button
+                pButton
+                class="ui-button-success"
+                label="Aceptar"
+                icon="fas fa-check"
+                type="submit">
+            </button>
+        </p-footer>
+    </form>
+</p-dialog>
+
+<!-- MODAL EDITAR MEDICO -->
+<p-dialog [(visible)]="modalEditarMedicamento" [width]="500" [contentStyle]="{'max-height':'40%'}" action="#selectedMedicamento" *ngIf="selectedMedicamento">
+    <p-header>
+        Editar Medicamento
+    </p-header>
+    
+    <form name="form" (ngSubmit)="f.form.valid && editarMedicamento(f);" #f="ngForm" novalidate >
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !idMedicamento.valid }" >
+            <label for="idMedicamento">Id:</label>
+            <input type="text" class="form-control" name="idMedicamento" [(ngModel)]="selectedMedicamento.dni" #idMedicamento="ngModel" disabled />
+            <div *ngIf="f.submitted && !idMedicamento.valid" role="alert" class="alert alert-danger">Ingresar el Id del Medicamento</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !nombreMedicamento.valid }">
+            <label for="nombreMedicamento">Nombre:</label>
+            <input type="text" class="form-control" name="nombreMednombreMedicamentoico" [(ngModel)]="selectedMedicamento.nombre" #nombreMedicamento="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !nombreMedicamento.valid" role="alert" class="alert alert-danger">Ingresar el Nombre del Medicamento</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !dosisMedicamento.valid }">
+            <label for="dosisMedicamento">Dosis:</label>
+            <input type="text" class="form-control" name="dosisMedicamento" [(ngModel)]="selectedMedicamento.apellido" #dosisMedicamento="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !dosisMedicamento.valid" role="alert" class="alert alert-danger">Ingresar la dosis del medicamento</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !cadenaFrioMedicamento.valid }">
+            <label for="cadenaFrioMedicamento">Cadena de frio:</label>
+            <input type="text" class="form-control" name="cadenaFrioMedicamento" [(ngModel)]="selectedMedicamento.telefono" #cadenaFrioMedicamento="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !cadenaFrioMedicamento.valid" role="alert" class="alert alert-danger">Ingresar la cadena de frio</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !cantidadComprimidosMedicamento.valid }">
+            <label for="cantidadComprimidosMedicamento">Cantidad de Comprimidos:</label>
+            <input type="text" class="form-control" name="cantidadComprimidosMedicamento" [(ngModel)]="selectedMedicamento.matricula" #cantidadComprimidosMedicamento="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !cantidadComprimidosMedicamento.valid" role="alert" class="alert alert-danger">Ingresar la cantidad de comprimidos</div>
+        </div>
+        
+        <p-footer>
+            <button
+                pButton
+                class="ui-button-success"
+                label="Aceptar"
+                icon="fas fa-check"
+                type="submit"
+                (click)="cerrarModalEditar()">
+            </button>
+        </p-footer>
+    </form>
+</p-dialog>
