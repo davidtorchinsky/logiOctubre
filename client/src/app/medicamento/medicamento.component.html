@@ -44,7 +44,7 @@
                                 </tr>
                                 <tr>
                                   <th *ngFor="let col of columns" [ngSwitch]="col.field">
-                                     <input *ngSwitchCase="'id'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                     <input *ngSwitchCase="'idMedicamento'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                                      <input *ngSwitchCase="'dosis'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                                      <input *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                                     
@@ -178,31 +178,31 @@
     <form name="form" (ngSubmit)="f.form.valid && editarMedicamento(f);" #f="ngForm" novalidate >
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !idMedicamento.valid }" >
             <label for="idMedicamento">Id:</label>
-            <input type="text" class="form-control" name="idMedicamento" [(ngModel)]="selectedMedicamento.dni" #idMedicamento="ngModel" disabled />
+            <input type="text" class="form-control" name="idMedicamento" [(ngModel)]="selectedMedicamento.idMedicamento" #idMedicamento="ngModel" disabled />
             <div *ngIf="f.submitted && !idMedicamento.valid" role="alert" class="alert alert-danger">Ingresar el Id del Medicamento</div>
         </div>
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !nombreMedicamento.valid }">
             <label for="nombreMedicamento">Nombre:</label>
-            <input type="text" class="form-control" name="nombreMednombreMedicamentoico" [(ngModel)]="selectedMedicamento.nombre" #nombreMedicamento="ngModel" autocomplete="off" required />
+            <input type="text" class="form-control" name="nombreMedicamento" [(ngModel)]="selectedMedicamento.nombre" #nombreMedicamento="ngModel" autocomplete="off" required />
             <div *ngIf="f.submitted && !nombreMedicamento.valid" role="alert" class="alert alert-danger">Ingresar el Nombre del Medicamento</div>
         </div>
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !dosisMedicamento.valid }">
             <label for="dosisMedicamento">Dosis:</label>
-            <input type="text" class="form-control" name="dosisMedicamento" [(ngModel)]="selectedMedicamento.apellido" #dosisMedicamento="ngModel" autocomplete="off" required />
+            <input type="text" class="form-control" name="dosisMedicamento" [(ngModel)]="selectedMedicamento.dosis" #dosisMedicamento="ngModel" autocomplete="off" required />
             <div *ngIf="f.submitted && !dosisMedicamento.valid" role="alert" class="alert alert-danger">Ingresar la dosis del medicamento</div>
         </div>
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !cadenaFrioMedicamento.valid }">
             <label for="cadenaFrioMedicamento">Cadena de frio:</label>
-            <input type="text" class="form-control" name="cadenaFrioMedicamento" [(ngModel)]="selectedMedicamento.telefono" #cadenaFrioMedicamento="ngModel" autocomplete="off" required />
+            <input type="text" class="form-control" name="cadenaFrioMedicamento" [(ngModel)]="selectedMedicamento.cadenaFrio" #cadenaFrioMedicamento="ngModel" autocomplete="off" required />
             <div *ngIf="f.submitted && !cadenaFrioMedicamento.valid" role="alert" class="alert alert-danger">Ingresar la cadena de frio</div>
         </div>
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !cantidadComprimidosMedicamento.valid }">
             <label for="cantidadComprimidosMedicamento">Cantidad de Comprimidos:</label>
-            <input type="text" class="form-control" name="cantidadComprimidosMedicamento" [(ngModel)]="selectedMedicamento.matricula" #cantidadComprimidosMedicamento="ngModel" autocomplete="off" required />
+            <input type="text" class="form-control" name="cantidadComprimidosMedicamento" [(ngModel)]="selectedMedicamento.cantidadComprimidos" #cantidadComprimidosMedicamento="ngModel" autocomplete="off" required />
             <div *ngIf="f.submitted && !cantidadComprimidosMedicamento.valid" role="alert" class="alert alert-danger">Ingresar la cantidad de comprimidos</div>
         </div>
         

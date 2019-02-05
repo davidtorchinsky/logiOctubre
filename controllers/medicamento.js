@@ -4,7 +4,7 @@ var Medicamento = require('../models/medicamento');
 
 // FUNCIONES
 function getMedicamentos(req, res){
-    console.log('- GET MEDICAMENTOS -')
+    console.log('- GET MEDICAMENTOS -');
     Medicamento.find({}, function (err, medicamentos) {
         if (err) {
             return res.status(400).json({
@@ -26,7 +26,8 @@ function getMedicamentos(req, res){
 }
 
 function cargarMedicamento(req, res) {
-    console.log('CARGAR MEDICAMENTO')
+    console.log('CARGAR MEDICAMENTO');
+    console.log(req.body.idMedicamento);
     if (!req.body.idMedicamento) {
         return res.status(400).json({
             title: 'Error',
@@ -57,14 +58,16 @@ function cargarMedicamento(req, res) {
             error: err
         });
     }
-
+    console.log(req.body.idMedicamento);
     var nuevoMedicamento = new Medicamento({
-        idMedicam: req.body.idMedicamento,
+        idMedicamento: req.body.idMedicamento,
         nombre: req.body.nombreMedicamento,
         dosis: req.body.dosisMedicamento,
         cadenaFrio: req.body.cadenaFrioMedicamento,
         cantidadComprimidos: req.body.cadenaFrioMedicamento
     })
+
+    console.log(nuevoMedicamento);
 
     nuevoMedicamento.save().then(function (nuevoMedicamento) {
         res.status(201).json({
@@ -94,7 +97,8 @@ function cargarMedicamento(req, res) {
 function editarMedicamento(req, res) {
     console.log('EDITAR MEDICAMENTO');
     console.log(req.params.idMedicamento);
-    Medicamento.findById(req.params.idMedicamento, function (err, medicamento) {
+    console.log(req.body.idMedicamento);
+    Medicamento.findById(req.params.idMedicamentos, function (err, medicamento) {
         if (err) {
             return res.status(400).json({
                 title: 'An error occurred',
@@ -113,7 +117,7 @@ function editarMedicamento(req, res) {
         medicamento.cadenaFrio = req.body.cadenaFrioMedicamento;
         medicamento.cantidadComprimidos = req.body.cantidadComprimidosMedicamento;
 
-        medmedicamentoico.save().then(function (medicamento) {
+        medicamento.save().then(function (medicamento) {
             res.status(200).json({
                 message: 'Success',
                 obj: medicamento
@@ -128,9 +132,13 @@ function editarMedicamento(req, res) {
 }
 
 function eliminarMedicamento(req, res){
-    console.log('ELIMINAR medicamento')
-    
-    Medicamento.findOne({'_id': req.params.idMedicamento})
+
+    console.log('ELIMINAR medicamento');
+        
+    console.log(req.params.idMedicamentos);
+
+
+    Medicamento.findOne({'_id': req.params.idMedicamentos})
     .exec(function (err, medicamento) {
         if (medicamento) {
             medicamento.remove().then(function (medicamentoEliminado) {

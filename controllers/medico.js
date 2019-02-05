@@ -65,6 +65,7 @@ function cargarMedico(req, res) {
         telefono: req.body.telefonoMedico,
         matricula: req.body.matriculaMedico
     })
+    console.log(nuevoMedico);
 
     nuevoMedico.save().then(function (nuevoMedico) {
         res.status(201).json({

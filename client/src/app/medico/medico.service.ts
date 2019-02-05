@@ -30,7 +30,7 @@ export class MedicoService {
         apellidoMed: string,
         telefonoMed: string,
         matriculaMed: string): Promise<Medico> {
-
+            console.log(this.medicoURL);
         return this.http.post(this.medicoURL,
             JSON.stringify({dniMedico: dniMed, nombreMedico: nombreMed,
                             apellidoMedico: apellidoMed, telefonoMedico: telefonoMed,
