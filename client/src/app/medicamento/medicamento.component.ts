@@ -49,7 +49,6 @@ export class MedicamentoComponent implements OnInit {
 
   // CARGAR MEDICAMENTO
     cargarMedicamento(
-      _id: string,
       idMedicamento: string,
       nombreMedicamento: string,
       dosisMedicamento: string,
@@ -57,7 +56,12 @@ export class MedicamentoComponent implements OnInit {
       cantidadComprimidosMedicamento: string,
       f: NgForm) {
       this.modalAgregarMedicamento = false;
-      console.log(idMedicamento, nombreMedicamento, dosisMedicamento, cadenaFrioMedicamento, cantidadComprimidosMedicamento)
+
+        //Inspeccion de billeteras
+      console.log(idMedicamento, nombreMedicamento);
+
+
+
       this.medicamentoService.cargarMedicamento(idMedicamento, nombreMedicamento, dosisMedicamento, cadenaFrioMedicamento, cantidadComprimidosMedicamento)
       .then(medicamentoAgregado => {
         // Muestro un mensajito de Agregado con Éxito

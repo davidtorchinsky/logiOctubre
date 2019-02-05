@@ -9,7 +9,7 @@ import { PedidoComponent } from '../pedido/pedido.component';
 import { RepartidorComponent } from '../repartidor/repartidor.component';
 import { MedicoComponent } from '../medico/medico.component';
 import { CalendarioComponent } from "../calendario/calendario.component";
-import { ObraSocialComponent } from '../obaraSocial/obraSocial.component';
+import { ObraSocialComponent } from '../obraSocial/obraSocial.component';
 
 const routes: Routes = [
     {

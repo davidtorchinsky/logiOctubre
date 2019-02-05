@@ -19,7 +19,7 @@ import { PedidoComponent } from '../pedido/pedido.component';
 import { RepartidorComponent } from '../repartidor/repartidor.component';
 import { MedicoComponent } from '../medico/medico.component';
 import { CalendarioComponent } from "../calendario/calendario.component";
-import { ObraSocialComponent } from '../obaraSocial/obraSocial.component';
+import { ObraSocialComponent } from '../obraSocial/obraSocial.component';
 
 
 // SERVICIOS
@@ -34,7 +34,7 @@ import { TableModule } from 'primeng/components/table/table';
 import { WINDOW_PROVIDERS } from '../shared/WindowProvider/window.provider';
 import { UrlService } from '../shared/WindowProvider/window.provider.service';
 import { DialogModule } from 'primeng/dialog';
-import { ObraService } from '../obaraSocial/obraSocial.service';
+import { ObraService } from '../obraSocial/obraSocial.service';
 import { MedicamentoService} from '../medicamento/medicamento.service';
 
 @NgModule({

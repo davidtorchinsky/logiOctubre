@@ -184,11 +184,7 @@ export class MedicoComponent implements OnInit {
     }
 
   }
-  cerrarModalEditar(){
-    
-    this.modalEditarMedico=false;
-    
-  }
+
 
   cerrarModalEliminar(){
     this.modalEliminarMedico = false;
@@ -198,8 +194,5 @@ export class MedicoComponent implements OnInit {
     this.modalAgregarMedico = false;
   }
 
-  cerrarModalEditar() {
-    this.modalEditarMedico = false;
-  }
 }
 
