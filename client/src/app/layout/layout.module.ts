@@ -19,6 +19,7 @@ import { PedidoComponent } from '../pedido/pedido.component';
 import { RepartidorComponent } from '../repartidor/repartidor.component';
 import { MedicoComponent } from '../medico/medico.component';
 import { CalendarioComponent } from "../calendario/calendario.component";
+import { ObraSocialComponent } from '../obaraSocial/obraSocial.component';
 
 
 // SERVICIOS
@@ -33,6 +34,8 @@ import { TableModule } from 'primeng/components/table/table';
 import { WINDOW_PROVIDERS } from '../shared/WindowProvider/window.provider';
 import { UrlService } from '../shared/WindowProvider/window.provider.service';
 import { DialogModule } from 'primeng/dialog';
+import { ObraService } from '../obaraSocial/obraSocial.service';
+import { MedicamentoService} from '../medicamento/medicamento.service';
 
 @NgModule({
     imports: [
@@ -63,12 +66,15 @@ import { DialogModule } from 'primeng/dialog';
         PedidoComponent,
         RepartidorComponent,
         MedicoComponent,
-        CalendarioComponent
+        CalendarioComponent,
+        ObraSocialComponent
     ],
     providers: [
         WINDOW_PROVIDERS,
         UrlService,
-        MedicoService
+        MedicoService,
+        ObraService,
+        MedicamentoService
     ]
 })
 export class LayoutModule {}

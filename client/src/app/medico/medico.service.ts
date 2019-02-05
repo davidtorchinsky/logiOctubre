@@ -10,60 +10,56 @@ import { default as swal } from 'sweetalert2';
 export class MedicoService {
     private headers = new Headers({'Content-Type': 'application/json'});
     private medicoURL = this.urlService.getRestApiUrl() + '/medico';  // URL a la api
-    private urltest = '/app/config-bd/medicoServer';
 
-
-    
     constructor(
         private http: Http,
         private urlService: UrlService
     ) {}
 
     getMedicos(): Promise<Medico[]> {
-        console.log(this.urltest);
         console.log(this.medicoURL);
-        return this.http.get(this.urltest)
+        return this.http.get(this.medicoURL)
         .toPromise()
         .then(response => response.json().obj as Medico[])
         .catch(this.handleError);
     }
-/**
-   getTodosLosMedicos(): Medico[]
-    {   
-        return this.medico;
-    }
 
-    getMedico() {
-
-    }
-
-    updateMedico() {
-
-    }
-     * 
- */ 
-
-    saveMedico(
+    cargarMedico(
         dniMed: string,
         nombreMed: string,
         apellidoMed: string,
         telefonoMed: string,
-        matriculaMed: string) {
+        matriculaMed: string): Promise<Medico> {
 
         return this.http.post(this.medicoURL,
             JSON.stringify({dniMedico: dniMed, nombreMedico: nombreMed,
                             apellidoMedico: apellidoMed, telefonoMedico: telefonoMed,
                             matriculaMedico: matriculaMed}), {headers: this.headers})
         .toPromise()
-        .then(response => response.json().obj as Medico[])
+        .then(response => response.json().obj as Medico)
         .catch(this.handleError);
     }
 
-    deleteMedico(
-        dniMed: string
-    ) {
+    editarMedico(
+        idMed: string,
+        nombreMed: string,
+        apellidoMed: string,
+        telefonoMed: string,
+        matriculaMed: string): Promise<Medico> {
+        return this.http.patch(this.medicoURL + '/' + idMed,
+            JSON.stringify({nombreMedico: nombreMed,
+                            apellidoMedico: apellidoMed, telefonoMedico: telefonoMed,
+                            matriculaMedico: matriculaMed}), {headers: this.headers})
+        .toPromise()
+        .then(response => response.json().obj as Medico)
+        .catch(this.handleError);
+    }
 
-
+    deleteMedico(idMed: string): Promise<Medico> {
+        return this.http.delete(this.medicoURL + '/' + idMed)
+        .toPromise()
+        .then(response => response.json().obj as Medico)
+        .catch(this.handleError);
     }
 
     private handleError(error: any): Promise<any> {
