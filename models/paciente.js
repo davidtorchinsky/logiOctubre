@@ -22,7 +22,7 @@ var Consume = Schema({
 });
 
 //Esquema paciente
-var Paciente = Schema({
+var pacienteSchema = Schema({
     dni: {
         type: String,
         unique: true
@@ -32,11 +32,12 @@ var Paciente = Schema({
     telefono: String,
     direccion: String,
     fechaNacimiento: Date,
+    barrio: String,
 
     conumisiones:[Consume]
     
 });
 
-var Paciente = mongoose.model('Pacientes', pacienteSchema);
+var Paciente = mongoose.model('Paciente', pacienteSchema);
 
 module.exports = Paciente;

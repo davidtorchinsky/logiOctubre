@@ -20,12 +20,14 @@ app.use(cors());
 var medicoRoutes = require('./routes/medico');
 var obraRoutes = require('./routes/obra');
 var medicamentoRoutes=require('./routes/medicamento');
+var pacienteRoutes=require('./routes/paciente');
 
 
 // USAR ROUTES
 app.use('/medico', medicoRoutes);
 app.use('/obra', obraRoutes);
 app.use('/medicamento', medicamentoRoutes);
+app.use('/paciente', pacienteRoutes);
 
 
 app.listen(port, () => console.log('Servidor Corriendo!'))

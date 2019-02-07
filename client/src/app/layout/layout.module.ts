@@ -22,6 +22,7 @@ import { CalendarioComponent } from "../calendario/calendario.component";
 import { ObraSocialComponent } from '../obraSocial/obraSocial.component';
 
 
+
 // SERVICIOS
 import { MedicoService } from '../medico/medico.service';
 
@@ -36,6 +37,7 @@ import { UrlService } from '../shared/WindowProvider/window.provider.service';
 import { DialogModule } from 'primeng/dialog';
 import { ObraService } from '../obraSocial/obraSocial.service';
 import { MedicamentoService} from '../medicamento/medicamento.service';
+import { PacienteService} from '../paciente/paciente.service';
 
 @NgModule({
     imports: [
@@ -67,14 +69,16 @@ import { MedicamentoService} from '../medicamento/medicamento.service';
         RepartidorComponent,
         MedicoComponent,
         CalendarioComponent,
-        ObraSocialComponent
+        ObraSocialComponent,
+
     ],
     providers: [
         WINDOW_PROVIDERS,
         UrlService,
         MedicoService,
         ObraService,
-        MedicamentoService
+        MedicamentoService,
+        PacienteService
     ]
 })
 export class LayoutModule {}
