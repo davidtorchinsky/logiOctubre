@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class='page-header'>
-                    <h2>Medicos</h2>
+                    <h2>Pacientes</h2>
                 </div>
             </div>
         </div>
@@ -15,21 +15,21 @@
                     <div class="card-header">
                         <div>
                             <a>
-                                <strong style="text-decoration: none;color: #333;">Administración de Medicos</strong>
+                                <strong style="text-decoration: none;color: #333;">Administración de Pacientes</strong>
                                 <div class = 'pull-left'>
                                 </div>
                             </a>
                             <button
                                 pButton
                                 class="ui-button-primario pull-right"
-                                label="Nuevo Medico"
+                                label="Nuevo Paciente"
                                 icon="fas fa-plus"
-                                (click)="mostrarModalAgregarMedico()">
+                                (click)="mostrarModalAgregarPaciente()">
                             </button>
                         </div>
                     </div>
                     <div class="card-body">
-                        <p-table #dt [columns]="cols" [value]="medicos" selectionMode="single" [(selection)]="selectedMedico">
+                        <p-table #dt [columns]="cols" [value]="pacientes" selectionMode="single" [(selection)]="selectedPaciente">
                             <ng-template pTemplate="caption">
                                  <div style="text-align: right">        
                                     <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
@@ -47,15 +47,20 @@
                                      <input *ngSwitchCase="'dni'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                                      <input *ngSwitchCase="'apellido'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                                      <input *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                     <input *ngSwitchCase="'telefono'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                     <input *ngSwitchCase="'direccion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                     <input *ngSwitchCase="'barrio'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                     <input *ngSwitchCase="'fechaNacimiento'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
                                     
                                   </th>
                                 </tr>
                             </ng-template>
 
-                            <ng-template pTemplate="body" let-medico let-columns="columns">
-                                <tr [pSelectableRow]="medico">
+                            <ng-template pTemplate="body" let-paciente let-columns="columns">
+                                <tr [pSelectableRow]="paciente">
                                     <td *ngFor="let col of columns">
-                                            {{medico[col.field]}}
+                                            {{paciente[col.field]}}
                                     </td>
                                 </tr>
                             </ng-template>
@@ -69,7 +74,7 @@
                             <!--Boton Editar (Deshabilitado)-->
                                 <button
                                     pButton
-                                    *ngIf="!selectedMedico"
+                                    *ngIf="!selectedPaciente"
                                     class="ui-button-warning"
                                     label="Editar"
                                     icon="fas fa-pencil-alt"
@@ -79,13 +84,13 @@
                             <!--Boton Editar (Habilitado)-->
                                 <button
                                     pButton
-                                    *ngIf="selectedMedico"
+                                    *ngIf="selectedPaciente"
                                     class="ui-button-warning"
                                     label="Editar"
                                     icon="fas fa-pencil-alt"
                                     data-toggle="modal"
                                     data-target="#"
-                                (click)="mostrarModalEditar(selectedMedico)">
+                                (click)="mostrarModalEditar(selectedPaciente)">
                                 </button>
                             
                             &nbsp;
@@ -93,7 +98,7 @@
                             <!--Boton Eliminar (Deshabilitado)-->
                                 <button
                                     pButton
-                                    *ngIf="!selectedMedico"
+                                    *ngIf="!selectedPaciente"
                                     class="ui-button-danger"
                                     label="Eliminar"
                                     icon="fas fa-times"
@@ -103,13 +108,13 @@
                             <!--Boton Eliminar (Habilitado)-->
                                 <button
                                     pButton
-                                    *ngIf="selectedMedico"
+                                    *ngIf="selectedPaciente"
                                     class="ui-button-danger"
                                     label="Eliminar"
                                     icon="fas fa-times"
                                     data-toggle="modal"
                                     data-target="#"
-                                    (click)="eliminarMedico()">
+                                    (click)="eliminarPaciente()">
                                 </button>
                         </div>
                     </div>
@@ -120,40 +125,52 @@
 </div>
 
 <!-- MODAL AGREGAR MEDICO -->
-<p-dialog [(visible)]="modalAgregarMedico" [width]="400" [contentStyle]="{'max-height':'40%'}" medico="selectedMedico" >
+<p-dialog [(visible)]="modalAgregarPaciente" [width]="400" [contentStyle]="{'max-height':'40%'}" paciente="selectedPaciente" >
     <p-header>
-        Nuevo Medico
+        Nuevo Paciente
     </p-header>
 
-    <form name="form" (ngSubmit)="f.form.valid && cargarMedico(dniMedico.value,nombreMedico.value,apellidoMedico.value, telefonoMedico.value, matriculaMedico.value, f);" #f="ngForm" novalidate>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !dniMedico.valid }" >
-            <label for="dniMedico">DNI:</label>
-            <input type="text" id="dniAgregar" class="form-control" name="dniMedico" [(ngModel)]="model.dniMedico" #dniMedico="ngModel" autocomplete="off" required />
-            <div *ngIf="f.submitted && !dniMedico.valid" role="alert" class="alert alert-danger">Ingresar el DNI del Medico</div>
+    <form name="form" (ngSubmit)="f.form.valid && cargarPaciente(dniPaciente.value,nombrePaciente.value,apellidoPaciente.value, telefonoPaciente.value, direccionPaciente.value,fechaNacimiento.value, barrio.value, f);" #f="ngForm" novalidate>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !dniPaciente.valid }" >
+            <label for="dniPaciente">DNI:</label>
+            <input type="text" id="dniAgregar" class="form-control" name="dniPaciente" [(ngModel)]="model.dniPaciente" #dniPaciente="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !dniPaciente.valid" role="alert" class="alert alert-danger">Ingresar el DNI del Paciente</div>
         </div>
 
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !nombreMedico.valid }">
-            <label for="nombreMedico">Nombre:</label>
-            <input type="text" id="nombreAgregar" class="form-control" name="nombreMedico" [(ngModel)]="model.nombreMedico" #nombreMedico="ngModel" autocomplete="off" required />
-            <div *ngIf="f.submitted && !nombreMedico.valid" role="alert" class="alert alert-danger">Ingresar el Nombre del Medico</div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !nombrePaciente.valid }">
+            <label for="nombrePaciente">Nombre:</label>
+            <input type="text" id="nombreAgregar" class="form-control" name="nombrePaciente" [(ngModel)]="model.nombrePaciente" #nombrePaciente="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !nombrePaciente.valid" role="alert" class="alert alert-danger">Ingresar el Nombre del Paciente</div>
         </div>
 
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !apellidoMedico.valid }">
-            <label for="apellidoMedico">Apellido:</label>
-            <input type="text" id="apellidoAgregar" class="form-control" name="apellidoMedico" [(ngModel)]="model.apellidoMedico" #apellidoMedico="ngModel" autocomplete="off" required />
-            <div *ngIf="f.submitted && !apellidoMedico.valid" role="alert" class="alert alert-danger">Ingresar el Apellido del Medico</div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !apellidoPaciente.valid }">
+            <label for="apellidoPaciente">Apellido:</label>
+            <input type="text" id="apellidoAgregar" class="form-control" name="apellidoPaciente" [(ngModel)]="model.apellidoPaciente" #apellidoPaciente="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !apellidoPaciente.valid" role="alert" class="alert alert-danger">Ingresar el Apellido del Paciente</div>
         </div>
 
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !telefonoMedico.valid }">
-            <label for="telefonoMedico">Telefono:</label>
-            <input type="text" id="telefonoAgregar" class="form-control" name="telefonoMedico" [(ngModel)]="model.telefonoMedico" #telefonoMedico="ngModel" autocomplete="off" required />
-            <div *ngIf="f.submitted && !telefonoMedico.valid" role="alert" class="alert alert-danger">Ingresar el Telefono del Medico</div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !telefonoPaciente.valid }">
+            <label for="telefonoPaciente">Telefono:</label>
+            <input type="text" id="telefonoAgregar" class="form-control" name="telefonoPaciente" [(ngModel)]="model.telefonoPaciente" #telefonoPaciente="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !telefonoPaciente.valid" role="alert" class="alert alert-danger">Ingresar el Telefono del Paciente</div>
         </div>
 
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !matriculaMedico.valid }">
-            <label for="matriculaMedico">Matricula:</label>
-            <input type="text" id="matriculaAgregar" class="form-control" name="matriculaMedico" [(ngModel)]="model.matriculaMedico" #matriculaMedico="ngModel" autocomplete="off" required />
-            <div *ngIf="f.submitted && !matriculaMedico.valid" role="alert" class="alert alert-danger">Ingresar el Matricula del Medico</div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !direccionPaciente.valid }">
+            <label for="direccionPaciente">Direccion:</label>
+            <input type="text" id="direccionAgregar" class="form-control" name="direccionPaciente" [(ngModel)]="model.direccionPaciente" #direccionPaciente="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !direccionPaciente.valid" role="alert" class="alert alert-danger">Ingresar el Direccion del Paciente</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !fechaNacimientoPaciente.valid }">
+            <label for="fechaNacimientoPaciente">Fecha de Nacimiento:</label>
+            <input type="date" id="fechaNacimientoAgregar" class="form-control" name="fechaNacimientoPaciente" [(ngModel)]="model.fechaNacimientoPaciente" #fechaNacimientoPaciente="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !fechaNacimientoPaciente.valid" role="alert" class="alert alert-danger">Ingresar la fehca de Nacimiento del Paciente</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !barrioPaciente.valid }">
+            <label for="barrioPaciente">Barrio:</label>
+            <input type="text" id="barrioAgregar" class="form-control" name="barrioPaciente" [(ngModel)]="model.barrioPaciente" #barrioPaciente="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !barrioPaciente.valid" role="alert" class="alert alert-danger">Ingresar el Barrio del Paciente</div>
         </div>
     
     
@@ -178,7 +195,7 @@
                              document.getElementById('nombreAgregar').value = '',
                              document.getElementById('apellidoAgregar').value = '' ,
                              document.getElementById('telefonoAgregar').value = '' ,
-                             document.getElementById('matriculaAgregar').value = ''"
+                             document.getElementById('direccionAgregar').value = ''"
                     >
                 </button>
 
@@ -193,7 +210,7 @@
                         document.getElementById('nombreAgregar').value = '',
                         document.getElementById('apellidoAgregar').value = '' ,
                         document.getElementById('telefonoAgregar').value = '' ,
-                        document.getElementById('matriculaAgregar').value = ''"
+                        document.getElementById('direccionAgregar').value = ''"
                        (click)= "cerrarModalAgregar()">
                     </button>
                     
@@ -205,42 +222,44 @@
     </form>
 </p-dialog>
 
-<!-- MODAL EDITAR MEDICO -->
-<p-dialog [(visible)]="modalEditarMedico" [width]="500" [contentStyle]="{'max-height':'40%'}" action="#selectedMedico" *ngIf="selectedMedico">
+<!-- MODAL EDITAR PACIENTE -->
+<p-dialog [(visible)]="modalEditarPaciente" [width]="500" [contentStyle]="{'max-height':'40%'}" action="#selectedPaciente" *ngIf="selectedPaciente">
     <p-header>
-        Editar Medico 
+        Editar Paciente 
     </p-header>
     
-    <form name="form" (ngSubmit)="f.form.valid && editarMedico(f);" #f="ngForm" novalidate >
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !dniMedico.valid }" >
-            <label for="dniMedico">DNI:</label>
-            <input type="text" class="form-control" name="dniMedico" [(ngModel)]="selectedMedico.dni" #dniMedico="ngModel" disabled />
-            <div *ngIf="f.submitted && !dniMedico.valid" role="alert" class="alert alert-danger">Ingresar el DNI del Medico</div>
+    <form name="form" (ngSubmit)="f.form.valid && editarPaciente(f);" #f="ngForm" novalidate >
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !dniPaciente.valid }" >
+            <label for="dniPaciente">DNI:</label>
+            <input type="text" class="form-control" name="dniPaciente" [(ngModel)]="selectedPaciente.dni" #dniPaciente="ngModel" disabled />
+            <div *ngIf="f.submitted && !dniPaciente.valid" role="alert" class="alert alert-danger">Ingresar el DNI del Paciente</div>
         </div>
 
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !nombreMedico.valid }">
-            <label for="nombreMedico">Nombre:</label>
-            <input type="text" class="form-control" name="nombreMedico" [(ngModel)]="selectedMedico.nombre" #nombreMedico="ngModel" autocomplete="off" required />
-            <div *ngIf="f.submitted && !nombreMedico.valid" role="alert" class="alert alert-danger">Ingresar el Nombre del Medico</div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !nombrePaciente.valid }">
+            <label for="nombrePaciente">Nombre:</label>
+            <input type="text" class="form-control" name="nombrePaciente" [(ngModel)]="selectedPaciente.nombre" #nombrePaciente="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !nombrePaciente.valid" role="alert" class="alert alert-danger">Ingresar el Nombre del Paciente</div>
         </div>
 
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !apellidoMedico.valid }">
-            <label for="apellidoMedico">Apellido:</label>
-            <input type="text" class="form-control" name="apellidoMedico" [(ngModel)]="selectedMedico.apellido" #apellidoMedico="ngModel" autocomplete="off" required />
-            <div *ngIf="f.submitted && !apellidoMedico.valid" role="alert" class="alert alert-danger">Ingresar el Apellido del Medico</div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !apellidoPaciente.valid }">
+            <label for="apellidoPaciente">Apellido:</label>
+            <input type="text" class="form-control" name="apellidoPaciente" [(ngModel)]="selectedPaciente.apellido" #apellidoPaciente="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !apellidoPaciente.valid" role="alert" class="alert alert-danger">Ingresar el Apellido del Paciente</div>
         </div>
 
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !telefonoMedico.valid }">
-            <label for="telefonoMedico">Telefono:</label>
-            <input type="text" class="form-control" name="telefonoMedico" [(ngModel)]="selectedMedico.telefono" #telefonoMedico="ngModel" autocomplete="off" required />
-            <div *ngIf="f.submitted && !telefonoMedico.valid" role="alert" class="alert alert-danger">Ingresar el Telefono del Medico</div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !telefonoPaciente.valid }">
+            <label for="telefonoPaciente">Telefono:</label>
+            <input type="text" class="form-control" name="telefonoPaciente" [(ngModel)]="selectedPaciente.telefono" #telefonoPaciente="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !telefonoPaciente.valid" role="alert" class="alert alert-danger">Ingresar el Telefono del Paciente</div>
         </div>
 
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !matriculaMedico.valid }">
-            <label for="matriculaMedico">Matricula:</label>
-            <input type="text" class="form-control" name="matriculaMedico" [(ngModel)]="selectedMedico.matricula" #matriculaMedico="ngModel" autocomplete="off" required />
-            <div *ngIf="f.submitted && !matriculaMedico.valid" role="alert" class="alert alert-danger">Ingresar el Matricula del Medico</div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !direccionPaciente.valid }">
+            <label for="direccionPaciente">Direccion:</label>
+            <input type="text" class="form-control" name="direccionPaciente" [(ngModel)]="selectedPaciente.direccion" #direccionPaciente="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !direccionPaciente.valid" role="alert" class="alert alert-danger">Ingresar la Direccion del Paciente</div>
         </div>
+
+        
         
         <p-footer>
             <button
@@ -265,7 +284,7 @@
                     document.getElementById('nombreAgregar').value = '',
                     document.getElementById('apellidoAgregar').value = '' ,
                     document.getElementById('telefonoAgregar').value = '' ,
-                    document.getElementById('matriculaAgregar').value = ''"
+                    document.getElementById('direccionAgregar').value = ''"
                     (click)="cerrarModalEditar()">
                 </button>
             </div>
