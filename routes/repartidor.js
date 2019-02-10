@@ -5,7 +5,7 @@ var api = express.Router();
 var RepartidorController = require('../controllers/repartidor');
 
 // GETS
-api.get('/',RepartidorController.getRepartidors);
+api.get('/',RepartidorController.getRepartidores);
 // api.get('/:idRepartidor/:idPaciente',RepartidorController.editarRepartidor);
 
 // PATCH

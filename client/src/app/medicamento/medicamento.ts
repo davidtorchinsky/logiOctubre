@@ -4,5 +4,6 @@ export class Medicamento {
     nombre: string;
     dosis: string;
     cadenaFrio: string;
+    laboratorio: string;
     cantidadComprimidos: string;
 }

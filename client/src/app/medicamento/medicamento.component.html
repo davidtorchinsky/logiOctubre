@@ -44,9 +44,13 @@
                                 </tr>
                                 <tr>
                                   <th *ngFor="let col of columns" [ngSwitch]="col.field">
-                                     <input *ngSwitchCase="'idMedicamento'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-                                     <input *ngSwitchCase="'dosis'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-                                     <input *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                     <input *ngSwitchCase="'idMedicamento'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" 
+                                     style="width:100%">
+                                     <input *ngSwitchCase="'dosis'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                     <input *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                     <input *ngSwitchCase="'cadenaFrio'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                     <input *ngSwitchCase="'laboratorio'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                     <input *ngSwitchCase="'cantidadComprimidos'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
                                     
                                   </th>
                                 </tr>
@@ -125,7 +129,7 @@
         Nuevo Medicamento
     </p-header>
 
-    <form name="form" (ngSubmit)="f.form.valid && cargarMedicamento(idMedicamento.value,nombreMedicamento.value, dosisMedicamento.value,cadenaFrioMedicamento.value, cantidadComprimidosMedicamento.value, f);" #f="ngForm" novalidate>
+    <form name="form" (ngSubmit)="f.form.valid && cargarMedicamento(idMedicamento.value,nombreMedicamento.value, dosisMedicamento.value,cadenaFrioMedicamento.value,laboratorioMedicamento.value, cantidadComprimidosMedicamento.value, f);" #f="ngForm" novalidate>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !idMedicamento.valid }">
             <label for="idMedicamento">Id:</label>
             <input type="text" class="form-control" name="idMedicamento" [(ngModel)]="model.idMedicamento" #idMedicamento="ngModel" autocomplete="off" required />
@@ -144,11 +148,19 @@
             <div *ngIf="f.submitted && !dosisMedicamento.valid" role="alert" class="alert alert-danger">Ingresar la dosis del Medicamento</div>
         </div>
 
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !cadenaFrioMedicamento.valid }">
-            <label for="cadenaFrioMedicamento">Cadena de Frio:</label>
-            <input type="text" class="form-control" name="cadenaFrioMedicamento" [(ngModel)]="model.cadenaFrioMedicamento" #cadenaFrioMedicamento="ngModel" autocomplete="off" required />
-            <div *ngIf="f.submitted && !cadenaFrioMedicamento.valid" role="alert" class="alert alert-danger">Ingresar la cadena de frio</div>
-        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" name="cadenaFrioMedicamento" [(ngModel)]="model.cadenaFrioMedicamento" #cadenaFrioMedicamento="ngModel">
+            <label class="form-check-label" for="defaultCheck1">
+              Cadena de Frio
+            </label>
+          </div>
+          <br>
+
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !laboratorioMedicamento.valid }">
+            <label for="laboratorioMedicamento">laboratorio:</label>
+            <input type="text" class="form-control" name="laboratorioMedicamento" [(ngModel)]="model.laboratorioMedicamento" #laboratorioMedicamento="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !laboratorioMedicamento.valid" role="alert" class="alert alert-danger">Ingresar el laboratorio</div>
+      </div>
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !cantidadComprimidosMedicamento.valid }">
             <label for="cantidadComprimidosMedicamento">Cantidad de Comprimidos:</label>

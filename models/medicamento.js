@@ -11,6 +11,7 @@ var MedicamentosSchema = Schema({
     //laboratorio: String,
     dosis: String,
     cadenaFrio: String,
+    laboratorio: String,
     cantidadComprimidos: String
 });
 var Medicamento = mongoose.model('medicamentos', MedicamentosSchema);

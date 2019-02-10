@@ -30,14 +30,15 @@ export class MedicamentoService {
         nombreMedMedicam: string,
         dosisMedMedicam: string,
         cadenaDeFrioMedMedicam: string,
+        laboratorioMedicam:string,
         cantidadComprimidosMedicam: string): Promise<Medicamento> {
 
-            console.log("ID MEDICAMENTO SERV:");
-            console.log(idMedMedicam);
+            console.log("CantCompromidos:");
+            console.log(cantidadComprimidosMedicam);
 
         return this.http.post(this.medicamentoURL,
             JSON.stringify({idMedicamento: idMedMedicam, nombreMedicamento: nombreMedMedicam,
-                dosisMedicamento: dosisMedMedicam, cadenaFrioMedicamento: cadenaDeFrioMedMedicam,
+                dosisMedicamento: dosisMedMedicam, cadenaFrioMedicamento: cadenaDeFrioMedMedicam,laboratorioMedicamento: laboratorioMedicam,
                 cantidadComprimidosMedicamento: cantidadComprimidosMedicam}), {headers: this.headers})
         .toPromise()
         .then(response => response.json().obj as Medicamento)
@@ -49,10 +50,11 @@ export class MedicamentoService {
         nombreMedMedicam: string,
         dosisMedMedicam: string,
         cadenaDeFrioMedMedicam: string,
+        laboratorioMedicam:string,
         cantidadComprimidosMedicam: string): Promise<Medicamento> {
         return this.http.patch(this.medicamentoURL + '/' + idMedMedicam,
             JSON.stringify({idMedicamento:idMedMedicam, nombreMedicamento: nombreMedMedicam,
-                dosisMedicamento: dosisMedMedicam, cadenaFrioMedicamento: cadenaDeFrioMedMedicam,
+                dosisMedicamento: dosisMedMedicam, cadenaFrioMedicamento: cadenaDeFrioMedMedicam,laboratorioMedicamento: laboratorioMedicam,
                 cantidadComprimidosMedicamento: cantidadComprimidosMedicam}), {headers: this.headers})
         .toPromise()
         .then(response => response.json().obj as Medicamento)

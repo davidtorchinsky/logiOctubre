@@ -27,7 +27,7 @@ function getMedicamentos(req, res){
 
 function cargarMedicamento(req, res) {
     console.log('CARGAR MEDICAMENTO');
-    console.log(req.body.idMedicamento);
+
     if (!req.body.idMedicamento) {
         return res.status(400).json({
             title: 'Error',
@@ -58,13 +58,15 @@ function cargarMedicamento(req, res) {
             error: err
         });
     }
-    console.log(req.body.idMedicamento);
+  
     var nuevoMedicamento = new Medicamento({
         idMedicamento: req.body.idMedicamento,
         nombre: req.body.nombreMedicamento,
         dosis: req.body.dosisMedicamento,
         cadenaFrio: req.body.cadenaFrioMedicamento,
-        cantidadComprimidos: req.body.cadenaFrioMedicamento
+        laboratorio: req.body.laboratorioMedicamento,
+        cantidadComprimidos: req.body.cantidadComprimidosMedicamento
+      
     })
 
     console.log(nuevoMedicamento);
@@ -115,6 +117,7 @@ function editarMedicamento(req, res) {
         medicamento.nombre = req.body.nombreMedicamento;
         medicamento.dosis = req.body.dosisMedicamento;
         medicamento.cadenaFrio = req.body.cadenaFrioMedicamento;
+        medicamento.laboratorio = req.body.laboratorioMedicamento;
         medicamento.cantidadComprimidos = req.body.cantidadComprimidosMedicamento;
 
         medicamento.save().then(function (medicamento) {

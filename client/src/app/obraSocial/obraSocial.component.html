@@ -44,16 +44,16 @@
                                 </tr>
                                 <tr>
                                   <th *ngFor="let col of columns" [ngSwitch]="col.field">
-                                     <input *ngSwitchCase="'cuit'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-                                     <input *ngSwitchCase="'direccion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-                                     <input *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                     <input *ngSwitchCase="'cuit'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" style="width:100%">
+                                     <input *ngSwitchCase="'direccion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" style="width:100%">
+                                     <input *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" style="width:100%">
                                     
                                   </th>
                                 </tr>
                             </ng-template>
 
                             <ng-template pTemplate="body" let-obra let-columns="columns">
-                                <tr [pSelectableRow]="obraSocial">
+                                <tr [pSelectableRow]="obra">
                                     <td *ngFor="let col of columns">
                                             {{obra[col.field]}}
                                     </td>
@@ -190,7 +190,7 @@
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !direccionObra.valid }">
             <label for="direccionObra">Direccion:</label>
-            <input type="text" class="form-control" name="direccionObra" [(ngModel)]="selectedObra.apellido" #direccionObra="ngModel" autocomplete="off" required />
+            <input type="text" class="form-control" name="direccionObra" [(ngModel)]="selectedObra.direccion" #direccionObra="ngModel" autocomplete="off" required />
             <div *ngIf="f.submitted && !direccionObra.valid" role="alert" class="alert alert-danger">Ingresar la direccion de la Obra Social</div>
         </div>
 
