@@ -55,7 +55,7 @@ function cargarPedido(req, res) {
     
   
     var nuevoPedido = new Pedido({
-        numeroPedido: req.body.idPedido,
+        numeroPedido: req.body.numeroPedido,
         estado: req.body.estadoPedido,
         horaYFecha: req.body.horaYFechaPedido,
         cadenaFrio: req.body.cadenaFrioPedido
@@ -75,8 +75,8 @@ function cargarPedido(req, res) {
         if (err.code == 11000) {
             var msj = ""
             //Catching index name inside errmsg reported by mongo to determine the correct error and showing propper message
-            if (err.errmsg.toString().includes("idPedido"))
-                msj = "Id Pedido";
+            if (err.errmsg.toString().includes("numero"))
+                msj = "Numero Pedido";
            
             return res.status(404).json({
                 title: 'Error',
@@ -94,7 +94,7 @@ function editarPedido(req, res) {
     console.log('EDITAR PEDIDO');
     console.log(req.params.idPedido);
     console.log(req.body.idPedido);
-    Pedido.findById(req.params.idPedidos, function (err, pedido) {
+    Pedido.findById(req.params.idPedido, function (err, pedido) {
         if (err) {
             return res.status(400).json({
                 title: 'An error occurred',
@@ -133,7 +133,7 @@ function eliminarPedido(req, res){
     console.log(req.params.idPedidos);
 
 
-    Pedido.findOne({'_id': req.params.idPedidos})
+    Pedido.findOne({'_id': req.params.idPedido})
     .exec(function (err, pedido) {
         if (pedido) {
             pedido.remove().then(function (pedidoEliminado) {

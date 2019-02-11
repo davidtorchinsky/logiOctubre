@@ -8,13 +8,13 @@ var PacienteController = require('../controllers/paciente');
 api.get('/',PacienteController.getPacientes);
 // api.get('/:idMedico/:idPaciente',MedicoController.editarMedico);
 
-// PATCH
-api.patch('/:dniPacientes',PacienteController.editarPaciente);
+// PATCH MODIFICACION
+api.patch('/:idPaciente',PacienteController.editarPaciente);
 
-// POST
+// POST ALTA
 api.post('/',PacienteController.cargarPaciente);
 
 // DELETE
-api.delete('/:dniPacientes', PacienteController.eliminarPaciente)
+api.delete('/:idPaciente', PacienteController.eliminarPaciente)
 
 module.exports = api; 

@@ -3,7 +3,6 @@ import { Headers, Http } from '@angular/http';
 import { UrlService } from '../shared/WindowProvider/window.provider.service';
 import { Pedido } from './pedido';
 import { default as swal } from 'sweetalert2';
-//import {medico2} from '../consultas/medicoConsultas.js';
 
 
 
@@ -29,14 +28,11 @@ export class PedidoService {
         numeroPed: string,
         estadoPed: string,
         horaYFechaPed: Date,
-        cadenaDeFrioPed: string
-        ): Promise<Pedido> {
-
-            
-
+        cadenaDeFrioPed: string): Promise<Pedido> {
         return this.http.post(this.pedidoURL,
             JSON.stringify({numeroPedido: numeroPed, estadoPedido: estadoPed,
-                horaYFechaPedido: horaYFechaPed, cadenaFrioPedido: cadenaDeFrioPed}), {headers: this.headers})
+                            horaYFechaPedido: horaYFechaPed, cadenaFrioPedido: 
+                            cadenaDeFrioPed}), {headers: this.headers})
         .toPromise()
         .then(response => response.json().obj as Pedido)
         .catch(this.handleError);
@@ -48,7 +44,7 @@ export class PedidoService {
         horaYFechaPed: Date,
         cadenaDeFrioPed: string): Promise<Pedido> {
         return this.http.patch(this.pedidoURL + '/' + idPed,
-            JSON.stringify({idPedido:idPed, estadoPedido: estadoPed,
+            JSON.stringify({estadoPedido: estadoPed,
                 horaYFechaPedido: horaYFechaPed, cadenaFrioPedido: cadenaDeFrioPed}), {headers: this.headers})
         .toPromise()
         .then(response => response.json().obj as Pedido)

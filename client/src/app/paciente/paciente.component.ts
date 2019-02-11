@@ -19,7 +19,7 @@ export class PacienteComponent implements OnInit {
   modalAgregarPaciente = false;
   modalEditarPaciente = false;
   modalEliminarPaciente = false;
-  cadena:string = "";
+  
 
 
   constructor(
@@ -31,7 +31,7 @@ export class PacienteComponent implements OnInit {
       this.getPacientes();
 
       this.cols = [
-        { field: 'dniPaciente', header: 'DNI' },       
+        { field: 'dni', header: 'DNI' },       
         { field: 'nombre', header: 'Nombre' },       
         { field: 'apellido', header: 'Apellido' },
         { field: 'telefono', header: 'Telefono' },
@@ -61,11 +61,6 @@ export class PacienteComponent implements OnInit {
       fechaNacimientoPaciente: Date,
       f: NgForm) {
       this.modalAgregarPaciente = false;
-      
-     
-
-      
-
       this.pacienteService.cargarPaciente(dniPaciente, nombrePaciente, apellidoPaciente,telefonoPaciente,direccionPaciente, barrioPaciente,fechaNacimientoPaciente)
       .then(pacienteAgregado => {
         // Muestro un mensajito de Agregado con Éxito

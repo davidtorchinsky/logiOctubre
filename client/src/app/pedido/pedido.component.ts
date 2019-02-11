@@ -53,7 +53,7 @@ export class PedidoComponent implements OnInit {
       numeroPedido: string,
       estadoPedido: string,
       horaYFechaPedido: Date,
-      cadenaFrioPedido: boolean,      
+      cadenaFrioPedido: string,      
       f: NgForm) {
       this.modalAgregarPedido = false;
       

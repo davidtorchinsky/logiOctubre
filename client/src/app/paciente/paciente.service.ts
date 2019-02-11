@@ -3,7 +3,6 @@ import { Headers, Http } from '@angular/http';
 import { UrlService } from '../shared/WindowProvider/window.provider.service';
 import { Paciente } from './paciente';
 import { default as swal } from 'sweetalert2';
-//import {medico2} from '../consultas/medicoConsultas.js';
 
 
 
@@ -46,14 +45,14 @@ export class PacienteService {
     }
 
     editarPaciente(
-        dniPac: string,
+        idPac: string,
         nombrePac: string,
         apellidoPac: string,
         telefonoPac: string,
         direccionPac:string,
         barrioPac: string,
         fechaNacimientoPac: Date): Promise<Paciente> {
-        return this.http.patch(this.pacienteURL + '/' + dniPac,
+        return this.http.patch(this.pacienteURL + '/' + idPac,
             JSON.stringify({nombrePaciente: nombrePac,
                 apellidoPaciente: apellidoPac, telefonoPaciente: telefonoPac,direccionPaciente: direccionPac,
                 barrioPaciente: barrioPac,fechaNacimientoPaciente: fechaNacimientoPac}), {headers: this.headers})
@@ -62,8 +61,8 @@ export class PacienteService {
         .catch(this.handleError);
     }
 
-    deletePaciente(dniPac: string): Promise<Paciente> {
-        return this.http.delete(this.pacienteURL + '/' + dniPac)
+    deletePaciente(idPac: string): Promise<Paciente> {
+        return this.http.delete(this.pacienteURL + '/' + idPac)
         .toPromise()
         .then(response => response.json().obj as Paciente)
         .catch(this.handleError);
