@@ -9,12 +9,12 @@ api.get('/',PacienteController.getPacientes);
 // api.get('/:idMedico/:idPaciente',MedicoController.editarMedico);
 
 // PATCH
-api.patch('/:idPacientes',PacienteController.editarPaciente);
+api.patch('/:dniPacientes',PacienteController.editarPaciente);
 
 // POST
 api.post('/',PacienteController.cargarPaciente);
 
 // DELETE
-api.delete('/:idPacientes', PacienteController.eliminarPaciente)
+api.delete('/:dniPacientes', PacienteController.eliminarPaciente)
 
 module.exports = api; 

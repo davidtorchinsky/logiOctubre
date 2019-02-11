@@ -31,7 +31,7 @@ export class PacienteComponent implements OnInit {
       this.getPacientes();
 
       this.cols = [
-        { field: 'dni', header: 'DNI' },       
+        { field: 'dniPaciente', header: 'DNI' },       
         { field: 'nombre', header: 'Nombre' },       
         { field: 'apellido', header: 'Apellido' },
         { field: 'telefono', header: 'Telefono' },

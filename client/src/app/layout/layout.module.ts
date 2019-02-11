@@ -28,6 +28,7 @@ import { RepartidorService } from '../repartidor/repartidor.service'
 import { ObraService } from '../obraSocial/obraSocial.service';
 import { MedicamentoService} from '../medicamento/medicamento.service';
 import {PacienteService} from '../paciente/paciente.service'
+import {PedidoService} from '../pedido/pedido.service'
 
 
 // PrimeNG
@@ -81,6 +82,7 @@ import { DialogModule } from 'primeng/dialog';
         RepartidorService,
         MedicamentoService,
         PacienteService,
+        PedidoService,
     ]
 })
 export class LayoutModule {}

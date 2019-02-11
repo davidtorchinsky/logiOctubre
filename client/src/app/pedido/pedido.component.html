@@ -1,4 +1,214 @@
+
 <div [@routerTransition]>
-        <h3 class="text-muted">Pedidos</h3>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class='page-header'>
+                    <h2>Pedidos</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card card-default mb-3">
+                    <div class="card-header">
+                        <div>
+                            <a>
+                                <strong style="text-decoration: none;color: #333;">Administración de Pedidos</strong>
+                                <div class = 'pull-left'>
+                                </div>
+                            </a>
+                            <button
+                                pButton
+                                class="ui-button-primario pull-right"
+                                label="Nuevo Pedido"
+                                icon="fas fa-plus"
+                                (click)="mostrarModalAgregarPedido()">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p-table #dt [columns]="cols" [value]="pedidos" selectionMode="single" [(selection)]="selectedPedido">
+                            <ng-template pTemplate="caption">
+                                 <div style="text-align: right">        
+                                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                    <input type="text" pInputText size="50" placeholder="Filtro" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="header" let-columns>
+                                <tr>
+                                    <th *ngFor="let col of columns">
+                                        {{col.header}}
+                                    </th>
+                                </tr>
+                                <tr>
+                                  <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                                     <input *ngSwitchCase="'numero'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" 
+                                     style="width:100%">
+                                     <input *ngSwitchCase="'estado'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                     <input *ngSwitchCase="'horaYFecha'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                     <input *ngSwitchCase="'cadenaFrio'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                     
+                                    
+                                  </th>
+                                </tr>
+                            </ng-template>
+
+                            <ng-template pTemplate="body" let-pedido let-columns="columns">
+                                <tr [pSelectableRow]="pedido">
+                                    <td *ngFor="let col of columns">
+                                            {{pedido[col.field]}}
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                
+                        
+
+                    </div>
+                    <div class="card-footer">
+                        <div class="pull-right">
+                            <!--Boton Editar (Deshabilitado)-->
+                                <button
+                                    pButton
+                                    *ngIf="!selectedPedido"
+                                    class="ui-button-warning"
+                                    label="Editar"
+                                    icon="fas fa-pencil-alt"
+                                    disabled>
+                                </button>
+
+                            <!--Boton Editar (Habilitado)-->
+                                <button
+                                    pButton
+                                    *ngIf="selectedPedido"
+                                    class="ui-button-warning"
+                                    label="Editar"
+                                    icon="fas fa-pencil-alt"
+                                    data-toggle="modal"
+                                    data-target="#"
+                                (click)="mostrarModalEditar(selectedPedido)">
+                                </button>
+                            
+                            &nbsp;
+                        
+                            <!--Boton Eliminar (Deshabilitado)-->
+                                <button
+                                    pButton
+                                    *ngIf="!selectedPedido"
+                                    class="ui-button-danger"
+                                    label="Eliminar"
+                                    icon="fas fa-times"
+                                    disabled>
+                                </button>
+
+                            <!--Boton Eliminar (Habilitado)-->
+                                <button
+                                    pButton
+                                    *ngIf="selectedPedido"
+                                    class="ui-button-danger"
+                                    label="Eliminar"
+                                    icon="fas fa-times"
+                                    data-toggle="modal"
+                                    data-target="#"
+                                    (click)="eliminarPedido()">
+                                </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+
+<!-- MODAL AGREGAR MEDICO -->
+<p-dialog [(visible)]="modalAgregarPedido" [width]="400" [contentStyle]="{'max-height':'40%'}" pedido="selectedPedido" >
+    <p-header>
+        Nuevo Pedido
+    </p-header>
+
+    <form name="form" (ngSubmit)="f.form.valid && cargarPedido(numeroPedido.value,estadoPedido.value, horaYFechaPedido.value,cadenaFrioPedido.value, f);" #f="ngForm" novalidate>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !numeroPedido.valid }">
+            <label for="numeroPedido">Numero:</label>
+            <input type="text" class="form-control" name="numeroPedido" [(ngModel)]="model.numeroPedido" #numeroPedido="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !numeroPedido.valid" role="alert" class="alert alert-danger">Ingresar el Numero del Pedido</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !estadoPedido.valid }">
+            <label for="estadoPedido">Estado:</label>
+            <input type="text" class="form-control" name="estadoPedido" [(ngModel)]="model.estadoPedido" #estadoPedido="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !estadoPedido.valid" role="alert" class="alert alert-danger">Ingresar el Estado del Pedido</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !horaYFechaPedido.valid }">
+            <label for="horaYFechaPedido">Hora y Fecha:</label>
+            <input type="date" class="form-control" name="horaYFechaPedido" [(ngModel)]="model.horaYFechaPedido" #horaYFechaPedido="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !horaYFechaPedido.valid" role="alert" class="alert alert-danger">Ingresar la horaYFecha del Pedido</div>
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" name="cadenaFrioPedido" [(ngModel)]="model.cadenaFrioPedido" #cadenaFrioPedido="ngModel">
+            <label class="form-check-label" for="defaultCheck1">
+              Cadena de Frio
+            </label>
+          </div>
+          <br>    
     
+        <p-footer>
+            <button
+                pButton
+                class="ui-button-success"
+                label="Aceptar"
+                icon="fas fa-check"
+                type="submit">
+            </button>
+        </p-footer>
+    </form>
+</p-dialog>
+
+<!-- MODAL EDITAR MEDICO -->
+<p-dialog [(visible)]="modalEditarPedido" [width]="500" [contentStyle]="{'max-height':'40%'}" action="#selectedPedido" *ngIf="selectedPedido">
+    <p-header>
+        Editar Pedido
+    </p-header>
+    
+    <form name="form" (ngSubmit)="f.form.valid && editarPedido(f);" #f="ngForm" novalidate >
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !numeroPedido.valid }" >
+            <label for="numeroPedido">Numero de Pedido:</label>
+            <input type="text" class="form-control" name="numeroPedido" [(ngModel)]="selectedPedido.numeroPedido" #numeroPedido="ngModel" disabled />
+            <div *ngIf="f.submitted && !numeroPedido.valid" role="alert" class="alert alert-danger">Ingresar el Numero del Pedido</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !estadoPedido.valid }">
+            <label for="estadoPedido">Estado:</label>
+            <input type="text" class="form-control" name="estadoPedido" [(ngModel)]="selectedPedido.nombre" #estadoPedido="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !estadoPedido.valid" role="alert" class="alert alert-danger">Ingresar el Estado del Pedido</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !horaYFechaPedido.valid }">
+            <label for="horaYFechaPedido">Hora y Fecha:</label>
+            <input type="date" class="form-control" name="horaYFechaPedido" [(ngModel)]="selectedPedido.horaYFecha" #horaYFechaPedido="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !horaYFechaPedido.valid" role="alert" class="alert alert-danger">Ingresar la hora y Fecha del pedido</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !cadenaFrioPedido.valid }">
+            <label for="cadenaFrioPedido">Cadena de frio:</label>
+            <input type="text" class="form-control" name="cadenaFrioPedido" [(ngModel)]="selectedPedido.cadenaFrio" #cadenaFrioPedido="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !cadenaFrioPedido.valid" role="alert" class="alert alert-danger">Ingresar la cadena de frio</div>
+        </div>
+
+        
+        
+        <p-footer>
+            <button
+                pButton
+                class="ui-button-success"
+                label="Aceptar"
+                icon="fas fa-check"
+                type="submit"
+                (click)="cerrarModalEditar()">
+            </button>
+        </p-footer>
+    </form>
+</p-dialog>

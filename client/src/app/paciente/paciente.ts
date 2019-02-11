@@ -1,6 +1,6 @@
 export class Paciente {
     _id: string;
-    dni: string;
+    dniPaciente: string;
     nombre: string;
     apellido: string;
     telefono: string;

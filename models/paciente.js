@@ -31,9 +31,10 @@ var pacienteSchema = Schema({
     apellido: String,
     telefono: String,
     direccion: String,
+    barrio: String,
     fechaNacimiento: Date,
 
-    conumisiones:[Consume]
+    consumisiones:[Consume]
     
 });
 

@@ -46,14 +46,14 @@ export class PacienteService {
     }
 
     editarPaciente(
-        idPac: string,
+        dniPac: string,
         nombrePac: string,
         apellidoPac: string,
         telefonoPac: string,
         direccionPac:string,
         barrioPac: string,
         fechaNacimientoPac: Date): Promise<Paciente> {
-        return this.http.patch(this.pacienteURL + '/' + idPac,
+        return this.http.patch(this.pacienteURL + '/' + dniPac,
             JSON.stringify({nombrePaciente: nombrePac,
                 apellidoPaciente: apellidoPac, telefonoPaciente: telefonoPac,direccionPaciente: direccionPac,
                 barrioPaciente: barrioPac,fechaNacimientoPaciente: fechaNacimientoPac}), {headers: this.headers})
@@ -62,8 +62,8 @@ export class PacienteService {
         .catch(this.handleError);
     }
 
-    deletePaciente(idPac: string): Promise<Paciente> {
-        return this.http.delete(this.pacienteURL + '/' + idPac)
+    deletePaciente(dniPac: string): Promise<Paciente> {
+        return this.http.delete(this.pacienteURL + '/' + dniPac)
         .toPromise()
         .then(response => response.json().obj as Paciente)
         .catch(this.handleError);

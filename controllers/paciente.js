@@ -73,7 +73,7 @@ function cargarPaciente(req, res) {
     
   
     var nuevoPaciente = new Paciente({
-        idPaciente: req.body.idPaciente,
+        dniPaciente: req.body.dniPaciente,
         nombre: req.body.nombrePaciente,
         apellido: req.body.apellidoPaciente,
         telefono: req.body.telefonoPaciente,
@@ -112,9 +112,9 @@ function cargarPaciente(req, res) {
 
 function editarPaciente(req, res) {
     console.log('EDITAR PACIENTE');
-    console.log(req.params.idPaciente);
-    console.log(req.body.idPaciente);
-    Paciente.findById(req.params.idPacientes, function (err, paciente) {
+    console.log(req.params.dniPaciente);
+    console.log(req.body.dniPaciente);
+    Paciente.findById(req.params.dniPacientes, function (err, paciente) {
         if (err) {
             return res.status(400).json({
                 title: 'An error occurred',
@@ -153,10 +153,10 @@ function eliminarPaciente(req, res){
 
     console.log('ELIMINAR paciente');
         
-    console.log(req.params.idPacientes);
+    console.log(req.params.dniPacientes);
 
 
-    Paciente.findOne({'_id': req.params.idPacientes})
+    Paciente.findOne({'_id': req.params.dniPacientes})
     .exec(function (err, paciente) {
         if (paciente) {
             paciente.remove().then(function (pacienteEliminado) {
