@@ -1,3 +1,4 @@
+
 <div [@routerTransition]>
     <div id="page-wrapper">
         <div class="row">
@@ -43,14 +44,14 @@
                                 </tr>
                                 <tr>
                                   <th *ngFor="let col of columns" [ngSwitch]="col.field">
-                                     <input *ngSwitchCase="'dni'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-                                     <input *ngSwitchCase="'apellido'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-                                     <input *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-                                     <input *ngSwitchCase="'telefono'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-                                     <input *ngSwitchCase="'direccion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-                                     <input *ngSwitchCase="'barrio'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-                                     <input *ngSwitchCase="'fechaNacimiento'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-
+                                     <input *ngSwitchCase="'dni'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" 
+                                     style="width:100%">
+                                     <input *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                     <input *ngSwitchCase="'apellido'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                     <input *ngSwitchCase="'telefono'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                     <input *ngSwitchCase="'direccion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                     <input *ngSwitchCase="'barrio'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                     <input *ngSwitchCase="'fechaNacimiento'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
                                     
                                   </th>
                                 </tr>
@@ -129,47 +130,49 @@
         Nuevo Paciente
     </p-header>
 
-    <form name="form" (ngSubmit)="f.form.valid && cargarPaciente(dniPaciente.value,nombrePaciente.value,apellidoPaciente.value, telefonoPaciente.value, direccionPaciente.value,fechaNacimiento.value, barrio.value, f);" #f="ngForm" novalidate>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !dniPaciente.valid }" >
-            <label for="dniPaciente">DNI:</label>
-            <input type="text" id="dniAgregar" class="form-control" name="dniPaciente" [(ngModel)]="model.dniPaciente" #dniPaciente="ngModel" autocomplete="off" required />
-            <div *ngIf="f.submitted && !dniPaciente.valid" role="alert" class="alert alert-danger">Ingresar el DNI del Paciente</div>
+    <form name="form" (ngSubmit)="f.form.valid && cargarPaciente(idPaciente.value,nombrePaciente.value, apellidoPaciente.value,telefonoPaciente.value,direccionPaciente.value, barrioPaciente.value,fechaNacimientoPaciente.value, f);" #f="ngForm" novalidate>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !idPaciente.valid }">
+            <label for="idPaciente">DNI:</label>
+            <input type="text" class="form-control" name="idPaciente" [(ngModel)]="model.idPaciente" #idPaciente="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !idPaciente.valid" role="alert" class="alert alert-danger">Ingresar el DNI del Paciente</div>
         </div>
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !nombrePaciente.valid }">
             <label for="nombrePaciente">Nombre:</label>
-            <input type="text" id="nombreAgregar" class="form-control" name="nombrePaciente" [(ngModel)]="model.nombrePaciente" #nombrePaciente="ngModel" autocomplete="off" required />
-            <div *ngIf="f.submitted && !nombrePaciente.valid" role="alert" class="alert alert-danger">Ingresar el Nombre del Paciente</div>
+            <input type="text" class="form-control" name="nombrePaciente" [(ngModel)]="model.nombrePaciente" #nombrePaciente="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !nombrePaciente.valid" role="alert" class="alert alert-danger">Ingresar el Nombre del Medicaemtno</div>
         </div>
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !apellidoPaciente.valid }">
             <label for="apellidoPaciente">Apellido:</label>
-            <input type="text" id="apellidoAgregar" class="form-control" name="apellidoPaciente" [(ngModel)]="model.apellidoPaciente" #apellidoPaciente="ngModel" autocomplete="off" required />
-            <div *ngIf="f.submitted && !apellidoPaciente.valid" role="alert" class="alert alert-danger">Ingresar el Apellido del Paciente</div>
+            <input type="text" class="form-control" name="apellidoPaciente" [(ngModel)]="model.apellidoPaciente" #apellidoPaciente="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !apellidoPaciente.valid" role="alert" class="alert alert-danger">Ingresar la apellido del Paciente</div>
         </div>
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !telefonoPaciente.valid }">
             <label for="telefonoPaciente">Telefono:</label>
-            <input type="text" id="telefonoAgregar" class="form-control" name="telefonoPaciente" [(ngModel)]="model.telefonoPaciente" #telefonoPaciente="ngModel" autocomplete="off" required />
+            <input type="text" class="form-control" name="telefonoPaciente" [(ngModel)]="model.telefonoPaciente" #telefonoPaciente="ngModel" autocomplete="off" required />
             <div *ngIf="f.submitted && !telefonoPaciente.valid" role="alert" class="alert alert-danger">Ingresar el Telefono del Paciente</div>
         </div>
 
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !direccionPaciente.valid }">
-            <label for="direccionPaciente">Direccion:</label>
-            <input type="text" id="direccionAgregar" class="form-control" name="direccionPaciente" [(ngModel)]="model.direccionPaciente" #direccionPaciente="ngModel" autocomplete="off" required />
-            <div *ngIf="f.submitted && !direccionPaciente.valid" role="alert" class="alert alert-danger">Ingresar el Direccion del Paciente</div>
-        </div>
+        
 
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !fechaNacimientoPaciente.valid }">
-            <label for="fechaNacimientoPaciente">Fecha de Nacimiento:</label>
-            <input type="date" id="fechaNacimientoAgregar" class="form-control" name="fechaNacimientoPaciente" [(ngModel)]="model.fechaNacimientoPaciente" #fechaNacimientoPaciente="ngModel" autocomplete="off" required />
-            <div *ngIf="f.submitted && !fechaNacimientoPaciente.valid" role="alert" class="alert alert-danger">Ingresar la fehca de Nacimiento del Paciente</div>
-        </div>
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !direccionPaciente.valid }">
+            <label for="direccionPaciente">Direccion:</label>
+            <input type="text" class="form-control" name="direccionPaciente" [(ngModel)]="model.direccionPaciente" #direccionPaciente="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !direccionPaciente.valid" role="alert" class="alert alert-danger">Ingresar el direccion</div>
+      </div>
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !barrioPaciente.valid }">
             <label for="barrioPaciente">Barrio:</label>
-            <input type="text" id="barrioAgregar" class="form-control" name="barrioPaciente" [(ngModel)]="model.barrioPaciente" #barrioPaciente="ngModel" autocomplete="off" required />
-            <div *ngIf="f.submitted && !barrioPaciente.valid" role="alert" class="alert alert-danger">Ingresar el Barrio del Paciente</div>
+            <input type="text" class="form-control" name="barrioPaciente" [(ngModel)]="model.barrioPaciente" #barrioPaciente="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !barrioPaciente.valid" role="alert" class="alert alert-danger">Ingresar el Barrio</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !fechaNacimientoPaciente.valid }">
+            <label for="barrioPaciente">Fecha de Nacimiento:</label>
+            <input type="date" class="form-control" name="fechaNacimientoPaciente" [(ngModel)]="model.fechaNacimientoPaciente" #fechaNacimientoPaciente="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !fechaNacimientoPaciente.valid" role="alert" class="alert alert-danger">Seleccionar la fecha de Nacimiento</div>
         </div>
     
     
@@ -181,57 +184,21 @@
                 icon="fas fa-check"
                 type="submit">
             </button>
-     
-            <div class="divider"></div>
-
-                    <button
-                    pButton
-                    class="ui-button-warning"
-                    label="Reset"
-                    icon="fas fa-ban"
-                    type="submit"
-                    onclick="document.getElementById('dniAgregar').value = '' ,
-                             document.getElementById('nombreAgregar').value = '',
-                             document.getElementById('apellidoAgregar').value = '' ,
-                             document.getElementById('telefonoAgregar').value = '' ,
-                             document.getElementById('direccionAgregar').value = ''"
-                    >
-                </button>
-
-                <div class="pull-right">
-                    <button
-                        pButton
-                        class="ui-button-danger"
-                        label="Cancelar"
-                        icon="fas fa-ban"
-                        type="submit"
-                        onclick="document.getElementById('dniAgregar').value = '' ,
-                        document.getElementById('nombreAgregar').value = '',
-                        document.getElementById('apellidoAgregar').value = '' ,
-                        document.getElementById('telefonoAgregar').value = '' ,
-                        document.getElementById('direccionAgregar').value = ''"
-                       (click)= "cerrarModalAgregar()">
-                    </button>
-                    
-                               
-                
-                </div>
-
         </p-footer>
     </form>
 </p-dialog>
 
-<!-- MODAL EDITAR PACIENTE -->
+<!-- MODAL EDITAR MEDICO -->
 <p-dialog [(visible)]="modalEditarPaciente" [width]="500" [contentStyle]="{'max-height':'40%'}" action="#selectedPaciente" *ngIf="selectedPaciente">
     <p-header>
-        Editar Paciente 
+        Editar Paciente
     </p-header>
     
     <form name="form" (ngSubmit)="f.form.valid && editarPaciente(f);" #f="ngForm" novalidate >
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !dniPaciente.valid }" >
-            <label for="dniPaciente">DNI:</label>
-            <input type="text" class="form-control" name="dniPaciente" [(ngModel)]="selectedPaciente.dni" #dniPaciente="ngModel" disabled />
-            <div *ngIf="f.submitted && !dniPaciente.valid" role="alert" class="alert alert-danger">Ingresar el DNI del Paciente</div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !idPaciente.valid }" >
+            <label for="idPaciente">DNI:</label>
+            <input type="text" class="form-control" name="idPaciente" [(ngModel)]="selectedPaciente.idPaciente" #idPaciente="ngModel" disabled />
+            <div *ngIf="f.submitted && !idPaciente.valid" role="alert" class="alert alert-danger">Ingresar el Id del Paciente</div>
         </div>
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !nombrePaciente.valid }">
@@ -243,22 +210,32 @@
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !apellidoPaciente.valid }">
             <label for="apellidoPaciente">Apellido:</label>
             <input type="text" class="form-control" name="apellidoPaciente" [(ngModel)]="selectedPaciente.apellido" #apellidoPaciente="ngModel" autocomplete="off" required />
-            <div *ngIf="f.submitted && !apellidoPaciente.valid" role="alert" class="alert alert-danger">Ingresar el Apellido del Paciente</div>
+            <div *ngIf="f.submitted && !apellidoPaciente.valid" role="alert" class="alert alert-danger">Ingresar el apellido del paciente</div>
         </div>
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !telefonoPaciente.valid }">
             <label for="telefonoPaciente">Telefono:</label>
             <input type="text" class="form-control" name="telefonoPaciente" [(ngModel)]="selectedPaciente.telefono" #telefonoPaciente="ngModel" autocomplete="off" required />
-            <div *ngIf="f.submitted && !telefonoPaciente.valid" role="alert" class="alert alert-danger">Ingresar el Telefono del Paciente</div>
+            <div *ngIf="f.submitted && !telefonoPaciente.valid" role="alert" class="alert alert-danger">Ingresar el telefono</div>
         </div>
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !direccionPaciente.valid }">
             <label for="direccionPaciente">Direccion:</label>
-            <input type="text" class="form-control" name="direccionPaciente" [(ngModel)]="selectedPaciente.direccion" #direccionPaciente="ngModel" autocomplete="off" required />
-            <div *ngIf="f.submitted && !direccionPaciente.valid" role="alert" class="alert alert-danger">Ingresar la Direccion del Paciente</div>
+            <input type="text" class="form-control" name="direccionPaciente" [(ngModel)]="selectedPaciente.apellido" #direccionPaciente="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !direccionPaciente.valid" role="alert" class="alert alert-danger">Ingresar la direccion del paciente</div>
         </div>
 
-        
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !barrioPaciente.valid }">
+            <label for="barrioPaciente">Barrio:</label>
+            <input type="text" class="form-control" name="barrioPaciente" [(ngModel)]="selectedPaciente.barrio" #barrioPaciente="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !barrioPaciente.valid" role="alert" class="alert alert-danger">Ingresar el barrio</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !fechaNacimientoPaciente.valid }" >
+            <label for="fechaNacimientoPaciente">Fecha de Nacimiento:</label>
+            <input type="date" class="form-control" name="fechaNacimientoPaciente" [(ngModel)]="selectedPaciente.fechaNacimientoPaciente" #fechaNacimientoPaciente="ngModel" disabled />
+            <div *ngIf="f.submitted && !fechaNacimientoPaciente.valid" role="alert" class="alert alert-danger">Ingresar la fecha de Nacimiento</div>
+        </div>
         
         <p-footer>
             <button
@@ -270,24 +247,5 @@
                 (click)="cerrarModalEditar()">
             </button>
         </p-footer>
-
-        <p-footer>
-            <div class="pull-right">
-                <button
-                    pButton
-                    class="ui-button-danger"
-                    label="Cancelar"
-                    icon="fas fa-ban"
-                    type="submit"
-                    onclick="document.getElementById('dniAgregar').value = '' ,
-                    document.getElementById('nombreAgregar').value = '',
-                    document.getElementById('apellidoAgregar').value = '' ,
-                    document.getElementById('telefonoAgregar').value = '' ,
-                    document.getElementById('direccionAgregar').value = ''"
-                    (click)="cerrarModalEditar()">
-                </button>
-            </div>
-        </p-footer>
-
     </form>
 </p-dialog>

@@ -20,8 +20,8 @@ app.use(cors());
 var medicoRoutes = require('./routes/medico');
 var obraRoutes = require('./routes/obra');
 var medicamentoRoutes=require('./routes/medicamento');
-
-var repartidorRoutes=require('./routes/repartidor');   //aca tira error
+var pacienteRoutes=require('./routes/paciente');
+var repartidorRoutes=require('./routes/repartidor'); 
 
 
 
@@ -30,8 +30,8 @@ var repartidorRoutes=require('./routes/repartidor');   //aca tira error
 app.use('/medico', medicoRoutes);
 app.use('/obra', obraRoutes);
 app.use('/medicamento', medicamentoRoutes);
-
-app.use('/repartidor', repartidorRoutes);  //aca tira error
+app.use('/paciente', pacienteRoutes);
+app.use('/repartidor', repartidorRoutes);
 
 
 

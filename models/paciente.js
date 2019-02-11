@@ -22,7 +22,7 @@ var Consume = Schema({
 });
 
 //Esquema paciente
-var Paciente = Schema({
+var pacienteSchema = Schema({
     dni: {
         type: String,
         unique: true
