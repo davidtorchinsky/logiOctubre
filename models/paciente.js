@@ -8,9 +8,9 @@ var Consume = Schema({
         type: Schema.Types.ObjectId,
         ref: 'Medicamento'
     },
-    cadaCuanto: Number,
-    cantidadConsume: Number,
-    restante: Number,
+    frecuencia: Number,
+    cantidadConsumicion: Number,
+    diasRestantes: Number
     
 });
 
@@ -27,7 +27,7 @@ var pacienteSchema = Schema({
     barrio: String,
     fechaNacimiento: Date,
 
-    consumisiones:[Consume],
+    consumiciones:[Consume],
     //Relacion con Medico
     medicos:[{
         type: Schema.Types.ObjectId,

@@ -8,10 +8,33 @@
             <i class="fas fa-user-md fa-fw" ></i>&nbsp;
             Medicos
         </a>
-        <a [routerLink]="['/pacientes']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fas fa-diagnoses fa-fw" ></i>&nbsp;
-            Pacientes
-        </a>
+        <div class="nested-menu">
+            <a [routerLink]="['/pacientes']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <span _ngcontent-c5=""><i  class="fas fa-diagnoses fa-fw">
+                </i>&nbsp; Pacientes</span>
+            </a>
+            <li  class="nested expand">
+                <ul  class="submenu">
+                    <li _ngcontent-c5="">
+                        <a href="javascript:void(0)" [routerLink]="['/asignar_medicamento']" [routerLinkActive]="['router-link-active']">
+                            <span>Asignar Medicamiento</span>
+                        </a>
+                    </li>
+                    <li _ngcontent-c5="">
+                        <a  href="javascript:void(0)">
+                            <span _ngcontent-c5="">Submenú</span>
+                        </a>
+                    </li>
+                    <li _ngcontent-c5="">
+                        <a  href="javascript:void(0)">
+                            <span _ngcontent-c5="">Submenú</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+
+
         <a [routerLink]="['/medicamentos']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fas fa-pills fa-fw"></i>&nbsp;
             Medicamientos

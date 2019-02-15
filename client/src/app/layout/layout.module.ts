@@ -18,17 +18,19 @@ import { MedicamentoComponent } from '../medicamento/medicamento.component';
 import { PedidoComponent } from '../pedido/pedido.component';
 import { RepartidorComponent } from '../repartidor/repartidor.component';
 import { MedicoComponent } from '../medico/medico.component';
-import { CalendarioComponent } from "../calendario/calendario.component";
+import { CalendarioComponent } from '../calendario/calendario.component';
 import { ObraSocialComponent } from '../obraSocial/obraSocial.component';
+import { AsignarMedicamentoComponent } from '../asignar_medicamento/asignar_medicamento.component';
 
 
 // SERVICIOS
 import { MedicoService } from '../medico/medico.service';
-import { RepartidorService } from '../repartidor/repartidor.service'
+import { RepartidorService } from '../repartidor/repartidor.service';
 import { ObraService } from '../obraSocial/obraSocial.service';
 import { MedicamentoService} from '../medicamento/medicamento.service';
-import {PacienteService} from '../paciente/paciente.service'
-import {PedidoService} from '../pedido/pedido.service'
+import {PacienteService} from '../paciente/paciente.service';
+import {PedidoService} from '../pedido/pedido.service';
+import { AsignarMedicamentoService } from '../asignar_medicamento/asignar_medicamento.service';
 
 
 // PrimeNG
@@ -72,7 +74,8 @@ import { DialogModule } from 'primeng/dialog';
         RepartidorComponent,
         MedicoComponent,
         CalendarioComponent,
-        ObraSocialComponent
+        ObraSocialComponent,
+        AsignarMedicamentoComponent
     ],
     providers: [
         WINDOW_PROVIDERS,
@@ -83,6 +86,7 @@ import { DialogModule } from 'primeng/dialog';
         MedicamentoService,
         PacienteService,
         PedidoService,
+        AsignarMedicamentoService
     ]
 })
 export class LayoutModule {}

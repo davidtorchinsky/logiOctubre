@@ -10,6 +10,7 @@ api.get('/',PacienteController.getPacientes);
 
 // PATCH MODIFICACION
 api.patch('/:idPaciente',PacienteController.editarPaciente);
+api.patch('/:idPaciente/:idMedicamento', PacienteController.cargarConsumicion);
 
 // POST ALTA
 api.post('/',PacienteController.cargarPaciente);

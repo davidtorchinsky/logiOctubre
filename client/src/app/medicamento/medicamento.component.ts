@@ -19,7 +19,7 @@ export class MedicamentoComponent implements OnInit {
   modalAgregarMedicamento = false;
   modalEditarMedicamento = false;
   modalEliminarMedicamento = false;
-  cadena:string = "";
+  cadena = '';
 
 
   constructor(
@@ -32,7 +32,7 @@ export class MedicamentoComponent implements OnInit {
 
       this.cols = [
         { field: 'idMedicamento', header: 'Id Medicamento' },
-        { field: 'nombre', header: 'Nombre' },       
+        { field: 'nombre', header: 'Nombre' },
         { field: 'dosis', header: 'Dosis' },
         { field: 'cadenaFrio', header: 'Cadena Frio' },
         { field: 'laboratorio', header: 'Laboratorio' },
@@ -55,22 +55,26 @@ export class MedicamentoComponent implements OnInit {
       nombreMedicamento: string,
       dosisMedicamento: string,
       cadenaFrioMedicamento: boolean,
-      laboratorioMedicamento:string,
+      laboratorioMedicamento: string,
       cantidadComprimidosMedicamento: string,
       f: NgForm) {
       this.modalAgregarMedicamento = false;
-      
-      this.cadena="No";
-        //Inspeccion de billeteras
-      console.log(idMedicamento, nombreMedicamento,cantidadComprimidosMedicamento);
-      if(cadenaFrioMedicamento){
-        this.cadena="Si";
+
+      this.cadena = 'No';
+        // Inspeccion de billeteras
+      console.log(idMedicamento, nombreMedicamento, cantidadComprimidosMedicamento);
+      if (cadenaFrioMedicamento) {
+        this.cadena = 'Si';
       }
 
-      
-
-      this.medicamentoService.cargarMedicamento(idMedicamento, nombreMedicamento, dosisMedicamento, this.cadena,laboratorioMedicamento, cantidadComprimidosMedicamento)
+      this.medicamentoService.cargarMedicamento(idMedicamento,
+                                                nombreMedicamento,
+                                                dosisMedicamento,
+                                                this.cadena,
+                                                laboratorioMedicamento,
+                                                cantidadComprimidosMedicamento)
       .then(medicamentoAgregado => {
+
         // Muestro un mensajito de Agregado con Éxito
         swal({
           title: 'Agregado!',
@@ -79,7 +83,6 @@ export class MedicamentoComponent implements OnInit {
           timer: 4000
         }).then(
           function () {
-
 
           },
           // handling the promise rejection
@@ -132,7 +135,7 @@ export class MedicamentoComponent implements OnInit {
             elementoMedicamento.nombre = medicamentoEditado.nombre;
             elementoMedicamento.dosis = medicamentoEditado.dosis;
             elementoMedicamento.cadenaFrio = medicamentoEditado.cadenaFrio;
-            elementoMedicamento.laboratorio=medicamentoEditado.laboratorio;
+            elementoMedicamento.laboratorio = medicamentoEditado.laboratorio;
             elementoMedicamento.cantidadComprimidos = medicamentoEditado.cantidadComprimidos;
           }
         });

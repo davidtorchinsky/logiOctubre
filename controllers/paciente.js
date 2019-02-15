@@ -180,11 +180,62 @@ function eliminarPaciente(req, res){
     });
 }
 
+function cargarConsumicion(req, res) {
+    if (!req.body.frecuencia) {
+        return res.status(400).json({
+            title: 'Error',
+            error: err
+        });
+    }
+
+    if (!req.body.cantidadConsumicion) {
+        return res.status(400).json({
+            title: 'Error',
+            error: err
+        });
+    }
+
+    Paciente.findById(req.params.idPaciente, function (err, paciente) {
+        if (err) {
+            return res.status(400).json({
+                title: 'An error occurred',
+                error: err
+            });
+        }
+        if (!paciente) {
+            return res.status(404).json({
+                title: 'Error',
+                error: 'Paciente no encontrado'
+            });
+        }
+
+        paciente.consumiciones.push({
+            medicamento: req.params.idMedicamento,
+            frecuencia: req.body.frecuencia,
+            cantidadConsumicion: req.body.cantidadConsumicion,
+            diasRestantes: null
+        })
+
+        paciente.save().then(function (paciente) {
+            res.status(200).json({
+                message: 'Success',
+                obj: paciente
+            });
+        }, function (err) {
+            return res.status(404).json({
+                title: 'Error',
+                error: err
+            });
+        });
+    });
+}
+
 // EXPORT
 module.exports = {
     getPacientes,
     cargarPaciente,
     editarPaciente,
-    eliminarPaciente
+    eliminarPaciente,
+    cargarConsumicion
 }
 
