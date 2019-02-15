@@ -2,11 +2,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-//Relacion con pedido
-/*pedido:{
-    type: Schema.Types.ObjectId,
-    ref: 'Pedido'
-}*/
+
 
 //Esquema Repartidor
 var RepartidorSchema = Schema({
@@ -17,7 +13,13 @@ var RepartidorSchema = Schema({
     nombre: String,
     apellido: String,
     telefono: String,
-    legajo: String
+    legajo: String,
+
+    //Relacion con pedido
+pedido:{
+    type: Schema.Types.ObjectId,
+    ref: 'Pedido'
+}
 });
 var Repartidor = mongoose.model('repartidores', RepartidorSchema);
 

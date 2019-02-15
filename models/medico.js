@@ -3,19 +3,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
-//Relacion con Clinica
-clinicas:[{
-    type: Schema.Types.ObjectId,
-    ref: 'Clinica'
-}]
 
 
 
-//Relacion con Paciente
-pacientes:[{
-    type: Schema.Types.ObjectId,
-    ref: 'Paciente'
-}]
+
+
 
 
 //Esquema Medico
@@ -27,7 +19,20 @@ var MedicoSchema = Schema({
     nombre: String,
     apellido: String,
     telefono: String,
-    matricula: String
+    matricula: String,
+
+    //Relacion con Clinica
+    clinicas:[{
+        type: Schema.Types.ObjectId,
+        ref: 'Clinica'
+    }],
+
+    //Relacion con Paciente
+    pacientes:[{
+        type: Schema.Types.ObjectId,
+        ref: 'Paciente'
+    }]
+
 });
 var Medico = mongoose.model('medicos', MedicoSchema);
 

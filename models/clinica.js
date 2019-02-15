@@ -2,11 +2,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-//Relacion con Medico
-medicos:[{
-    type: Schema.Types.ObjectId,
-    ref: 'Medico'
-}]
+
 
 
 //Esquema Clinica
@@ -18,7 +14,13 @@ var ClinicaSchema = Schema({
     nombre: String,
     direccion: String,
     telefono: String,
-    email: String
+    email: String,
+
+    //Relacion con Medico
+    medicos:[{
+        type: Schema.Types.ObjectId,
+        ref: 'Medico'
+    }]
 });
 var Clinica = mongoose.model('clinicas', ClinicaSchema);
 

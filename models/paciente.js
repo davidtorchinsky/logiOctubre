@@ -2,13 +2,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-//Relacion con Medico
-medicos:[{
-    type: Schema.Types.ObjectId,
-    ref: 'Medico'
-}]
-
-
 //Esquema consume
 var Consume = Schema({
     medicamento: {
@@ -34,7 +27,12 @@ var pacienteSchema = Schema({
     barrio: String,
     fechaNacimiento: Date,
 
-    consumisiones:[Consume]
+    consumisiones:[Consume],
+    //Relacion con Medico
+    medicos:[{
+        type: Schema.Types.ObjectId,
+        ref: 'Medico'
+    }]
     
 });
 

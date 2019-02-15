@@ -2,12 +2,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-//Relacion con pedido
-/*pedido:{
-    type: Schema.Types.ObjectId,
-    ref: 'Pedido'
-}*/
-
 //Esquema farmacia
 var FarmaciaSchema = Schema({
     cuit: {
@@ -17,7 +11,13 @@ var FarmaciaSchema = Schema({
     nombre: String,
     direccion: String,
     telefono: String,
-    email: String
+    email: String,
+
+    //Relacion con pedido
+    pedido:{
+        type: Schema.Types.ObjectId,
+        ref: 'Pedido'
+}
 });
 var Farmacia = mongoose.model('farmacias', FarmaciaSchema);
 
