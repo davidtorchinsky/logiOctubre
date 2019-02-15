@@ -77,7 +77,7 @@ function cargarObra(req, res) {
             var msj = ""
             //Catching index name inside errmsg reported by mongo to determine the correct error and showing propper message
             if (err.errmsg.toString().includes("cuit"))
-                msj = "Cuid Obra Social";
+                msj = "Cuit Obra Social";
            
             return res.status(404).json({
                 title: 'Error',
@@ -129,7 +129,7 @@ function editarObra(req, res) {
 
 function eliminarObra(req, res){
     console.log('ELIMINAR OBRA SOCIAL')
-    
+    console.log(req.params.idObra);
     Obra.findOne({'_id': req.params.idObra})
     .exec(function (err, obra) {
         if (obra) {

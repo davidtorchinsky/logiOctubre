@@ -23,12 +23,13 @@ var Schema = mongoose.Schema;
 
 //Esquema pedido
 var PedidoSchema = Schema({
-    nuemero: {
+    numero: {
         type: String,
         unique: true
     },
     estado: String,
     hora: Date,
+    cadenaFrio: String
     
 });
 var Pedido = mongoose.model('pedidos', PedidoSchema);

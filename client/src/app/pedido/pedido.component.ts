@@ -33,7 +33,7 @@ export class PedidoComponent implements OnInit {
       this.cols = [
         { field: 'numero', header: 'Numero Pedido' },
         { field: 'estado', header: 'Estado' },       
-        { field: 'horaYFecha', header: 'Hora y Fecha de la ultima modificacion' },
+        { field: 'hora', header: 'Hora y Fecha de la ultima modificacion' },
         { field: 'cadenaFrio', header: 'Cadena Frio' }
         
       ];
@@ -50,10 +50,10 @@ export class PedidoComponent implements OnInit {
 
   // CARGAR PEDIDO
     cargarPedido(
-      numeroPedido: string,
-      estadoPedido: string,
+      numeroPedido: String,
+      estadoPedido: String,
       horaYFechaPedido: Date,
-      cadenaFrioPedido: string,      
+      cadenaFrioPedido: String,      
       f: NgForm) {
       this.modalAgregarPedido = false;
       
@@ -77,7 +77,7 @@ export class PedidoComponent implements OnInit {
           function () {
 
 
-          },
+            },
           // handling the promise rejection
           function (dismiss) {
             if (dismiss === 'timer') {
@@ -98,7 +98,7 @@ export class PedidoComponent implements OnInit {
     editarPedido(f: NgForm) {
       this.pedidoService.editarPedido(this.selectedPedido._id,
                                       this.selectedPedido.estado,
-                                      this.selectedPedido.horaYFecha,
+                                      this.selectedPedido.hora,
                                       this.selectedPedido.cadenaFrio)
       .then(pedidoEditado => {
         // Muestro un mensajito de Actualizado con Éxito
@@ -124,7 +124,7 @@ export class PedidoComponent implements OnInit {
         this.pedidos.forEach(elementoPedido => {
           if (elementoPedido._id === pedidoEditado._id) {
             elementoPedido.estado = pedidoEditado.estado;
-            elementoPedido.horaYFecha = pedidoEditado.horaYFecha;
+            elementoPedido.hora = pedidoEditado.hora;
             elementoPedido.cadenaFrio = pedidoEditado.cadenaFrio;
             
           }

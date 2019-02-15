@@ -152,7 +152,7 @@
             <label class="form-check-label" for="defaultCheck1">
               Cadena de Frio
             </label>
-          </div>
+        </div>
           <br>    
     
         <p-footer>
@@ -176,7 +176,7 @@
     <form name="form" (ngSubmit)="f.form.valid && editarPedido(f);" #f="ngForm" novalidate >
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !numeroPedido.valid }" >
             <label for="numeroPedido">Numero de Pedido:</label>
-            <input type="text" class="form-control" name="numeroPedido" [(ngModel)]="selectedPedido.numeroPedido" #numeroPedido="ngModel" disabled />
+            <input type="text" class="form-control" name="numeroPedido" [(ngModel)]="selectedPedido.numero" #numeroPedido="ngModel" disabled />
             <div *ngIf="f.submitted && !numeroPedido.valid" role="alert" class="alert alert-danger">Ingresar el Numero del Pedido</div>
         </div>
 
@@ -188,7 +188,7 @@
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !horaYFechaPedido.valid }">
             <label for="horaYFechaPedido">Hora y Fecha:</label>
-            <input type="date" class="form-control" name="horaYFechaPedido" [(ngModel)]="selectedPedido.horaYFecha" #horaYFechaPedido="ngModel" autocomplete="off" required />
+            <input type="date" class="form-control" name="horaYFechaPedido" [(ngModel)]="selectedPedido.hora" #horaYFechaPedido="ngModel" autocomplete="off" required />
             <div *ngIf="f.submitted && !horaYFechaPedido.valid" role="alert" class="alert alert-danger">Ingresar la hora y Fecha del pedido</div>
         </div>
 

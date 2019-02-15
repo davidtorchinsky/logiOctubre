@@ -25,10 +25,10 @@ export class PedidoService {
     }
 
     cargarPedido(
-        numeroPed: string,
-        estadoPed: string,
+        numeroPed: String,
+        estadoPed: String,
         horaYFechaPed: Date,
-        cadenaDeFrioPed: string): Promise<Pedido> {
+        cadenaDeFrioPed: String): Promise<Pedido> {
         return this.http.post(this.pedidoURL,
             JSON.stringify({numeroPedido: numeroPed, estadoPedido: estadoPed,
                             horaYFechaPedido: horaYFechaPed, cadenaFrioPedido: 
@@ -39,10 +39,10 @@ export class PedidoService {
     }
 
     editarPedido(
-        idPed: string,
-        estadoPed: string,
+        idPed: String,
+        estadoPed: String,
         horaYFechaPed: Date,
-        cadenaDeFrioPed: string): Promise<Pedido> {
+        cadenaDeFrioPed: String): Promise<Pedido> {
         return this.http.patch(this.pedidoURL + '/' + idPed,
             JSON.stringify({estadoPedido: estadoPed,
                 horaYFechaPedido: horaYFechaPed, cadenaFrioPedido: cadenaDeFrioPed}), {headers: this.headers})
@@ -51,7 +51,7 @@ export class PedidoService {
         .catch(this.handleError);
     }
 
-    deletePedido(idPed: string): Promise<Pedido> {
+    deletePedido(idPed: String): Promise<Pedido> {
         return this.http.delete(this.pedidoURL + '/' + idPed)
         .toPromise()
         .then(response => response.json().obj as Pedido)

@@ -34,6 +34,7 @@ function cargarPedido(req, res) {
             error: err
         });
     }
+    console.log('numeroPedido'); console.log(req.body.numeroPedido);
     if (!req.body.estadoPedido) {
         return res.status(400).json({
             title: 'Error',
@@ -46,6 +47,7 @@ function cargarPedido(req, res) {
             error: err
         });
     }
+    console.log('fechaPedido'); console.log(req.body.horaYFechaPedido);
     if (!req.body.cadenaFrioPedido) {
         return res.status(400).json({
             title: 'Error',
@@ -55,15 +57,16 @@ function cargarPedido(req, res) {
     
   
     var nuevoPedido = new Pedido({
-        numeroPedido: req.body.numeroPedido,
+        numero: req.body.numeroPedido,
         estado: req.body.estadoPedido,
-        horaYFecha: req.body.horaYFechaPedido,
+        hora: req.body.horaYFechaPedido,
         cadenaFrio: req.body.cadenaFrioPedido
         
       
     })
-
+    
     console.log(nuevoPedido);
+    
 
     nuevoPedido.save().then(function (nuevoPedido) {
         res.status(201).json({
@@ -75,12 +78,12 @@ function cargarPedido(req, res) {
         if (err.code == 11000) {
             var msj = ""
             //Catching index name inside errmsg reported by mongo to determine the correct error and showing propper message
-            if (err.errmsg.toString().includes("numero"))
+            if (err.errmsg.toString().includes("idPed"))
                 msj = "Numero Pedido";
            
             return res.status(404).json({
                 title: 'Error',
-                error: msj + ' existente.'
+                error: msj + ' pedido existente.'
             });
         }
         return res.status(404).json({
