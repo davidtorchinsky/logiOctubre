@@ -42,6 +42,8 @@ import { TableModule } from 'primeng/components/table/table';
 import { WINDOW_PROVIDERS } from '../shared/WindowProvider/window.provider';
 import { UrlService } from '../shared/WindowProvider/window.provider.service';
 import { DialogModule } from 'primeng/dialog';
+import { AsignarMedicoComponent } from '../asignar_medico/asignar_medico.component';
+import { AsignarMedicoService } from '../asignar_medico/asignar_medico.service';
 
 
 @NgModule({
@@ -75,7 +77,8 @@ import { DialogModule } from 'primeng/dialog';
         MedicoComponent,
         CalendarioComponent,
         ObraSocialComponent,
-        AsignarMedicamentoComponent
+        AsignarMedicamentoComponent,
+        AsignarMedicoComponent
     ],
     providers: [
         WINDOW_PROVIDERS,
@@ -86,7 +89,8 @@ import { DialogModule } from 'primeng/dialog';
         MedicamentoService,
         PacienteService,
         PedidoService,
-        AsignarMedicamentoService
+        AsignarMedicamentoService,
+        AsignarMedicoService
     ]
 })
 export class LayoutModule {}

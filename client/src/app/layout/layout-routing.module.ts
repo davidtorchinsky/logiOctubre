@@ -11,6 +11,7 @@ import { MedicoComponent } from '../medico/medico.component';
 import { CalendarioComponent } from '../calendario/calendario.component';
 import { ObraSocialComponent } from '../obraSocial/obraSocial.component';
 import { AsignarMedicamentoComponent } from '../asignar_medicamento/asignar_medicamento.component';
+import { AsignarMedicoComponent } from '../asignar_medico/asignar_medico.component';
 
 const routes: Routes = [
     {
@@ -27,7 +28,8 @@ const routes: Routes = [
             { path: 'medicos', component: MedicoComponent },
             { path: 'calendario', component: CalendarioComponent },
             { path: 'obras', component: ObraSocialComponent },
-            { path: 'asignar_medicamento', component: AsignarMedicamentoComponent}
+            { path: 'asignar_medicamento', component: AsignarMedicamentoComponent},
+            {path: 'asignar_medico', component: AsignarMedicoComponent}
 
         ]
     }

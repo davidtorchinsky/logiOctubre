@@ -230,12 +230,84 @@ function cargarConsumicion(req, res) {
     });
 }
 
+
+//Cargar un Medico
+
+function cargarMedico(req, res) {
+    
+    //Asocio el medico al paciente
+    Paciente.findById(req.params.idPaciente, function (err, paciente) {
+        if (err) {
+            return res.status(400).json({
+                title: 'An error occurred',
+                error: err
+            });
+        }
+        if (!paciente) {
+            return res.status(404).json({
+                title: 'Error',
+                error: 'Paciente no encontrado'
+            });
+        }
+
+        paciente.medicos.push({medicos: req.params.idMedico});
+
+        
+
+        paciente.save().then(function (paciente) {
+            res.status(200).json({
+                message: 'Success',
+                obj: paciente
+            });
+        }, function (err) {
+            return res.status(404).json({
+                title: 'Error',
+                error: err
+            });
+        });
+    });
+
+    //Asocio el paciente al Medico
+    Medico.findById(req.params.idMedico, function (err, medico) {
+        if (err) {
+            return res.status(400).json({
+                title: 'An error occurred',
+                error: err
+            });
+        }
+        if (!paciente) {
+            return res.status(404).json({
+                title: 'Error',
+                error: 'Medico no encontrado'
+            });
+        }
+        medico.paciente.push({pacientes: req.params.idPaciente});
+       
+
+        
+
+        medico.save().then(function (medico) {
+            res.status(200).json({
+                message: 'Success',
+                obj: medico
+            });
+        }, function (err) {
+            return res.status(404).json({
+                title: 'Error',
+                error: err
+            });
+        });
+    });
+}
+
+
 // EXPORT
 module.exports = {
     getPacientes,
     cargarPaciente,
     editarPaciente,
     eliminarPaciente,
-    cargarConsumicion
+    cargarConsumicion,
+    cargarMedico
 }
 

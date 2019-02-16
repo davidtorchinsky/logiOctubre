@@ -28,6 +28,12 @@ var PedidoSchema = Schema({
     farmacia:{
         type: Schema.Types.ObjectId,
         ref: 'Farmacia'
+    },
+
+    //Relacion con Medicamento
+    medicamento:{
+        type: Schema.Types.ObjectId,
+        ref: 'Medicamento'
     }
     
 });
