@@ -18,7 +18,7 @@ export class FarmaciaService {
     ) {}
 
     getFarmacias(): Promise<Farmacia[]> {
-      console.log("getFarmacia Servicios");
+      
         return this.http.get(this.farmaciaURL)
         .toPromise()
         .then(response => response.json().obj as Farmacia[])
@@ -49,9 +49,6 @@ export class FarmaciaService {
         direccionFar: string,
         telefonoFar: string,
         emailFar: string): Promise<Farmacia> {
-            console.log("editar farmacia service");
-            console.log(this.farmaciaURL);
-            
         return this.http.patch(this.farmaciaURL,
             JSON.stringify({cuitFarmacia: cuitFar, nombreFarmacia: nombreFar,
             telefonoFarmacia: telefonoFar,direccionFarmacia: direccionFar,

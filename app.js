@@ -23,9 +23,6 @@ var medicamentoRoutes=require('./routes/medicamento');
 var pacienteRoutes=require('./routes/paciente');
 var repartidorRoutes=require('./routes/repartidor'); 
 var pedidoRoutes=require('./routes/pedido');
-var clinicaRoutes=require('./routes/clinica');
-var farmaciaRoutes=require('./routes/farmacia');
-
 
 
 
@@ -36,8 +33,6 @@ app.use('/medicamento', medicamentoRoutes);
 app.use('/paciente', pacienteRoutes);
 app.use('/repartidor', repartidorRoutes);
 app.use('/pedido', pedidoRoutes);
-app.use('/farmacia', farmaciaRoutes);
-app.use('/clinica', clinicaRoutes);
 
 
 app.listen(port, () => console.log('Servidor Corriendo!'));

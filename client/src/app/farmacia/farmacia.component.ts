@@ -87,8 +87,7 @@ export class FarmaciaComponent implements OnInit {
     }
 
   // EDITAR Farmacia
-    editarFarmacia(f: NgForm) {
-      console.log("editar farmacia component");
+    editarPaciente(f: NgForm) {
       this.farmaciaService.editarFarmacia(this.selectedFarmacia._id,
                                       this.selectedFarmacia.nombre,
                                       this.selectedFarmacia.telefono,
@@ -182,10 +181,6 @@ export class FarmaciaComponent implements OnInit {
   }
 
   mostrarModalEditar() {
-    console.log(this.selectedFarmacia);
-    console.log(this.selectedFarmacia.cuit);
-    console.log(this.selectedFarmacia._id);
-
     if (this.selectedFarmacia != null) {
       this.modalEditarFarmacia = true;
     }
