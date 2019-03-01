@@ -10,6 +10,7 @@ api.get('/',FarmaciaController.getFarmacias);
 
 // PATCH MODIFICACION
 api.patch('/:idFarmacia',FarmaciaController.editarFarmacia);
+api.patch('/agregarMedicamento/:idFarmacia/:idMedicamento', FarmaciaController.cargarMedicamento);
 
 // POST ALTA
 api.post('/',FarmaciaController.cargarFarmacia);
