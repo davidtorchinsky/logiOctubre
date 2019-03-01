@@ -56,7 +56,7 @@
                               </tr>
                           </ng-template>
 
-                          <ng-template pTemplate="body" let-paciente let-columns="columns">
+                          <ng-template pTemplate="body" let-farmacia let-columns="columns">
                               <tr [pSelectableRow]="farmacias">
                                   <td *ngFor="let col of columns">
                                           {{farmacia[col.field]}}
@@ -124,7 +124,7 @@
 </div>
 
 <!-- MODAL AGREGAR Farmacia -->
-<p-dialog [(visible)]="modalAgregarFarmacia" [width]="400" [contentStyle]="{'max-height':'40%'}" farmacia="selectedFarmacia" >
+<!-- <p-dialog [(visible)]="modalAgregarFarmacia" [width]="400" [contentStyle]="{'max-height':'40%'}" farmacia="selectedFarmacia" >
   <p-header>
       Nueva Farmacia
   </p-header>
@@ -174,10 +174,10 @@
           </button>
       </p-footer>
   </form>
-</p-dialog>
+</p-dialog> -->
 
 <!-- MODAL EDITAR MEDICO -->
-<p-dialog [(visible)]="modalEditarFarmacia" [width]="500" [contentStyle]="{'max-height':'40%'}" action="#selectedFarmacia" *ngIf="selectedFarmacia">
+<!-- <p-dialog [(visible)]="modalEditarFarmacia" [width]="500" [contentStyle]="{'max-height':'40%'}" action="#selectedFarmacia" *ngIf="selectedFarmacia">
   <p-header>
       Editar Farmacia
   </p-header>
@@ -227,4 +227,4 @@
           </button>
       </p-footer>
   </form>
-</p-dialog>
+</p-dialog> -->

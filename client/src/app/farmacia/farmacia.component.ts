@@ -41,7 +41,7 @@ export class FarmaciaComponent implements OnInit {
 
   // GET Farmacias
     getFarmacias() {
-      this.FarmaciaService.getFarmacias()
+      this.farmaciaService.getFarmacias()
       .then(farmacias => {
           this.farmacias = farmacias;
         
@@ -57,7 +57,7 @@ export class FarmaciaComponent implements OnInit {
       emailFarmacia: string,
       f: NgForm) {
       this.modalAgregarFarmacia = false;
-      this.FarmaciaService.cargarFarmacia(cuitFarmacia, nombreFarmacia,telefonoFarmacia,direccionFarmacia, emailFarmacia)
+      this.farmaciaService.cargarFarmacia(cuitFarmacia, nombreFarmacia,telefonoFarmacia,direccionFarmacia, emailFarmacia)
       .then(farmaciaAgregado => {
         // Muestro un mensajito de Agregado con Éxito
         swal({
@@ -97,7 +97,7 @@ export class FarmaciaComponent implements OnInit {
         // Muestro un mensajito de Actualizado con Éxito
         swal({
           title: 'Actualizado!',
-          text: 'Se ha actualizado el paciente correctamente.',
+          text: 'Se ha actualizado la farmacia correctamente.',
           type: 'success',
           timer: 4000
         }).then(
@@ -145,7 +145,7 @@ export class FarmaciaComponent implements OnInit {
       .then((willDelete) => {
         if (willDelete.value) {
           // SI ACEPTA
-          this.farmaciaService.deletePaciente(this.selectedFarmacia.cuit)
+          this.farmaciaService.deleteFarmacia(this.selectedFarmacia.cuit)
           .then(farmaciaEliminado => {
             swal(
                 'Eliminado!',

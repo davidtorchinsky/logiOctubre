@@ -53,7 +53,15 @@
         </a>
         <a [routerLink]="['/obras']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fas fa-user fa-fw" ></i>&nbsp;
-            obraSocial
+            Obra Social
+        </a>
+        <a [routerLink]="['/clinicas']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fas fa-user fa-fw" ></i>&nbsp;
+            Clicinas
+        </a>
+        <a [routerLink]="['/farmacias']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fas fa-user fa-fw" ></i>&nbsp;
+            Farmacias
         </a>
     </div>
     <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">

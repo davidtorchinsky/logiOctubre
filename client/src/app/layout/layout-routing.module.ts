@@ -31,8 +31,8 @@ const routes: Routes = [
             { path: 'calendario', component: CalendarioComponent },
             { path: 'obras', component: ObraSocialComponent },
             { path: 'asignar_medicamento', component: AsignarMedicamentoComponent},
-            { path: 'farmacia', component: FarmaciaComponent},
-            { path: 'clinica', component: ClinicaComponent},
+            { path: 'farmacias', component: FarmaciaComponent},
+            { path: 'clinicas', component: ClinicaComponent},
             {path: 'asignar_medico', component: AsignarMedicoComponent}
 
         ]
