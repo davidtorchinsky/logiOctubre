@@ -29,7 +29,7 @@ function getClinicas(req, res){
 function cargarClinica(req, res) {
     console.log('CARGAR CLINICA');
 
-    if (!req.body.idClinicaClinica) {
+    if (!req.body.idClinica) {
         return res.status(400).json({
             title: 'Error',
             error: err
@@ -63,11 +63,11 @@ function cargarClinica(req, res) {
     
   
     var nuevoClinica = new Clinica({
-        idClinica: req.body.idClinicaClinica,
+        idClinica: req.body.idClinica,
         nombre: req.body.nombreClinica,
-        email: req.body.emailClinica,
         telefono: req.body.telefonoClinica,
-        direccion: req.body.direccionClinica
+        direccion: req.body.direccionClinica,
+        email: req.body.emailClinica
         
       
     })
@@ -118,10 +118,9 @@ function editarClinica(req, res) {
         }
 
         clinica.nombre = req.body.nombreClinica;
-        clinica.email = req.body.emailClinica;
         clinica.telefono = req.body.telefonoClinica;
         clinica.direccion = req.body.direccionClinica
-        
+        clinica.email = req.body.emailClinica;
 
         clinica.save().then(function (clinica) {
             res.status(200).json({

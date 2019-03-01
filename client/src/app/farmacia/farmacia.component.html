@@ -124,7 +124,7 @@
 </div>
 
 <!-- MODAL AGREGAR Farmacia -->
-<!-- <p-dialog [(visible)]="modalAgregarFarmacia" [width]="400" [contentStyle]="{'max-height':'40%'}" farmacia="selectedFarmacia" >
+<p-dialog [(visible)]="modalAgregarFarmacia" [width]="400" [contentStyle]="{'max-height':'40%'}" farmacia="selectedFarmacia" >
   <p-header>
       Nueva Farmacia
   </p-header>
@@ -174,10 +174,10 @@
           </button>
       </p-footer>
   </form>
-</p-dialog> -->
+</p-dialog>
 
 <!-- MODAL EDITAR MEDICO -->
-<!-- <p-dialog [(visible)]="modalEditarFarmacia" [width]="500" [contentStyle]="{'max-height':'40%'}" action="#selectedFarmacia" *ngIf="selectedFarmacia">
+<p-dialog [(visible)]="modalEditarFarmacia" [width]="500" [contentStyle]="{'max-height':'40%'}" action="#selectedFarmacia" *ngIf="selectedFarmacia">
   <p-header>
       Editar Farmacia
   </p-header>
@@ -185,9 +185,18 @@
   <form name="form" (ngSubmit)="f.form.valid && editarFarmacia(f);" #f="ngForm" novalidate >
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !cuitFarmacia.valid }" >
           <label for="cuitFarmacia">CUIT:</label>
-          <input type="text" class="form-control" name="cuitFarmacia" [(ngModel)]="selectedFarmacia.cuitFarmacia" #cuitFarmacia="ngModel" disabled />
+          <input type="text" class="form-control" name="cuitFarmacia" [(ngModel)]="selectedFarmacia.cuit" #cuitFarmacia="ngModel" disabled />
           <div *ngIf="f.submitted && !cuitFarmacia.valid" role="alert" class="alert alert-danger">Ingresar el cuit de la Farmacia</div>
       </div>
+
+      <form name="form" (ngSubmit)="f.form.valid && editarMedico(f);" #f="ngForm" novalidate >
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !dniMedico.valid }" >
+            <label for="dniMedico">DNI:</label>
+            <input type="text" class="form-control" name="dniMedico" [(ngModel)]="selectedMedico.dni" #dniMedico="ngModel" disabled />
+            <div *ngIf="f.submitted && !dniMedico.valid" role="alert" class="alert alert-danger">Ingresar el DNI del Medico</div>
+        </div>
+
+
 
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !nombreFarmacia.valid }">
           <label for="nombreFarmacia">Nombre:</label>
@@ -198,7 +207,7 @@
     
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !telefonoFarmacia.valid }">
         <label for="telefonoFarmacia">Telefono:</label>
-        <input type="text" class="form-control" name="telefonoFarmacia" [(ngModel)]="model.telefonoFarmacia" #telefonoFarmacia="ngModel" autocomplete="off" required />
+        <input type="text" class="form-control" name="telefonoFarmacia" [(ngModel)]="selectedFarmacia.telefono" #telefonoFarmacia="ngModel" autocomplete="off" required />
         <div *ngIf="f.submitted && !telefonoFarmacia.valid" role="alert" class="alert alert-danger">Ingresar el Telefono de la Farmacia</div>
     </div>
 
@@ -206,13 +215,13 @@
 
   <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !direccionFarmacia.valid }">
         <label for="direccionFarmacia">Direccion:</label>
-        <input type="text" class="form-control" name="direccionFarmacia" [(ngModel)]="model.direccionFarmacia" #direccionFarmacia="ngModel" autocomplete="off" required />
+        <input type="text" class="form-control" name="direccionFarmacia" [(ngModel)]="selectedFarmacia.direccion" #direccionFarmacia="ngModel" autocomplete="off" required />
         <div *ngIf="f.submitted && !direccionFarmacia.valid" role="alert" class="alert alert-danger">Ingresar la direccion</div>
   </div>
 
     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !emailFarmacia.valid }">
         <label for="emailFarmacia">Email:</label>
-        <input type="text" class="form-control" name="emailFarmacia" [(ngModel)]="model.emailFarmacia" #emailFarmacia="ngModel" autocomplete="off" required />
+        <input type="text" class="form-control" name="emailFarmacia" [(ngModel)]="selectedFarmacia.email" #emailFarmacia="ngModel" autocomplete="off" required />
         <div *ngIf="f.submitted && !emailFarmacia.valid" role="alert" class="alert alert-danger">Ingresar email</div>
     </div>
       
@@ -227,4 +236,4 @@
           </button>
       </p-footer>
   </form>
-</p-dialog> -->
+</p-dialog>

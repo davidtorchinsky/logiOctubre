@@ -86,7 +86,11 @@ export class MedicoComponent implements OnInit {
     }
 
   // EDITAR MEDICOS
+ 
+
+
     editarMedico(f: NgForm) {
+    
       this.medicoService.editarMedico(this.selectedMedico._id,
                                       this.selectedMedico.nombre,
                                       this.selectedMedico.apellido,
@@ -179,6 +183,8 @@ export class MedicoComponent implements OnInit {
   }
 
   mostrarModalEditar() {
+    console.log(this.selectedMedico);
+    console.log(this.selectedMedico.dni);
     if (this.selectedMedico != null) {
       this.modalEditarMedico = true;
     }

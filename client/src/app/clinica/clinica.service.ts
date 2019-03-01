@@ -35,7 +35,7 @@ export class ClinicaService {
             
 
         return this.http.post(this.clinicaURL,
-            JSON.stringify({cuitClinica: cuitFar, nombreClinica: nombreFar,
+            JSON.stringify({idClinica: cuitFar, nombreClinica: nombreFar,
             telefonoClinica: telefonoFar,direccionClinica: direccionFar,
                 emailClinica: emailFar}), {headers: this.headers})
         .toPromise()
@@ -50,7 +50,7 @@ export class ClinicaService {
         telefonoFar: string,
         emailFar: string): Promise<Clinica> {
         return this.http.patch(this.clinicaURL,
-            JSON.stringify({cuitClinica: cuitFar, nombreClinica: nombreFar,
+            JSON.stringify({idClinica: cuitFar, nombreClinica: nombreFar,
             telefonoClinica: telefonoFar,direccionClinica: direccionFar,
                 emailClinica: emailFar}), {headers: this.headers})
         .toPromise()

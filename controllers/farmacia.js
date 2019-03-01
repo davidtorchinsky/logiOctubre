@@ -1,11 +1,11 @@
 'use strict'
 
 var Farmacia = require('../models/farmacia');
-var Medico = require('../models/pedido');
+
 
 // FUNCIONES
 function getFarmacias(req, res){
-    console.log('- GET PACIENTES -');
+    console.log('- GET FARMACIAS -');
     Farmacia.find({}, function (err, farmacias) {
         if (err) {
             return res.status(400).json({
@@ -99,8 +99,6 @@ function cargarFarmacia(req, res) {
 
 function editarFarmacia(req, res) {
     console.log('EDITAR FARMACIA');
-    console.log(req.params.idFarmacia);
-    console.log(req.body.idFarmacia);
     Farmacia.findById(req.params.idFarmacia, function (err, farmacia) {
         if (err) {
             return res.status(400).json({
@@ -209,7 +207,8 @@ module.exports = {
     getFarmacias,
     editarFarmacia,
     eliminarFarmacia,
-    cargarMedicamento
+    cargarMedicamento,
+    cargarFarmacia
     
 }
 
