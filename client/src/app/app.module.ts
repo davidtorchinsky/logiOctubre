@@ -17,6 +17,8 @@ import { SharedModule, PanelModule } from 'primeng/primeng';
 import { ButtonModule } from 'primeng/button';
 import { DataTableModule } from 'primeng/primeng';
 import { TableModule } from 'primeng/components/table/table';
+//import { ClinicaComponent } from './clinica/clinica.component';
+//import { FarmaciaComponent } from './farmacia/farmacia.component';
 //import { CalendarioComponent } from './calendario/calendario.component';
 
 

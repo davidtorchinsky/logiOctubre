@@ -1,0 +1,230 @@
+
+<div [@routerTransition]>
+  <div id="page-wrapper">
+      <div class="row">
+          <div class="col-lg-12">
+              <div class='page-header'>
+                  <h2>Farmacia</h2>
+              </div>
+          </div>
+      </div>
+
+      <div class="row">
+          <div class="col-lg-12">
+              <div class="card card-default mb-3">
+                  <div class="card-header">
+                      <div>
+                          <a>
+                              <strong style="text-decoration: none;color: #333;">Administración de Farmacias</strong>
+                              <div class = 'pull-left'>
+                              </div>
+                          </a>
+                          <button
+                              pButton
+                              class="ui-button-primario pull-right"
+                              label="Nueva Farmacia"
+                              icon="fas fa-plus"
+                              (click)="mostrarModalAgregarFarmacia()">
+                          </button>
+                      </div>
+                  </div>
+                  <div class="card-body">
+                      <p-table #dt [columns]="cols" [value]="farmacias" selectionMode="single" [(selection)]="selectedFarmacia">
+                          <ng-template pTemplate="caption">
+                               <div style="text-align: right">        
+                                  <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                  <input type="text" pInputText size="50" placeholder="Filtro" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                              </div>
+                          </ng-template>
+                          <ng-template pTemplate="header" let-columns>
+                              <tr>
+                                  <th *ngFor="let col of columns">
+                                      {{col.header}}
+                                  </th>
+                              </tr>
+                              <tr>
+                                <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                                   <input *ngSwitchCase="'cuit'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" 
+                                   style="width:100%">
+                                   <input *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                   <input *ngSwitchCase="'telefono'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                   <input *ngSwitchCase="'direccion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                   <input *ngSwitchCase="'email'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+
+                                  
+                                </th>
+                              </tr>
+                          </ng-template>
+
+                          <ng-template pTemplate="body" let-farmacia let-columns="columns">
+                              <tr [pSelectableRow]="farmacias">
+                                  <td *ngFor="let col of columns">
+                                          {{farmacia[col.field]}}
+                                  </td>
+                              </tr>
+                          </ng-template>
+                      </p-table>
+              
+                      
+
+                  </div>
+                  <div class="card-footer">
+                      <div class="pull-right">
+                          <!--Boton Editar (Deshabilitado)-->
+                              <button
+                                  pButton
+                                  *ngIf="!selectedFarmacia"
+                                  class="ui-button-warning"
+                                  label="Editar"
+                                  icon="fas fa-pencil-alt"
+                                  disabled>
+                              </button>
+
+                          <!--Boton Editar (Habilitado)-->
+                              <button
+                                  pButton
+                                  *ngIf="selectedFarmacia"
+                                  class="ui-button-warning"
+                                  label="Editar"
+                                  icon="fas fa-pencil-alt"
+                                  data-toggle="modal"
+                                  data-target="#"
+                              (click)="mostrarModalEditar(selectedFarmacia)">
+                              </button>
+                          
+                          &nbsp;
+                      
+                          <!--Boton Eliminar (Deshabilitado)-->
+                              <button
+                                  pButton
+                                  *ngIf="!selectedFarmacia"
+                                  class="ui-button-danger"
+                                  label="Eliminar"
+                                  icon="fas fa-times"
+                                  disabled>
+                              </button>
+
+                          <!--Boton Eliminar (Habilitado)-->
+                              <button
+                                  pButton
+                                  *ngIf="selectedFarmacia"
+                                  class="ui-button-danger"
+                                  label="Eliminar"
+                                  icon="fas fa-times"
+                                  data-toggle="modal"
+                                  data-target="#"
+                                  (click)="eliminarFarmacia()">
+                              </button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- MODAL AGREGAR Farmacia -->
+<!-- <p-dialog [(visible)]="modalAgregarFarmacia" [width]="400" [contentStyle]="{'max-height':'40%'}" farmacia="selectedFarmacia" >
+  <p-header>
+      Nueva Farmacia
+  </p-header>
+
+  <form name="form" (ngSubmit)="f.form.valid && cargarFarmacia(cuitFarmacia.value,nombreFarmacia.value, telefonoFarmacia.value,direccionFarmacia.value, emailFarmacia.value, f);" #f="ngForm" novalidate>
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !cuitFarmacia.valid }">
+          <label for="cuitFarmacia">CUIT:</label>
+          <input type="text" class="form-control" name="cuitFarmacia" [(ngModel)]="model.cuitFarmacia" #cuitFarmacia="ngModel" autocomplete="off" required />
+          <div *ngIf="f.submitted && !cuitFarmacia.valid" role="alert" class="alert alert-danger">Ingresar el cuit de la farmacia</div>
+      </div>
+
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !nombreFarmacia.valid }">
+          <label for="nombreFarmacia">Nombre:</label>
+          <input type="text" class="form-control" name="nombreFarmacia" [(ngModel)]="model.nombreFarmacia" #nombreFarmacia="ngModel" autocomplete="off" required />
+          <div *ngIf="f.submitted && !nombreFarmacia.valid" role="alert" class="alert alert-danger">Ingresar el Nombre de la Farmacia</div>
+      </div>
+
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !telefonoFarmacia.valid }">
+          <label for="telefonoFarmacia">Telefono:</label>
+          <input type="text" class="form-control" name="telefonoFarmacia" [(ngModel)]="model.telefonoFarmacia" #telefonoFarmacia="ngModel" autocomplete="off" required />
+          <div *ngIf="f.submitted && !telefonoFarmacia.valid" role="alert" class="alert alert-danger">Ingresar el Telefono de la Farmacia</div>
+      </div>
+
+      
+
+    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !direccionFarmacia.valid }">
+          <label for="direccionFarmacia">Direccion:</label>
+          <input type="text" class="form-control" name="direccionFarmacia" [(ngModel)]="model.direccionFarmacia" #direccionFarmacia="ngModel" autocomplete="off" required />
+          <div *ngIf="f.submitted && !direccionFarmacia.valid" role="alert" class="alert alert-danger">Ingresar la direccion</div>
+    </div>
+
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !emailFarmacia.valid }">
+          <label for="emailFarmacia">Email:</label>
+          <input type="text" class="form-control" name="emailFarmacia" [(ngModel)]="model.emailFarmacia" #emailFarmacia="ngModel" autocomplete="off" required />
+          <div *ngIf="f.submitted && !emailFarmacia.valid" role="alert" class="alert alert-danger">Ingresar email</div>
+      </div>
+
+    
+  
+      <p-footer>
+          <button
+              pButton
+              class="ui-button-success"
+              label="Aceptar"
+              icon="fas fa-check"
+              type="submit">
+          </button>
+      </p-footer>
+  </form>
+</p-dialog> -->
+
+<!-- MODAL EDITAR MEDICO -->
+<!-- <p-dialog [(visible)]="modalEditarFarmacia" [width]="500" [contentStyle]="{'max-height':'40%'}" action="#selectedFarmacia" *ngIf="selectedFarmacia">
+  <p-header>
+      Editar Farmacia
+  </p-header>
+  
+  <form name="form" (ngSubmit)="f.form.valid && editarFarmacia(f);" #f="ngForm" novalidate >
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !cuitFarmacia.valid }" >
+          <label for="cuitFarmacia">CUIT:</label>
+          <input type="text" class="form-control" name="cuitFarmacia" [(ngModel)]="selectedFarmacia.cuitFarmacia" #cuitFarmacia="ngModel" disabled />
+          <div *ngIf="f.submitted && !cuitFarmacia.valid" role="alert" class="alert alert-danger">Ingresar el cuit de la Farmacia</div>
+      </div>
+
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !nombreFarmacia.valid }">
+          <label for="nombreFarmacia">Nombre:</label>
+          <input type="text" class="form-control" name="nombreFarmacia" [(ngModel)]="selectedFarmacia.nombre" #nombreFarmacia="ngModel" autocomplete="off" required />
+          <div *ngIf="f.submitted && !nombreFarmacia.valid" role="alert" class="alert alert-danger">Ingresar el Nombre de la farmacia</div>
+      </div>
+
+    
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !telefonoFarmacia.valid }">
+        <label for="telefonoFarmacia">Telefono:</label>
+        <input type="text" class="form-control" name="telefonoFarmacia" [(ngModel)]="model.telefonoFarmacia" #telefonoFarmacia="ngModel" autocomplete="off" required />
+        <div *ngIf="f.submitted && !telefonoFarmacia.valid" role="alert" class="alert alert-danger">Ingresar el Telefono de la Farmacia</div>
+    </div>
+
+    
+
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !direccionFarmacia.valid }">
+        <label for="direccionFarmacia">Direccion:</label>
+        <input type="text" class="form-control" name="direccionFarmacia" [(ngModel)]="model.direccionFarmacia" #direccionFarmacia="ngModel" autocomplete="off" required />
+        <div *ngIf="f.submitted && !direccionFarmacia.valid" role="alert" class="alert alert-danger">Ingresar la direccion</div>
+  </div>
+
+    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !emailFarmacia.valid }">
+        <label for="emailFarmacia">Email:</label>
+        <input type="text" class="form-control" name="emailFarmacia" [(ngModel)]="model.emailFarmacia" #emailFarmacia="ngModel" autocomplete="off" required />
+        <div *ngIf="f.submitted && !emailFarmacia.valid" role="alert" class="alert alert-danger">Ingresar email</div>
+    </div>
+      
+      <p-footer>
+          <button
+              pButton
+              class="ui-button-success"
+              label="Aceptar"
+              icon="fas fa-check"
+              type="submit"
+              (click)="cerrarModalEditar()">
+          </button>
+      </p-footer>
+  </form>
+</p-dialog> -->

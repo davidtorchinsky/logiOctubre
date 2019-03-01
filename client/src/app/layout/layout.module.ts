@@ -21,6 +21,8 @@ import { MedicoComponent } from '../medico/medico.component';
 import { CalendarioComponent } from '../calendario/calendario.component';
 import { ObraSocialComponent } from '../obraSocial/obraSocial.component';
 import { AsignarMedicamentoComponent } from '../asignar_medicamento/asignar_medicamento.component';
+import { FarmaciaComponent } from '../farmacia/farmacia.component';
+import { ClinicaComponent } from '../clinica/clinica.component';
 
 
 // SERVICIOS
@@ -31,6 +33,8 @@ import { MedicamentoService} from '../medicamento/medicamento.service';
 import {PacienteService} from '../paciente/paciente.service';
 import {PedidoService} from '../pedido/pedido.service';
 import { AsignarMedicamentoService } from '../asignar_medicamento/asignar_medicamento.service';
+import { FarmaciaService } from '../farmacia/farmacia.service';
+import { ClinicaService } from '../clinica/clinica.service';
 
 
 // PrimeNG
@@ -77,6 +81,8 @@ import { AsignarMedicoService } from '../asignar_medico/asignar_medico.service';
         MedicoComponent,
         CalendarioComponent,
         ObraSocialComponent,
+        FarmaciaComponent,
+        ClinicaComponent,
         AsignarMedicamentoComponent,
         AsignarMedicoComponent
     ],
@@ -90,6 +96,8 @@ import { AsignarMedicoService } from '../asignar_medico/asignar_medico.service';
         PacienteService,
         PedidoService,
         AsignarMedicamentoService,
+        FarmaciaService,
+        ClinicaService,
         AsignarMedicoService
     ]
 })
