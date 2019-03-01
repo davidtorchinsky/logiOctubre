@@ -287,7 +287,7 @@ function cargarMedico(req, res) {
                 error: 'Medico no encontrado'
             });
         }
-        medico.pacientes.push(req.params.idPaciente);
+        medico.pacientes.push(req.params.idPaciente );
        
 
         

@@ -1,18 +1,19 @@
 'use strict'
 
-var Pedido = require('../models/pedido');
+var Clinica = require('../models/clinica');
+var Medico = require('../models/medico');
 
 // FUNCIONES
-function getPedidos(req, res){
-    console.log('- GET PEDIDOS -');
-    Pedido.find({}, function (err, pedidos) {
+function getClinicas(req, res){
+    console.log('- GET CLINICAS -');
+    Clinica.find({}, function (err, clinicas) {
         if (err) {
             return res.status(400).json({
                 title: 'Error',
                 error: err
             });
         }
-        if (!pedidos) {
+        if (!clinicas) {
             return res.status(404).json({
                 title: 'Error',
                 error: err
@@ -20,70 +21,75 @@ function getPedidos(req, res){
         }
         res.status(200).json({
             message: 'Success',
-            obj: pedidos
+            obj: clinicas
         });
     });
 }
 
-function cargarPedido(req, res) {
-    console.log('CARGAR PEDIDO');
+function cargarClinica(req, res) {
+    console.log('CARGAR CLINICA');
 
-    if (!req.body.numeroPedido) {
+    if (!req.body.idClinicaClinica) {
         return res.status(400).json({
             title: 'Error',
             error: err
         });
     }
-    console.log('numeroPedido'); console.log(req.body.numeroPedido);
-    if (!req.body.estadoPedido) {
+    if (!req.body.nombreClinica) {
         return res.status(400).json({
             title: 'Error',
             error: err
         });
     }
-    if (!req.body.horaYFechaPedido) {
+    if (!req.body.emailClinica) {
         return res.status(400).json({
             title: 'Error',
             error: err
         });
     }
-    console.log('fechaPedido'); console.log(req.body.horaYFechaPedido);
-    if (!req.body.cadenaFrioPedido) {
+    if (!req.body.telefonoClinica) {
+        return res.status(400).json({
+            title: 'Error',
+            error: err
+        });
+    }
+    if (!req.body.direccionClinica) {
         return res.status(400).json({
             title: 'Error',
             error: err
         });
     }
     
+    
   
-    var nuevoPedido = new Pedido({
-        numero: req.body.numeroPedido,
-        estado: req.body.estadoPedido,
-        hora: req.body.horaYFechaPedido,
-        cadenaFrio: req.body.cadenaFrioPedido
+    var nuevoClinica = new Clinica({
+        idClinica: req.body.idClinicaClinica,
+        nombre: req.body.nombreClinica,
+        email: req.body.emailClinica,
+        telefono: req.body.telefonoClinica,
+        direccion: req.body.direccionClinica
         
       
     })
-    
-    console.log(nuevoPedido);
-    
 
-    nuevoPedido.save().then(function (nuevoPedido) {
+    console.log(nuevoClinica);
+
+    nuevoClinica.save().then(function (nuevoClinica) {
         res.status(201).json({
-            message: 'Pedido creado',
-            obj: nuevoPedido
+            message: 'Clinica creado',
+            obj: nuevoClinica
         });
 
     }, function (err) {
         if (err.code == 11000) {
             var msj = ""
             //Catching index name inside errmsg reported by mongo to determine the correct error and showing propper message
-            if (err.errmsg.toString().includes("idPed"))
-                msj = "Numero Pedido";
+            if (err.errmsg.toString().includes("idClinica"))
+                msj = "idClinica Clinica";
            
             return res.status(404).json({
                 title: 'Error',
-                error: msj + ' pedido existente.'
+                error: msj + ' existente.'
             });
         }
         return res.status(404).json({
@@ -93,32 +99,34 @@ function cargarPedido(req, res) {
     });
 }
 
-function editarPedido(req, res) {
-    console.log('EDITAR PEDIDO');
-    console.log(req.params.idPedido);
-    console.log(req.body.idPedido);
-    Pedido.findById(req.params.idPedido, function (err, pedido) {
+function editarClinica(req, res) {
+    console.log('EDITAR CLINICA');
+    console.log(req.params.idClinica);
+    console.log(req.body.idClinica);
+    Clinica.findById(req.params.idClinica, function (err, clinica) {
         if (err) {
             return res.status(400).json({
                 title: 'An error occurred',
                 error: err
             });
         }
-        if (!pedido) {
+        if (!clinica) {
             return res.status(404).json({
                 title: 'Error',
-                error: 'Pedido no encontrado'
+                error: 'Clinica no encontrado'
             });
         }
 
-        pedido.estado = req.body.estadoPedido;
-        pedido.horaYFecha = req.body.horaYFechaPedido;
-        pedido.cadenaFrio = req.body.cadenaFrioPedido;        
+        clinica.nombre = req.body.nombreClinica;
+        clinica.email = req.body.emailClinica;
+        clinica.telefono = req.body.telefonoClinica;
+        clinica.direccion = req.body.direccionClinica
+        
 
-        pedido.save().then(function (pedido) {
+        clinica.save().then(function (clinica) {
             res.status(200).json({
                 message: 'Success',
-                obj: pedido
+                obj: clinica
             });
         }, function (err) {
             return res.status(404).json({
@@ -129,20 +137,20 @@ function editarPedido(req, res) {
     });
 }
 
-function eliminarPedido(req, res){
+function eliminarClinica(req, res){
 
-    console.log('ELIMINAR pedido');
+    console.log('ELIMINAR clinica');
         
-    console.log(req.params.idPedidos);
+    console.log(req.params.idClinica);
 
 
-    Pedido.findOne({'_id': req.params.idPedido})
-    .exec(function (err, pedido) {
-        if (pedido) {
-            pedido.remove().then(function (pedidoEliminado) {
+    Clinica.findOne({'_id': req.params.idClinica})
+    .exec(function (err, clinica) {
+        if (clinica) {
+            clinica.remove().then(function (clinicaEliminado) {
                 return res.status(200).json({
-                    message: 'pedido eliminado correctamente',
-                    obj: pedidoEliminado
+                    message: 'clinica eliminado correctamente',
+                    obj: clinicaEliminado
                 });
             }, function (err) {
                 return res.status(400).json({
@@ -158,15 +166,18 @@ function eliminarPedido(req, res){
             });
         }
     });
-    //crear los enlaces a las demas tablas.
 }
+
+
+
+
+
 
 
 // EXPORT
 module.exports = {
-    getPedidos,
-    cargarPedido,
-    editarPedido,
-    eliminarPedido
+    getClinicas,
+    cargarClinica,
+    editarClinica,
+    eliminarClinica
 }
-

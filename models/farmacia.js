@@ -17,7 +17,12 @@ var FarmaciaSchema = Schema({
     pedido:{
         type: Schema.Types.ObjectId,
         ref: 'Pedido'
-}
+    },
+    //Relacion con medicamento
+    medicamento:[{
+        type: Schema.Types.ObjectId,
+        ref: 'Medicamento'
+    }]
 });
 var Farmacia = mongoose.model('farmacias', FarmaciaSchema);
 

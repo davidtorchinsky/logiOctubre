@@ -3,13 +3,6 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
-
-
-
-
-
-
-
 //Esquema Medico
 var MedicoSchema = Schema({
     dni: {

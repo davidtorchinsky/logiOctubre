@@ -2,9 +2,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-
-
-
 //Esquema Clinica
 var ClinicaSchema = Schema({
     idClinica: {

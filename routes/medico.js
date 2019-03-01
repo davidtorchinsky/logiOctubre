@@ -10,6 +10,7 @@ api.get('/',MedicoController.getMedicos);
 
 // PATCH
 api.patch('/:idMedico',MedicoController.editarMedico);
+api.patch('/agregarClinica/:idMedico/:idClinica', PacienteController.cargarMedico);
 
 // POST
 api.post('/',MedicoController.cargarMedico);

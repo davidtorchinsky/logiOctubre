@@ -1,6 +1,7 @@
 'use strict'
 
 var Medico = require('../models/medico');
+var Clinica = require('../models/clinica');
 
 // FUNCIONES
 function getMedicos(req, res){
@@ -155,11 +156,88 @@ function eliminarMedico(req, res){
     });
 }
 
+//Cargar una Clinica
+
+function cargarClinica(req, res) {
+    console.log("entre cargar clinica");
+    
+    //Asocio la clinica al medico
+    Medico.findById(req.params.idMedico, function (err, medico) {
+        if (err) {
+            return res.status(400).json({
+                title: 'An error occurred',
+                error: err
+            });
+        }
+        if (!medico) {
+            return res.status(404).json({
+                title: 'Error',
+                error: 'Medico no encontrado'
+            });
+        }
+
+        console.log("clinicas: "+req.params.idClinica);
+        medicos.clinicas.push(req.params.idClinica);
+       
+
+        
+
+        medico.save().then(function (medico) {
+            res.status(200).json({
+                message: 'Success',
+                obj: medico
+            });
+        }, function (err) {
+            return res.status(404).json({
+                title: 'Error',
+                error: err
+            });
+        });
+    });
+
+    //Asocio el medico a la clinica
+
+    console.log("salida 3");
+    Clinica.findById(req.params.idClinica, function (err, clinica) {
+        if (err) {
+            return res.status(400).json({
+                title: 'An error occurred',
+                error: err
+            });
+        }
+        if (!clinica) {
+            return res.status(404).json({
+                title: 'Error',
+                error: 'Clinica no encontrada'
+            });
+        }
+        clinica.medico.push(req.params.idMedico );
+       
+
+        
+
+        clinica.save().then(function (clinica) {
+            res.status(200).json({
+                message: 'Success',
+                obj: clinica
+            });
+        }, function (err) {
+            return res.status(404).json({
+                title: 'Error',
+                error: err
+            });
+        });
+    });
+}
+
+
+
 // EXPORT
 module.exports = {
     getMedicos,
     cargarMedico,
     editarMedico,
-    eliminarMedico
+    eliminarMedico, 
+    cargarClinica
 }
 
