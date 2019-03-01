@@ -10,8 +10,8 @@ api.get('/',PacienteController.getPacientes);
 
 // PATCH MODIFICACION
 api.patch('/:idPaciente',PacienteController.editarPaciente);
-api.patch('/:idPaciente/:idMedicamento', PacienteController.cargarConsumicion);
-api.patch('/:idPaciente/:idMedico', PacienteController.cargarMedico);
+api.patch('/agregarMedicamento/:idPaciente/:idMedicamento', PacienteController.cargarConsumicion);
+api.patch('/agregarMedico/:idPaciente/:idMedico', PacienteController.cargarMedico);
 
 // POST ALTA
 api.post('/',PacienteController.cargarPaciente);

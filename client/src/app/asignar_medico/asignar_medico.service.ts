@@ -15,7 +15,9 @@ export class AsignarMedicoService {
     ) {}
 
     cargarMedico(idPaciente: string, idMedico: string): Promise <Paciente> {
-        return this.http.patch(this.pacienteURL + '/' + idPaciente + '/' + idMedico,
+        console.log("entre a service asignar medico/n " + this.pacienteURL + '/'+ 'agregarMedico/' + idPaciente + '/' + idMedico);
+        
+        return this.http.patch(this.pacienteURL + '/'+ 'agregarMedico/' + idPaciente + '/' + idMedico,
             JSON.stringify({}), {headers: this.headers})
         .toPromise()
         .then(response => response.json().obj as Paciente)

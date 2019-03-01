@@ -35,7 +35,7 @@ app.use('/repartidor', repartidorRoutes);
 app.use('/pedido', pedidoRoutes);
 
 
-app.listen(port, () => console.log('Servidor Corriendo!'))
+app.listen(port, () => console.log('Servidor Corriendo!'));
 
 const mysql = require('mysql');//se conecta a la bd
 

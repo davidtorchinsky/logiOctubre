@@ -1,6 +1,7 @@
 'use strict'
 
 var Paciente = require('../models/paciente');
+var Medico = require('../models/medico');
 
 // FUNCIONES
 function getPacientes(req, res){
@@ -181,6 +182,7 @@ function eliminarPaciente(req, res){
 }
 
 function cargarConsumicion(req, res) {
+    console.log("entre consumicion");
     if (!req.body.frecuencia) {
         return res.status(400).json({
             title: 'Error',
@@ -234,6 +236,7 @@ function cargarConsumicion(req, res) {
 //Cargar un Medico
 
 function cargarMedico(req, res) {
+    console.log("entre cargar medico");
     
     //Asocio el medico al paciente
     Paciente.findById(req.params.idPaciente, function (err, paciente) {
@@ -250,7 +253,8 @@ function cargarMedico(req, res) {
             });
         }
 
-        paciente.medicos.push({medicos: req.params.idMedico});
+        console.log("medicos: "+req.params.idMedico);
+        paciente.medicos.push(req.params.idMedico);
 
         
 
@@ -268,6 +272,8 @@ function cargarMedico(req, res) {
     });
 
     //Asocio el paciente al Medico
+
+    console.log("salida 3");
     Medico.findById(req.params.idMedico, function (err, medico) {
         if (err) {
             return res.status(400).json({
@@ -275,13 +281,13 @@ function cargarMedico(req, res) {
                 error: err
             });
         }
-        if (!paciente) {
+        if (!medico) {
             return res.status(404).json({
                 title: 'Error',
                 error: 'Medico no encontrado'
             });
         }
-        medico.paciente.push({pacientes: req.params.idPaciente});
+        medico.pacientes.push(req.params.idPaciente);
        
 
         

@@ -15,7 +15,8 @@ export class AsignarMedicamentoService {
     ) {}
 
     cargarConsumicion(idPaciente: string, idMedicamento: string, frec: number, cantC: number): Promise <Paciente> {
-        return this.http.patch(this.pacienteURL + '/' + idPaciente + '/' + idMedicamento,
+        
+        return this.http.patch(this.pacienteURL + '/'+'agregarMedicamento/'  + idPaciente + '/' + idMedicamento,
             JSON.stringify({frecuencia: frec, cantidadConsumicion: cantC}), {headers: this.headers})
         .toPromise()
         .then(response => response.json().obj as Paciente)

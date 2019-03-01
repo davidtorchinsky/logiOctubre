@@ -73,11 +73,8 @@ export class AsignarMedicoComponent implements OnInit {
       });
   }
 
-  cargarMedico(frecuencia: number, cantComp: number, f: NgForm) {
-   
-
-    this.asignarMedicoService.cargarMedico(this.selectedPaciente._id,
-                                                    this.selectedMedico._id);
+  cargarMedico() {
+    this.asignarMedicoService.cargarMedico(this.selectedPaciente._id,this.selectedMedico._id);
   }
 
   
