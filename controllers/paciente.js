@@ -2,6 +2,7 @@
 
 var Paciente = require('../models/paciente');
 var Medico = require('../models/medico');
+var Obra=require('../models/obras')
 
 // FUNCIONES
 function getPacientes(req, res){
@@ -307,6 +308,82 @@ function cargarMedico(req, res) {
 }
 
 
+
+
+
+//Cargar una obra social
+function cargarObra(req, res) {
+    console.log("entre cargar medico");
+    
+    //Asocio la obra social al paciente
+    Paciente.findById(req.params.idPaciente, function (err, paciente) {
+        if (err) {
+            return res.status(400).json({
+                title: 'An error occurred',
+                error: err
+            });
+        }
+        if (!paciente) {
+            return res.status(404).json({
+                title: 'Error',
+                error: 'Paciente no encontrado'
+            });
+        }
+
+        console.log("obras: "+req.params.idObra);
+        paciente.obras.push(req.params.idObra);
+
+        
+
+        paciente.save().then(function (paciente) {
+            res.status(200).json({
+                message: 'Success',
+                obj: paciente
+            });
+        }, function (err) {
+            return res.status(404).json({
+                title: 'Error',
+                error: err
+            });
+        });
+    });
+
+    //Asocio el paciente a la Obra Social
+
+    console.log("salida 3");
+    Obra.findById(req.params.idObra, function (err, obra) {
+        if (err) {
+            return res.status(400).json({
+                title: 'An error occurred',
+                error: err
+            });
+        }
+        if (!obra) {
+            return res.status(404).json({
+                title: 'Error',
+                error: 'Medico no encontrado'
+            });
+        }
+        obra.pacientes.push(req.params.idPaciente );
+       
+
+        
+
+        obra.save().then(function (obra) {
+            res.status(200).json({
+                message: 'Success',
+                obj: obra
+            });
+        }, function (err) {
+            return res.status(404).json({
+                title: 'Error',
+                error: err
+            });
+        });
+    });
+}
+
+
 // EXPORT
 module.exports = {
     getPacientes,
@@ -314,6 +391,7 @@ module.exports = {
     editarPaciente,
     eliminarPaciente,
     cargarConsumicion,
-    cargarMedico
+    cargarMedico,
+    cargarObra
 }
 

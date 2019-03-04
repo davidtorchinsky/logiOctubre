@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 //Esquema Clinica
 var ClinicaSchema = Schema({
-    idClinica: {
+    cuit: {
         type: String,
         unique: true
     },

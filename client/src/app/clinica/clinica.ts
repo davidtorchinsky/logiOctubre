@@ -1,6 +1,6 @@
 export class Clinica {
     _id: string;
-    idClinica: string;
+    cuit: string;
     nombre: string;
     direccion: string;
     telefono: string;

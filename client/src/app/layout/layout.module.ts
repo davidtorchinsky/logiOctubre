@@ -48,6 +48,12 @@ import { UrlService } from '../shared/WindowProvider/window.provider.service';
 import { DialogModule } from 'primeng/dialog';
 import { AsignarMedicoComponent } from '../asignar_medico/asignar_medico.component';
 import { AsignarMedicoService } from '../asignar_medico/asignar_medico.service';
+import { AsignarObraComponent } from '../asignar_obra/asignar_obra.component';
+import { AsignarObraSocialService } from '../asignar_obra/asignar_obra.service';
+import { AsignarClinicaService } from '../asignar_clinica/asignar_clinica.service';
+import { AsignarClinicaComponent } from '../asignar_clinica/asignar_clinica.component';
+import { AsignarMedicamentoFarmaciaComponent } from '../asignar_medicamento_farmacia/asignar_medicamento_farmacia.component';
+import { AsignarMedicamentoFarmaciaService } from '../asignar_medicamento_farmacia/asignar_medicamento_farmacia.service';
 
 
 @NgModule({
@@ -84,7 +90,10 @@ import { AsignarMedicoService } from '../asignar_medico/asignar_medico.service';
         FarmaciaComponent,
         ClinicaComponent,
         AsignarMedicamentoComponent,
-        AsignarMedicoComponent
+        AsignarMedicoComponent,
+        AsignarObraComponent,
+        AsignarClinicaComponent,
+        AsignarMedicamentoFarmaciaComponent
     ],
     providers: [
         WINDOW_PROVIDERS,
@@ -98,7 +107,10 @@ import { AsignarMedicoService } from '../asignar_medico/asignar_medico.service';
         AsignarMedicamentoService,
         FarmaciaService,
         ClinicaService,
-        AsignarMedicoService
+        AsignarMedicoService,
+        AsignarObraSocialService,
+        AsignarClinicaService,
+        AsignarMedicamentoFarmaciaService
     ]
 })
 export class LayoutModule {}

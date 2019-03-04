@@ -1,19 +1,19 @@
 'use strict'
 
 var Farmacia = require('../models/farmacia');
-var Medico = require('../models/pedido');
+
 
 // FUNCIONES
 function getFarmacias(req, res){
-    console.log('- GET PACIENTES -');
-    Farmacia.find({}, function (err, farmacias) {
+    console.log('- GET FARMACIAS -');
+    Farmacia.find({}, function (err, farmacia) {
         if (err) {
             return res.status(400).json({
                 title: 'Error',
                 error: err
             });
         }
-        if (!farmacias) {
+        if (!farmacia) {
             return res.status(404).json({
                 title: 'Error',
                 error: err
@@ -21,7 +21,7 @@ function getFarmacias(req, res){
         }
         res.status(200).json({
             message: 'Success',
-            obj: farmacias
+            obj: farmacia
         });
     });
 }
@@ -170,7 +170,7 @@ function eliminarFarmacia(req, res){
 function cargarMedicamento(req, res) {
     console.log("entre cargar medicamento");
     
-    //Asocio el medico al paciente
+    //Asocio el medicamento a la farmacia
     Farmacia.findById(req.params.idFarmacia, function (err, farmacia) {
         if (err) {
             return res.status(400).json({
@@ -209,7 +209,8 @@ module.exports = {
     getFarmacias,
     editarFarmacia,
     eliminarFarmacia,
-    cargarMedicamento
+    cargarMedicamento,
+    cargarFarmacia
     
 }
 

@@ -166,42 +166,8 @@
                 label="Aceptar"
                 icon="fas fa-check"
                 type="submit">
-            </button>
-     
-            <div class="divider"></div>
-
-                    <button
-                    pButton
-                    class="ui-button-warning"
-                    label="Reset"
-                    icon="fas fa-ban"
-                    type="submit"
-                    onclick="document.getElementById('dniAgregar').value = '' ,
-                             document.getElementById('nombreAgregar').value = '',
-                             document.getElementById('apellidoAgregar').value = '' ,
-                             document.getElementById('telefonoAgregar').value = '' ,
-                             document.getElementById('matriculaAgregar').value = ''"
-                    >
-                </button>
-
-                <div class="pull-right">
-                    <button
-                        pButton
-                        class="ui-button-danger"
-                        label="Cancelar"
-                        icon="fas fa-ban"
-                        type="submit"
-                        onclick="document.getElementById('dniAgregar').value = '' ,
-                        document.getElementById('nombreAgregar').value = '',
-                        document.getElementById('apellidoAgregar').value = '' ,
-                        document.getElementById('telefonoAgregar').value = '' ,
-                        document.getElementById('matriculaAgregar').value = ''"
-                       (click)= "cerrarModalAgregar()">
-                    </button>
-                    
-                               
-                
-                </div>
+            </button>   
+            
 
         </p-footer>
     </form>
@@ -253,25 +219,7 @@
                 type="submit"
                 (click)="cerrarModalEditar()">
             </button>
-        </p-footer>
-
-        <p-footer>
-            <div class="pull-right">
-                <button
-                    pButton
-                    class="ui-button-danger"
-                    label="Cancelar"
-                    icon="fas fa-ban"
-                    type="submit"
-                    onclick="document.getElementById('dniAgregar').value = '' ,
-                    document.getElementById('nombreAgregar').value = '',
-                    document.getElementById('apellidoAgregar').value = '' ,
-                    document.getElementById('telefonoAgregar').value = '' ,
-                    document.getElementById('matriculaAgregar').value = ''"
-                    (click)="cerrarModalEditar()">
-                </button>
-            </div>
-        </p-footer>
+        </p-footer>   
 
     </form>
 </p-dialog>

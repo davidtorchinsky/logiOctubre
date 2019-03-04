@@ -19,7 +19,7 @@ var FarmaciaSchema = Schema({
         ref: 'Pedido'
     },
     //Relacion con medicamento
-    medicamento:[{
+    medicamentos:[{
         type: Schema.Types.ObjectId,
         ref: 'Medicamento'
     }]

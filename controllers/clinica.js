@@ -29,7 +29,7 @@ function getClinicas(req, res){
 function cargarClinica(req, res) {
     console.log('CARGAR CLINICA');
 
-    if (!req.body.idClinicaClinica) {
+    if (!req.body.cuitClinica) {
         return res.status(400).json({
             title: 'Error',
             error: err
@@ -41,7 +41,7 @@ function cargarClinica(req, res) {
             error: err
         });
     }
-    if (!req.body.emailClinica) {
+    if (!req.body.direccionClinica) {
         return res.status(400).json({
             title: 'Error',
             error: err
@@ -53,7 +53,7 @@ function cargarClinica(req, res) {
             error: err
         });
     }
-    if (!req.body.direccionClinica) {
+    if (!req.body.emailClinica) {
         return res.status(400).json({
             title: 'Error',
             error: err
@@ -63,13 +63,11 @@ function cargarClinica(req, res) {
     
   
     var nuevoClinica = new Clinica({
-        idClinica: req.body.idClinicaClinica,
-        nombre: req.body.nombreClinica,
-        email: req.body.emailClinica,
+        cuit: req.body.cuitClinica,
+        nombre: req.body.nombreClinica,        
         telefono: req.body.telefonoClinica,
-        direccion: req.body.direccionClinica
-        
-      
+        direccion: req.body.direccionClinica,
+        email: req.body.emailClinica      
     })
 
     console.log(nuevoClinica);
@@ -84,8 +82,8 @@ function cargarClinica(req, res) {
         if (err.code == 11000) {
             var msj = ""
             //Catching index name inside errmsg reported by mongo to determine the correct error and showing propper message
-            if (err.errmsg.toString().includes("idClinica"))
-                msj = "idClinica Clinica";
+            if (err.errmsg.toString().includes("cuit"))
+                msj = "cuit Clinica";
            
             return res.status(404).json({
                 title: 'Error',

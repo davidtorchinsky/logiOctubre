@@ -18,7 +18,7 @@ export class ClinicaService {
     ) {}
 
     getClinicas(): Promise<Clinica[]> {
-      
+        console.log(this.clinicaURL);
         return this.http.get(this.clinicaURL)
         .toPromise()
         .then(response => response.json().obj as Clinica[])
@@ -31,6 +31,7 @@ export class ClinicaService {
         direccionFar: string,
         telefonoFar: string,
         emailFar: string): Promise<Clinica> {
+            console.log("entre al cargar de service");
 
             
 

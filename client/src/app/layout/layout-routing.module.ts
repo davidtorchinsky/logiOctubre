@@ -14,6 +14,10 @@ import { AsignarMedicamentoComponent } from '../asignar_medicamento/asignar_medi
 import { AsignarMedicoComponent } from '../asignar_medico/asignar_medico.component';
 import { FarmaciaComponent } from '../farmacia/farmacia.component';
 import { ClinicaComponent } from '../clinica/clinica.component';
+import { AsignarObraComponent } from '../asignar_obra/asignar_obra.component';
+import { AsignarClinicaComponent } from '../asignar_clinica/asignar_clinica.component';
+import { AsignarMedicamentoFarmaciaComponent } from '../asignar_medicamento_farmacia/asignar_medicamento_farmacia.component';
+
 
 const routes: Routes = [
     {
@@ -33,7 +37,10 @@ const routes: Routes = [
             { path: 'asignar_medicamento', component: AsignarMedicamentoComponent},
             { path: 'farmacias', component: FarmaciaComponent},
             { path: 'clinicas', component: ClinicaComponent},
-            {path: 'asignar_medico', component: AsignarMedicoComponent}
+            { path: 'asignar_medico', component: AsignarMedicoComponent},
+            { path: 'asignar_obra', component: AsignarObraComponent},
+            { path: 'asignar_clinica', component: AsignarClinicaComponent},
+            { path: 'asignar_medicamento_farmacia', component: AsignarMedicamentoFarmaciaComponent}          
 
         ]
     }

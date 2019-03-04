@@ -32,6 +32,11 @@ var pacienteSchema = Schema({
     medicos:[{
         type: Schema.Types.ObjectId,
         ref: 'Medico'
+    }],
+    //Relacion con Obra
+    obras:[{
+        type: Schema.Types.ObjectId,
+        ref: 'Obras'
     }]
     
 });

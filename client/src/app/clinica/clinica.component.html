@@ -1,230 +1,228 @@
-
 <div [@routerTransition]>
-  <div id="page-wrapper">
-      <div class="row">
-          <div class="col-lg-12">
-              <div class='page-header'>
-                  <h2>Clinica</h2>
-              </div>
-          </div>
-      </div>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class='page-header'>
+                    <h2>Clinicas</h2>
+                </div>
+            </div>
+        </div>
 
-      <div class="row">
-          <div class="col-lg-12">
-              <div class="card card-default mb-3">
-                  <div class="card-header">
-                      <div>
-                          <a>
-                              <strong style="text-decoration: none;color: #333;">Administración de Clinicas</strong>
-                              <div class = 'pull-left'>
-                              </div>
-                          </a>
-                          <button
-                              pButton
-                              class="ui-button-primario pull-right"
-                              label="Nueva Clinica"
-                              icon="fas fa-plus"
-                              (click)="mostrarModalAgregarClinica()">
-                          </button>
-                      </div>
-                  </div>
-                  <div class="card-body">
-                      <p-table #dt [columns]="cols" [value]="clinicas" selectionMode="single" [(selection)]="selectedClinica">
-                          <ng-template pTemplate="caption">
-                               <div style="text-align: right">        
-                                  <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                                  <input type="text" pInputText size="50" placeholder="Filtro" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
-                              </div>
-                          </ng-template>
-                          <ng-template pTemplate="header" let-columns>
-                              <tr>
-                                  <th *ngFor="let col of columns">
-                                      {{col.header}}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card card-default mb-3">
+                    <div class="card-header">
+                        <div>
+                            <a>
+                                <strong style="text-decoration: none;color: #333;">Administración de Clinicas</strong>
+                                <div class = 'pull-left'>
+                                </div>
+                            </a>
+                            <button
+                                pButton
+                                class="ui-button-primario pull-right"
+                                label="Nuevo Clinica"
+                                icon="fas fa-plus"
+                                (click)="mostrarModalAgregarClinica()">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p-table #dt [columns]="cols" [value]="clinicas" selectionMode="single" [(selection)]="selectedClinica">
+                            <ng-template pTemplate="caption">
+                                 <div style="text-align: right">        
+                                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                    <input type="text" pInputText size="50" placeholder="Filtro" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="header" let-columns>
+                                <tr>
+                                    <th *ngFor="let col of columns">
+                                        {{col.header}}
+                                    </th>
+                                </tr>
+                                <tr>
+                                  <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                                    <input *ngSwitchCase="'cuit'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                    <input *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                    <input *ngSwitchCase="'telefono'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                    <input *ngSwitchCase="'direccion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                    <input *ngSwitchCase="'email'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                    
                                   </th>
-                              </tr>
-                              <tr>
-                                <th *ngFor="let col of columns" [ngSwitch]="col.field">
-                                   <input *ngSwitchCase="'cuit'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" 
-                                   style="width:100%">
-                                   <input *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
-                                   <input *ngSwitchCase="'telefono'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
-                                   <input *ngSwitchCase="'direccion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
-                                   <input *ngSwitchCase="'email'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                </tr>
+                            </ng-template>
 
-                                  
-                                </th>
-                              </tr>
-                          </ng-template>
+                            <ng-template pTemplate="body" let-clinica let-columns="columns">
+                                <tr [pSelectableRow]="clinica">
+                                    <td *ngFor="let col of columns">
+                                            {{clinica[col.field]}}
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                
+                        
 
-                          <ng-template pTemplate="body" let-clinica let-columns="columns">
-                              <tr [pSelectableRow]="clinicas">
-                                  <td *ngFor="let col of columns">
-                                          {{clinica[col.field]}}
-                                  </td>
-                              </tr>
-                          </ng-template>
-                      </p-table>
-              
-                      
+                    </div>
+                    <div class="card-footer">
+                        <div class="pull-right">
+                            <!--Boton Editar (Deshabilitado)-->
+                                <button
+                                    pButton
+                                    *ngIf="!selectedClinica"
+                                    class="ui-button-warning"
+                                    label="Editar"
+                                    icon="fas fa-pencil-alt"
+                                    disabled>
+                                </button>
 
-                  </div>
-                  <div class="card-footer">
-                      <div class="pull-right">
-                          <!--Boton Editar (Deshabilitado)-->
-                              <button
-                                  pButton
-                                  *ngIf="!selectedClinica"
-                                  class="ui-button-warning"
-                                  label="Editar"
-                                  icon="fas fa-pencil-alt"
-                                  disabled>
-                              </button>
+                            <!--Boton Editar (Habilitado)-->
+                                <button
+                                    pButton
+                                    *ngIf="selectedClinica"
+                                    class="ui-button-warning"
+                                    label="Editar"
+                                    icon="fas fa-pencil-alt"
+                                    data-toggle="modal"
+                                    data-target="#"
+                                (click)="mostrarModalEditar(selectedClinica)">
+                                </button>
+                            
+                            &nbsp;
+                        
+                            <!--Boton Eliminar (Deshabilitado)-->
+                                <button
+                                    pButton
+                                    *ngIf="!selectedClinica"
+                                    class="ui-button-danger"
+                                    label="Eliminar"
+                                    icon="fas fa-times"
+                                    disabled>
+                                </button>
 
-                          <!--Boton Editar (Habilitado)-->
-                              <button
-                                  pButton
-                                  *ngIf="selectedClinica"
-                                  class="ui-button-warning"
-                                  label="Editar"
-                                  icon="fas fa-pencil-alt"
-                                  data-toggle="modal"
-                                  data-target="#"
-                              (click)="mostrarModalEditar(selectedClinica)">
-                              </button>
-                          
-                          &nbsp;
-                      
-                          <!--Boton Eliminar (Deshabilitado)-->
-                              <button
-                                  pButton
-                                  *ngIf="!selectedClinica"
-                                  class="ui-button-danger"
-                                  label="Eliminar"
-                                  icon="fas fa-times"
-                                  disabled>
-                              </button>
-
-                          <!--Boton Eliminar (Habilitado)-->
-                              <button
-                                  pButton
-                                  *ngIf="selectedClinica"
-                                  class="ui-button-danger"
-                                  label="Eliminar"
-                                  icon="fas fa-times"
-                                  data-toggle="modal"
-                                  data-target="#"
-                                  (click)="eliminarClinica()">
-                              </button>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+                            <!--Boton Eliminar (Habilitado)-->
+                                <button
+                                    pButton
+                                    *ngIf="selectedClinica"
+                                    class="ui-button-danger"
+                                    label="Eliminar"
+                                    icon="fas fa-times"
+                                    data-toggle="modal"
+                                    data-target="#"
+                                    (click)="eliminarClinica()">
+                                </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- MODAL AGREGAR Clinica -->
+<!-- MODAL AGREGAR CLINICA -->
 <p-dialog [(visible)]="modalAgregarClinica" [width]="400" [contentStyle]="{'max-height':'40%'}" clinica="selectedClinica" >
-  <p-header>
-      Nueva Clinica
-  </p-header>
+    <p-header>
+        Nuevo Clinica
+    </p-header>
 
-  <form name="form" (ngSubmit)="f.form.valid && cargarClinica(cuitClinica.value,nombreClinica.value, telefonoClinica.value,direccionClinica.value, emailClinica.value, f);" #f="ngForm" novalidate>
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !cuitClinica.valid }">
-          <label for="cuitClinica">CUIT:</label>
-          <input type="text" class="form-control" name="cuitClinica" [(ngModel)]="model.cuitClinica" #cuitClinica="ngModel" autocomplete="off" required />
-          <div *ngIf="f.submitted && !cuitClinica.valid" role="alert" class="alert alert-danger">Ingresar el cuit de la clinica</div>
-      </div>
+    <form name="form" (ngSubmit)="f.form.valid && cargarClinica(cuitClinica.value,nombreClinica.value,telefonoClinica.value, direccionClinica.value, emailClinica.value, f);" #f="ngForm" novalidate>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !cuitClinica.valid }" >
+            <label for="cuitClinica">Cuit:</label>
+            <input type="text" id="cuitAgregar" class="form-control" name="cuitClinica" [(ngModel)]="model.cuitClinica" #cuitClinica="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !cuitClinica.valid" role="alert" class="alert alert-danger">Ingresar el Cuit del Clinica</div>
+        </div>
 
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !nombreClinica.valid }">
-          <label for="nombreClinica">Nombre:</label>
-          <input type="text" class="form-control" name="nombreClinica" [(ngModel)]="model.nombreClinica" #nombreClinica="ngModel" autocomplete="off" required />
-          <div *ngIf="f.submitted && !nombreClinica.valid" role="alert" class="alert alert-danger">Ingresar el Nombre de la Clinica</div>
-      </div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !nombreClinica.valid }">
+            <label for="nombreClinica">Nombre:</label>
+            <input type="text" id="nombreAgregar" class="form-control" name="nombreClinica" [(ngModel)]="model.nombreClinica" #nombreClinica="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !nombreClinica.valid" role="alert" class="alert alert-danger">Ingresar el Nombre del Clinica</div>
+        </div>
 
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !telefonoClinica.valid }">
-          <label for="telefonoClinica">Telefono:</label>
-          <input type="text" class="form-control" name="telefonoClinica" [(ngModel)]="model.telefonoClinica" #telefonoClinica="ngModel" autocomplete="off" required />
-          <div *ngIf="f.submitted && !telefonoClinica.valid" role="alert" class="alert alert-danger">Ingresar el Telefono de la Clinica</div>
-      </div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !telefonoClinica.valid }">
+            <label for="telefonoClinica">Telefono:</label>
+            <input type="text" id="telefonoAgregar" class="form-control" name="telefonoClinica" [(ngModel)]="model.telefonoClinica" #telefonoClinica="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !telefonoClinica.valid" role="alert" class="alert alert-danger">Ingresar el Telefono del Clinica</div>
+        </div>
 
-      
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !direccionClinica.valid }">
+            <label for="direccionClinica">Direccion:</label>
+            <input type="text" id="direccionAgregar" class="form-control" name="direccionClinica" [(ngModel)]="model.direccionClinica" #direccionClinica="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !direccionClinica.valid" role="alert" class="alert alert-danger">Ingresar el Direccion del Clinica</div>
+        </div>
 
-    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !direccionClinica.valid }">
-          <label for="direccionClinica">Direccion:</label>
-          <input type="text" class="form-control" name="direccionClinica" [(ngModel)]="model.direccionClinica" #direccionClinica="ngModel" autocomplete="off" required />
-          <div *ngIf="f.submitted && !direccionClinica.valid" role="alert" class="alert alert-danger">Ingresar la direccion</div>
-    </div>
-
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !emailClinica.valid }">
-          <label for="emailClinica">Email:</label>
-          <input type="text" class="form-control" name="emailClinica" [(ngModel)]="model.emailClinica" #emailClinica="ngModel" autocomplete="off" required />
-          <div *ngIf="f.submitted && !emailClinica.valid" role="alert" class="alert alert-danger">Ingresar email</div>
-      </div>
-
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !emailClinica.valid }">
+            <label for="emailClinica">Email:</label>
+            <input type="text" id="emailAgregar" class="form-control" name="emailClinica" [(ngModel)]="model.emailClinica" #emailClinica="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !emailClinica.valid" role="alert" class="alert alert-danger">Ingresar el Email del Clinica</div>
+        </div>
     
-  
-      <p-footer>
-          <button
-              pButton
-              class="ui-button-success"
-              label="Aceptar"
-              icon="fas fa-check"
-              type="submit">
-          </button>
-      </p-footer>
-  </form>
+    
+        <p-footer>
+            <button
+                pButton
+                class="ui-button-success"
+                label="Aceptar"
+                icon="fas fa-check"
+                type="submit">
+            </button>
+     
+        </p-footer>
+    </form>
 </p-dialog>
 
-<!-- MODAL EDITAR MEDICO -->
+<!-- MODAL EDITAR CLINICA -->
 <p-dialog [(visible)]="modalEditarClinica" [width]="500" [contentStyle]="{'max-height':'40%'}" action="#selectedClinica" *ngIf="selectedClinica">
-  <p-header>
-      Editar Clinica
-  </p-header>
-  
-  <form name="form" (ngSubmit)="f.form.valid && editarClinica(f);" #f="ngForm" novalidate >
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !cuitClinica.valid }" >
-          <label for="cuitClinica">CUIT:</label>
-          <input type="text" class="form-control" name="cuitClinica" [(ngModel)]="selectedClinica.cuitClinica" #cuitClinica="ngModel" disabled />
-          <div *ngIf="f.submitted && !cuitClinica.valid" role="alert" class="alert alert-danger">Ingresar el cuit de la Clinica</div>
-      </div>
-
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !nombreClinica.valid }">
-          <label for="nombreClinica">Nombre:</label>
-          <input type="text" class="form-control" name="nombreClinica" [(ngModel)]="selectedClinica.nombre" #nombreClinica="ngModel" autocomplete="off" required />
-          <div *ngIf="f.submitted && !nombreClinica.valid" role="alert" class="alert alert-danger">Ingresar el Nombre de la clinica</div>
-      </div>
-
+    <p-header>
+        Editar Clinica 
+    </p-header>
     
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !telefonoClinica.valid }">
-        <label for="telefonoClinica">Telefono:</label>
-        <input type="text" class="form-control" name="telefonoClinica" [(ngModel)]="model.telefonoClinica" #telefonoClinica="ngModel" autocomplete="off" required />
-        <div *ngIf="f.submitted && !telefonoClinica.valid" role="alert" class="alert alert-danger">Ingresar el Telefono de la Clinica</div>
-    </div>
+    <form name="form" (ngSubmit)="f.form.valid && editarClinica(f);" #f="ngForm" novalidate >
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !cuitClinica.valid }" >
+            <label for="cuitClinica">Cuit:</label>
+            <input type="text" class="form-control" name="cuitClinica" [(ngModel)]="selectedClinica.cuit" #cuitClinica="ngModel" disabled />
+            <div *ngIf="f.submitted && !cuitClinica.valid" role="alert" class="alert alert-danger">Ingresar el Cuit del Clinica</div>
+        </div>
 
-    
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !nombreClinica.valid }">
+            <label for="nombreClinica">Nombre:</label>
+            <input type="text" class="form-control" name="nombreClinica" [(ngModel)]="selectedClinica.nombre" #nombreClinica="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !nombreClinica.valid" role="alert" class="alert alert-danger">Ingresar el Nombre del Clinica</div>
+        </div>
 
-  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !direccionClinica.valid }">
-        <label for="direccionClinica">Direccion:</label>
-        <input type="text" class="form-control" name="direccionClinica" [(ngModel)]="model.direccionClinica" #direccionClinica="ngModel" autocomplete="off" required />
-        <div *ngIf="f.submitted && !direccionClinica.valid" role="alert" class="alert alert-danger">Ingresar la direccion</div>
-  </div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !telefonoClinica.valid }">
+            <label for="telefonoClinica">Telefono:</label>
+            <input type="text" class="form-control" name="telefonoClinica" [(ngModel)]="selectedClinica.telefono" #telefonoClinica="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !telefonoClinica.valid" role="alert" class="alert alert-danger">Ingresar el Telefono del Clinica</div>
+        </div>
 
-    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !emailClinica.valid }">
-        <label for="emailClinica">Email:</label>
-        <input type="text" class="form-control" name="emailClinica" [(ngModel)]="model.emailClinica" #emailClinica="ngModel" autocomplete="off" required />
-        <div *ngIf="f.submitted && !emailClinica.valid" role="alert" class="alert alert-danger">Ingresar email</div>
-    </div>
-      
-      <p-footer>
-          <button
-              pButton
-              class="ui-button-success"
-              label="Aceptar"
-              icon="fas fa-check"
-              type="submit"
-              (click)="cerrarModalEditar()">
-          </button>
-      </p-footer>
-  </form>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !direccionClinica.valid }">
+            <label for="direccionClinica">Direccion:</label>
+            <input type="text" class="form-control" name="direccionClinica" [(ngModel)]="selectedClinica.direccion" #direccionClinica="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !direccionClinica.valid" role="alert" class="alert alert-danger">Ingresar el Telefono del Clinica</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !emailClinica.valid }">
+            <label for="emailClinica">Email:</label>
+            <input type="text" class="form-control" name="emailClinica" [(ngModel)]="selectedClinica.email" #emailClinica="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !emailClinica.valid" role="alert" class="alert alert-danger">Ingresar el Email del Clinica</div>
+        </div>
+        
+        <p-footer>
+            <button
+                pButton
+                class="ui-button-success"
+                label="Aceptar"
+                icon="fas fa-check"
+                type="submit"
+                (click)="cerrarModalEditar()">
+            </button>
+        </p-footer>
+
+        
+
+    </form>
 </p-dialog>
+
+
+

@@ -137,7 +137,7 @@ export class PacienteComponent implements OnInit {
       });
     }
 
-  // ELIMINAR MEDICAMENTO
+  // ELIMINAR PACIENTE
     eliminarPaciente() {
       // Mensajito: ¿ESTAS SEGURO?
       swal({

@@ -10,7 +10,13 @@ var ObrasSchema = Schema({
     nombre: String,
     direccion: String,
     telefono: String,
-    email: String
+    email: String,
+    
+    //Relacion con Paciente
+    pacientes:[{
+        type: Schema.Types.ObjectId,
+        ref: 'Paciente'
+    }]
 });
 var Obra = mongoose.model('obras', ObrasSchema);
 

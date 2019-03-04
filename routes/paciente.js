@@ -12,6 +12,7 @@ api.get('/',PacienteController.getPacientes);
 api.patch('/:idPaciente',PacienteController.editarPaciente);
 api.patch('/agregarMedicamento/:idPaciente/:idMedicamento', PacienteController.cargarConsumicion);
 api.patch('/agregarMedico/:idPaciente/:idMedico', PacienteController.cargarMedico);
+api.patch('/agregarObraSocial/:idPaciente/:idObra', PacienteController.cargarObra);
 
 // POST ALTA
 api.post('/',PacienteController.cargarPaciente);

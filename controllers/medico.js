@@ -159,9 +159,9 @@ function eliminarMedico(req, res){
 //Cargar una Clinica
 
 function cargarClinica(req, res) {
-    console.log("entre cargar clinica");
+    console.log("entre cargar medico");
     
-    //Asocio la clinica al medico
+    //Asocio la Linica al Medico
     Medico.findById(req.params.idMedico, function (err, medico) {
         if (err) {
             return res.status(400).json({
@@ -176,9 +176,8 @@ function cargarClinica(req, res) {
             });
         }
 
-        console.log("clinicas: "+req.params.idClinica);
-        medicos.clinicas.push(req.params.idClinica);
-       
+        console.log("Clinica: "+req.params.idClinica);
+        medico.clinicas.push(req.params.idClinica);
 
         
 
@@ -195,7 +194,7 @@ function cargarClinica(req, res) {
         });
     });
 
-    //Asocio el medico a la clinica
+    //Asocio el Medico a la Clinica
 
     console.log("salida 3");
     Clinica.findById(req.params.idClinica, function (err, clinica) {
@@ -211,7 +210,7 @@ function cargarClinica(req, res) {
                 error: 'Clinica no encontrada'
             });
         }
-        clinica.medico.push(req.params.idMedico );
+        clinica.medicos.push(req.params.idMedico );
        
 
         

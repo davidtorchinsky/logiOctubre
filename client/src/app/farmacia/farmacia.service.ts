@@ -18,7 +18,7 @@ export class FarmaciaService {
     ) {}
 
     getFarmacias(): Promise<Farmacia[]> {
-      
+        console.log(this.farmaciaURL);
         return this.http.get(this.farmaciaURL)
         .toPromise()
         .then(response => response.json().obj as Farmacia[])
@@ -31,6 +31,7 @@ export class FarmaciaService {
         direccionFar: string,
         telefonoFar: string,
         emailFar: string): Promise<Farmacia> {
+            console.log("entre al cargar de service");
 
             
 
