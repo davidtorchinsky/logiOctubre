@@ -10,6 +10,7 @@ api.get('/',PedidoController.getPedidos);
 
 // PATCH
 api.patch('/:idPedido',PedidoController.editarPedido);
+api.patch('/agregarRepartidor/:idPedido/:idRepartidor', PedidoController.cargarRepartidor);
 
 // POST
 api.post('/',PedidoController.cargarPedido);

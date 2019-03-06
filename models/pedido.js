@@ -19,7 +19,7 @@ var PedidoSchema = Schema({
         ref: 'Paciente'
     },
 
-    //Relacion con Repartidor
+    //Relacion con Repartidor, guardo el repartidor
     repartidor:{
         type: Schema.Types.ObjectId,
         ref: 'Repartidor'

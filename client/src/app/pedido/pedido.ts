@@ -1,8 +1,8 @@
 export class Pedido {
-    _id: String;
-    numero: String;
-    estado: String;
+    _id: string;
+    numero: string;
+    estado: string;
     hora: Date;
-    cadenaFrio: String;
+    cadenaFrio: string;
    
 }

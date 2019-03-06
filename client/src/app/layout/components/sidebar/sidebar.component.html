@@ -61,11 +61,34 @@
         <a [routerLink]="['/medicamentos']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fas fa-pills fa-fw"></i>&nbsp;
             Medicamientos
-        </a>
-        <a [routerLink]="['/pedidos']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fas fa-clipboard-list fa-fw" ></i>&nbsp;
-            Pedidos
-        </a>
+        </a>        
+        <div class="nested-menu">
+            <a [routerLink]="['/pedidos']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <span _ngcontent-c5=""><i  class="fas fa-clipboard-list fa-fw">
+                </i>&nbsp; Pedidos</span>
+            </a>
+            <li  class="nested expand">
+                <ul  class="submenu">
+                    <li _ngcontent-c5="">
+                        <a href="javascript:void(0)" [routerLink]="['/asignar_repartidor']" [routerLinkActive]="['router-link-active']">
+                            <span>Asignar Repartidor</span>
+                        </a>
+                    </li>
+                    <li _ngcontent-c5="">
+                        <a  href="javascript:void(0)"[routerLink]="['']" [routerLinkActive]="['router-link-active']">
+                            <span _ngcontent-c5="">submenu</span>
+                        </a>
+                    </li>
+                    <li _ngcontent-c5="">
+                        <a  href="javascript:void(0)"[routerLink]="['']" [routerLinkActive]="['router-link-active']">
+                            <span _ngcontent-c5="">submenu</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+
+
         <a [routerLink]="['/repartidores']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fas fa-truck-loading fa-fw" ></i>&nbsp;
             Repartidores

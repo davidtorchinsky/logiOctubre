@@ -1,6 +1,7 @@
 'use strict'
 
 var Pedido = require('../models/pedido');
+var Repartidor =require('../models/repartidor');
 
 // FUNCIONES
 function getPedidos(req, res){
@@ -158,8 +159,86 @@ function eliminarPedido(req, res){
             });
         }
     });
-    //crear los enlaces a las demas tablas.
+    
 }
+
+//Cargar un Repartidor
+
+function cargarRepartidor(req, res) {
+    console.log("entre cargar repartidor");
+    
+    //Asocio el repartidor al pedido
+    Pedido.findById(req.params.idPedido, function (err, pedido) {
+        if (err) {
+            return res.status(400).json({
+                title: 'An error occurred',
+                error: err
+            });
+        }
+        if (!pedido) {
+            return res.status(404).json({
+                title: 'Error',
+                error: 'Pedido no encontrado'
+            });
+        }
+
+        console.log("repartidores: "+req.params.idRepartidor);  
+        pedido.repartidor=req.params.idRepartidor;
+
+        
+
+        pedido.save().then(function (pedido) {
+            res.status(200).json({
+                message: 'Success',
+                obj: pedido
+            });
+        }, function (err) {
+            return res.status(404).json({
+                title: 'Error',
+                error: err
+            });
+        });
+    });
+
+    /*//Asocio el pedido a la Repartidor Social
+
+    console.log("salida 3");
+    Repartidor.findById(req.params.idRepartidor, function (err, repartidor) {
+        if (err) {
+            return res.status(400).json({
+                title: 'An error occurred',
+                error: err
+            });
+        }
+        if (!repartidor) {
+            return res.status(404).json({
+                title: 'Error',
+                error: 'Repartidor no encontrado'
+            });
+        }
+        repartidor.pedidos.push(req.params.idPedido );
+       
+
+        
+
+        repartidor.save().then(function (repartidor) {
+            res.status(200).json({
+                message: 'Success',
+                obj: repartidor
+            });
+        }, function (err) {
+            return res.status(404).json({
+                title: 'Error',
+                error: err
+            });
+        });
+    });*/
+}
+
+
+
+
+
 
 
 // EXPORT
@@ -167,6 +246,7 @@ module.exports = {
     getPedidos,
     cargarPedido,
     editarPedido,
-    eliminarPedido
+    eliminarPedido,
+    cargarRepartidor
 }
 

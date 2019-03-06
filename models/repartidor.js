@@ -15,11 +15,11 @@ var RepartidorSchema = Schema({
     telefono: String,
     legajo: String,
 
-    //Relacion con pedido
-pedido:{
+    /*//Relacion con pedido
+pedidos:[{
     type: Schema.Types.ObjectId,
     ref: 'Pedido'
-}
+}]*/
 });
 var Repartidor = mongoose.model('repartidores', RepartidorSchema);
 
