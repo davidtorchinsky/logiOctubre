@@ -58,13 +58,20 @@ function cargarMedico(req, res) {
             error: err
         });
     }
+    if (!req.body.especialidadMedico) {
+        return res.status(400).json({
+            title: 'Error',
+            error: err
+        });
+    }
 
     var nuevoMedico = new Medico({
         dni: req.body.dniMedico,
         nombre: req.body.nombreMedico,
         apellido: req.body.apellidoMedico,
         telefono: req.body.telefonoMedico,
-        matricula: req.body.matriculaMedico
+        matricula: req.body.matriculaMedico,
+        especialidad: req.body.especialidadMedico
     })
     console.log(nuevoMedico);
 
@@ -114,6 +121,7 @@ function editarMedico(req, res) {
         medico.apellido = req.body.apellidoMedico;
         medico.telefono = req.body.telefonoMedico;
         medico.matricula = req.body.matriculaMedico;
+        especialidad: req.body.especialidadMedico;
 
         medico.save().then(function (medico) {
             res.status(200).json({

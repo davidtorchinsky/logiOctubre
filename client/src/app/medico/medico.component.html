@@ -49,6 +49,7 @@
                                     <input *ngSwitchCase="'apellido'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
                                     <input *ngSwitchCase="'telefono'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
                                     <input *ngSwitchCase="'matricula'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                    <input *ngSwitchCase="'especialidad'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
                                     
                                   </th>
                                 </tr>
@@ -157,6 +158,12 @@
             <input type="text" id="matriculaAgregar" class="form-control" name="matriculaMedico" [(ngModel)]="model.matriculaMedico" #matriculaMedico="ngModel" autocomplete="off" required />
             <div *ngIf="f.submitted && !matriculaMedico.valid" role="alert" class="alert alert-danger">Ingresar el Matricula del Medico</div>
         </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !especialidadMedico.valid }">
+            <label for="especialidadMedico">Especialidad:</label>
+            <input type="text" id="especialidadAgregar" class="form-control" name="especialidadMedico" [(ngModel)]="model.especialidadMedico" #especialidadMedico="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !especialidadMedico.valid" role="alert" class="alert alert-danger">Ingresar la especialidad del Medico</div>
+        </div>
     
     
         <p-footer>
@@ -208,6 +215,12 @@
             <label for="matriculaMedico">Matricula:</label>
             <input type="text" class="form-control" name="matriculaMedico" [(ngModel)]="selectedMedico.matricula" #matriculaMedico="ngModel" autocomplete="off" required />
             <div *ngIf="f.submitted && !matriculaMedico.valid" role="alert" class="alert alert-danger">Ingresar el Matricula del Medico</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !especialidadMedico.valid }">
+            <label for="especialidadMedico">Especialidad:</label>
+            <input type="text" class="form-control" name="especialidadMedico" [(ngModel)]="selectedMedico.especialidad" #especialidadMedico="ngModel" autocomplete="off" required />
+            <div *ngIf="f.submitted && !especialidadMedico.valid" role="alert" class="alert alert-danger">Ingresar la especialidad del Medico</div>
         </div>
         
         <p-footer>

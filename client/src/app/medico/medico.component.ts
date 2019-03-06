@@ -34,7 +34,8 @@ export class MedicoComponent implements OnInit {
         { field: 'nombre', header: 'Nombre' },
         { field: 'apellido', header: 'Apellido' },
         { field: 'telefono', header: 'Telefono' },
-        { field: 'matricula', header: 'Matricula' }
+        { field: 'matricula', header: 'Matricula' },
+        { field: 'especialidad', header: 'Especialidad' }
       ];
   }
 
@@ -54,9 +55,10 @@ export class MedicoComponent implements OnInit {
       apellidoMedico: string,
       telefonoMedico: string,
       matriculaMedico: string,
+      especialidadMedico: string,
       f: NgForm) {
       this.modalAgregarMedico = false;
-      this.medicoService.cargarMedico(dniMedico, nombreMedico, apellidoMedico, telefonoMedico, matriculaMedico)
+      this.medicoService.cargarMedico(dniMedico, nombreMedico, apellidoMedico, telefonoMedico, matriculaMedico, especialidadMedico)
       .then(medicoAgregado => {
         // Muestro un mensajito de Agregado con Éxito
         swal({
@@ -91,7 +93,8 @@ export class MedicoComponent implements OnInit {
                                       this.selectedMedico.nombre,
                                       this.selectedMedico.apellido,
                                       this.selectedMedico.telefono,
-                                      this.selectedMedico.matricula)
+                                      this.selectedMedico.matricula,
+                                      this.selectedMedico.especialidad)
       .then(medicoEditado => {
         // Muestro un mensajito de Actualizado con Éxito
         swal({
@@ -119,6 +122,7 @@ export class MedicoComponent implements OnInit {
             elementoMedico.apellido = medicoEditado.apellido;
             elementoMedico.telefono = medicoEditado.telefono;
             elementoMedico.matricula = medicoEditado.matricula;
+            elementoMedico.especialidad = medicoEditado.especialidad;
           }
         });
 

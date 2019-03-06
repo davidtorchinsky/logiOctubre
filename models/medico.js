@@ -13,6 +13,7 @@ var MedicoSchema = Schema({
     apellido: String,
     telefono: String,
     matricula: String,
+    especialidad: String,
 
     //Relacion con Clinica
     clinicas:[{

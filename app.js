@@ -11,9 +11,12 @@ mongoose.set('useCreateIndex', true);
 
 mongoose.connect("mongodb://localhost:27017/Logi_Oct", { useNewUrlParser: true });
 
+//MIDDLEWARE
 app.use(bodyParser.urlencoded({extended: true},{limit: '100mb'}));
 app.use(bodyParser.json({limit: '100mb'}));
 app.use(express.static(__dirname));
+
+//CORS
 app.use(cors());
 
 // DECLARAR ROUTES

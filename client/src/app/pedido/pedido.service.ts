@@ -15,13 +15,13 @@ export class PedidoService {
         private http: Http,
         private urlService: UrlService
     ) {}
-
+        //me conecto a la base de datos
     getPedidos(): Promise<Pedido[]> {
         console.log(this.pedidoURL);
         return this.http.get(this.pedidoURL)
         .toPromise()
-        .then(response => response.json().obj as Pedido[])
-        .catch(this.handleError);
+        .then(response => response.json().obj as Pedido[])//coneccion con exito
+        .catch(this.handleError);//obtento el error en caso de que se produzca uno
     }
 
     cargarPedido(

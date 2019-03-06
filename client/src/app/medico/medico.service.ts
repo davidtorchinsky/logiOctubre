@@ -29,12 +29,13 @@ export class MedicoService {
         nombreMed: string,
         apellidoMed: string,
         telefonoMed: string,
-        matriculaMed: string): Promise<Medico> {
+        matriculaMed: string,
+        especialidadMed: string): Promise<Medico> {
             console.log(this.medicoURL);
         return this.http.post(this.medicoURL,
             JSON.stringify({dniMedico: dniMed, nombreMedico: nombreMed,
                             apellidoMedico: apellidoMed, telefonoMedico: telefonoMed,
-                            matriculaMedico: matriculaMed}), {headers: this.headers})
+                            matriculaMedico: matriculaMed, especialidadMedico: especialidadMed}), {headers: this.headers})
         .toPromise()
         .then(response => response.json().obj as Medico)
         .catch(this.handleError);
@@ -45,11 +46,12 @@ export class MedicoService {
         nombreMed: string,
         apellidoMed: string,
         telefonoMed: string,
-        matriculaMed: string): Promise<Medico> {
+        matriculaMed: string,
+        especialidadMed: string): Promise<Medico> {
         return this.http.patch(this.medicoURL + '/' + idMed,
             JSON.stringify({nombreMedico: nombreMed,
                             apellidoMedico: apellidoMed, telefonoMedico: telefonoMed,
-                            matriculaMedico: matriculaMed}), {headers: this.headers})
+                            matriculaMedico: matriculaMed,especialidadMedico: especialidadMed}), {headers: this.headers})
         .toPromise()
         .then(response => response.json().obj as Medico)
         .catch(this.handleError);

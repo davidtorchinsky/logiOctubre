@@ -5,4 +5,5 @@ export class Medico {
     apellido: string;
     telefono: string;
     matricula: string;
+    especialidad: string;
 }
