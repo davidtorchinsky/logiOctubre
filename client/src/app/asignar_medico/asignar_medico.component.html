@@ -115,14 +115,14 @@
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <p-table #dt [columns]="colsMedicos" 
+                                        <p-table #dt2 [columns]="colsMedicos" 
                                                     [value]="medicos" 
                                                     [scrollable]="true" scrollHeight="200px"
                                                     selectionMode="single" [(selection)]="selectedMedico">
                                             <ng-template pTemplate="caption">
                                                     <div style="text-align: right">        
                                                     <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                                                    <input type="text" pInputText size="50" placeholder="Filtro" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                                                    <input type="text" pInputText size="50" placeholder="Filtro" (input)="dt2.filterGlobal($event.target.value, 'contains')" style="width:auto">
                                                 </div>
                                             </ng-template>
                                             <ng-template pTemplate="header" let-columns>
@@ -133,11 +133,11 @@
                                                 </tr>
                                                 <tr>
                                                     <th *ngFor="let col of columns" [ngSwitch]="col.field">                                                        
-                                                        <input *ngSwitchCase="'dni'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
-                                                        <input *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
-                                                        <input *ngSwitchCase="'apellido'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
-                                                        <input *ngSwitchCase="'telefono'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
-                                                        <input *ngSwitchCase="'matricula'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                                        <input *ngSwitchCase="'dni'" pInputText type="text" (input)="dt2.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                                        <input *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt2.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                                        <input *ngSwitchCase="'apellido'" pInputText type="text" (input)="dt2.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                                        <input *ngSwitchCase="'telefono'" pInputText type="text" (input)="dt2.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                                        <input *ngSwitchCase="'matricula'" pInputText type="text" (input)="dt2.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
                                                     
                                                     </th>
                                                 </tr>

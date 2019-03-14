@@ -23,7 +23,7 @@ import { ObraSocialComponent } from '../obraSocial/obraSocial.component';
 import { AsignarMedicamentoComponent } from '../asignar_medicamento/asignar_medicamento.component';
 import { FarmaciaComponent } from '../farmacia/farmacia.component';
 import { ClinicaComponent } from '../clinica/clinica.component';
-
+import { HistorialPacienteComponent } from '../historial-paciente/historial-paciente.component';
 
 // SERVICIOS
 import { MedicoService } from '../medico/medico.service';
@@ -35,7 +35,7 @@ import {PedidoService} from '../pedido/pedido.service';
 import { AsignarMedicamentoService } from '../asignar_medicamento/asignar_medicamento.service';
 import { FarmaciaService } from '../farmacia/farmacia.service';
 import { ClinicaService } from '../clinica/clinica.service';
-
+import { HistorialPacienteService } from '../historial-paciente/historial-paciente.service';
 
 // PrimeNG
 import {AccordionModule, CalendarModule} from 'primeng/primeng';
@@ -96,7 +96,8 @@ import { AsignarRepartidorService } from '../asignar_repartidor/asignar_repartid
         AsignarObraComponent,
         AsignarClinicaComponent,
         AsignarMedicamentoFarmaciaComponent,
-        AsignarRepartidorComponent
+        AsignarRepartidorComponent,
+        HistorialPacienteComponent
     ],
     providers: [
         WINDOW_PROVIDERS,
@@ -114,7 +115,8 @@ import { AsignarRepartidorService } from '../asignar_repartidor/asignar_repartid
         AsignarObraSocialService,
         AsignarClinicaService,
         AsignarMedicamentoFarmaciaService,
-        AsignarRepartidorService
+        AsignarRepartidorService,
+        HistorialPacienteService
     ]
 })
 export class LayoutModule {}
