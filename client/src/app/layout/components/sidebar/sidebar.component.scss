@@ -108,6 +108,7 @@ $topnav-background-color: #222;
         cursor: pointer;
     }
     .nested {
+        display: block;
         list-style-type: none;
     }
     ul.submenu {

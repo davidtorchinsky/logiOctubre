@@ -60,4 +60,19 @@ export class SidebarComponent {
     onLoggedout() {
         localStorage.removeItem('isLoggedin');
     }
+    
+    statusM: boolean = false;
+    statusMed(){
+        this.statusM = !this.statusM;       
+    }
+      
+    statusP: boolean = false;
+    statusPac(){
+        this.statusP = !this.statusP;       
+    }
+      
+    statusPed: boolean = false;
+    statusPedi(){
+        this.statusPed = !this.statusPed;       
+    }
 }
