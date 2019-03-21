@@ -2,7 +2,8 @@
 
 var Paciente = require('../models/paciente');
 var Medico = require('../models/medico');
-var Obra=require('../models/obras')
+var Obra=require('../models/obras');
+var Pedido= require('../models/pedido');
 
 // FUNCIONES
 function getPacientes(req, res){
@@ -231,7 +232,11 @@ function cargarConsumicion(req, res) {
             });
         });
     });
+    
+    
 }
+
+
 
 
 //Cargar un Medico
@@ -393,5 +398,7 @@ module.exports = {
     cargarConsumicion,
     cargarMedico,
     cargarObra
+  
+  
 }
 

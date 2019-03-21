@@ -5,6 +5,7 @@ import { PacienteService } from './paciente.service';
 import { NgForm } from '@angular/forms';
 import swal from 'sweetalert2';
 
+
 @Component({
     selector: 'app-productos',
     templateUrl: './paciente.component.html',

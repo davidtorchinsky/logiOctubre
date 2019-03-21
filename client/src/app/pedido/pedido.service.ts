@@ -3,6 +3,7 @@ import { Headers, Http } from '@angular/http';
 import { UrlService } from '../shared/WindowProvider/window.provider.service';
 import { Pedido } from './pedido';
 import { default as swal } from 'sweetalert2';
+import { Paciente} from '../paciente/paciente';
 
 
 
@@ -24,15 +25,29 @@ export class PedidoService {
         .catch(this.handleError);//obtento el error en caso de que se produzca uno
     }
 
+
+    getPacientes(): Promise<Paciente[]> {
+        console.log(this.pedidoURL);
+        return this.http.get(this.pedidoURL)
+        .toPromise()
+        .then(response => response.json().obj as Pedido[])//coneccion con exito
+        .catch(this.handleError);//obtento el error en caso de que se produzca uno
+    }
+
     cargarPedido(
         numeroPed: String,
         estadoPed: String,
         horaYFechaPed: Date,
-        cadenaDeFrioPed: String): Promise<Pedido> {
+        cadenaDeFrioPed: String,
+        idPacientePed: String,        
+        idMedicamentoPed: String,
+        ): Promise<Pedido> {
         return this.http.post(this.pedidoURL,
             JSON.stringify({numeroPedido: numeroPed, estadoPedido: estadoPed,
                             horaYFechaPedido: horaYFechaPed, cadenaFrioPedido: 
-                            cadenaDeFrioPed}), {headers: this.headers})
+                            cadenaDeFrioPed, idPacientePedido: idPacientePed,                            
+                            idMedicamentoPedido: idMedicamentoPed,
+                            }), {headers: this.headers})
         .toPromise()
         .then(response => response.json().obj as Pedido)
         .catch(this.handleError);

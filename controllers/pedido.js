@@ -1,7 +1,7 @@
 'use strict'
 
 var Pedido = require('../models/pedido');
-var Repartidor =require('../models/repartidor');
+var medicamento =require('../models/medicamento');
 
 // FUNCIONES
 function getPedidos(req, res){
@@ -55,6 +55,19 @@ function cargarPedido(req, res) {
             error: err
         });
     }
+
+    if (!req.params.idPaciente) {
+        return res.status(400).json({
+            title: 'Error id paciente',
+            error: err
+        });
+    }
+    if (!req.params.idMedicamento) {
+        return res.status(400).json({
+            title: 'Error id medicamento',
+            error: err
+        });
+    }
     
   
     var nuevoPedido = new Pedido({
@@ -65,7 +78,8 @@ function cargarPedido(req, res) {
         
       
     })
-    
+    nuevoPedido.idPaciente=req.body.idPaciente;
+    nuevoPedido.idMedicamento=req.body.idMedicamento;
     console.log(nuevoPedido);
     
 
@@ -93,6 +107,70 @@ function cargarPedido(req, res) {
         });
     });
 }
+
+
+
+//cargo el pedido cuando agrego el medicamento
+
+function cargarPedido2(req, res) {
+    console.log('CARGAR PEDIDO 2');
+
+   
+
+    if (!req.params.idPaciente) {
+        return res.status(400).json({
+            title: 'Error id paciente',
+            error: err
+        });
+    }
+    if (!req.params.idMedicamento) {
+        return res.status(400).json({
+            title: 'Error id medicamento',
+            error: err
+        });
+    }
+    
+  
+    var nuevoPedido = new Pedido({
+        numero: Pedido.find.Count()++,
+        estado: "Generado",
+        hora: Date.now(),
+        cadenaFrio: medicamento.findById(req.params.idMedicamento).cadenaFrio
+        
+      
+    })
+    nuevoPedido.idPaciente=req.body.idPaciente;
+    nuevoPedido.idMedicamento=req.body.idMedicamento;
+    console.log(nuevoPedido);
+    
+
+    nuevoPedido.save().then(function (nuevoPedido) {
+        res.status(201).json({
+            message: 'Pedido creado',
+            obj: nuevoPedido
+        });
+
+    }, function (err) {
+        if (err.code == 11000) {
+            var msj = ""
+            //Catching index name inside errmsg reported by mongo to determine the correct error and showing propper message
+            if (err.errmsg.toString().includes("idPed"))
+                msj = "Numero Pedido";
+           
+            return res.status(404).json({
+                title: 'Error',
+                error: msj + ' pedido existente.'
+            });
+        }
+        return res.status(404).json({
+            title: 'Error',
+            error: err
+        });
+    });
+}
+
+
+
 
 function editarPedido(req, res) {
     console.log('EDITAR PEDIDO');
@@ -247,6 +325,7 @@ module.exports = {
     cargarPedido,
     editarPedido,
     eliminarPedido,
-    cargarRepartidor
+    cargarRepartidor,
+    cargarPedido2
 }
 

@@ -165,6 +165,8 @@ function eliminarMedicamento(req, res){
     });
 }
 
+
+
 // EXPORT
 module.exports = {
     getMedicamentos,

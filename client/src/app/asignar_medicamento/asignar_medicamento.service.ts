@@ -3,11 +3,13 @@ import { Headers, Http } from '@angular/http';
 import { UrlService } from '../shared/WindowProvider/window.provider.service';
 import { default as swal } from 'sweetalert2';
 import { Paciente } from '../paciente/paciente';
+import { Pedido} from '../pedido/pedido';
 
 @Injectable()
 export class AsignarMedicamentoService {
     private headers = new Headers({'Content-Type': 'application/json'});
     private pacienteURL = this.urlService.getRestApiUrl() + '/paciente';  // URL a la api
+    private pedidoURL= this.urlService.getRestApiUrl() + '/pedido';  // URL a la api
 
     constructor(
         private http: Http,
@@ -21,6 +23,14 @@ export class AsignarMedicamentoService {
         .toPromise()
         .then(response => response.json().obj as Paciente)
         .catch(this.handleError);
+    }
+    //asignar pedido
+    cargarPedido(idPaciente: string, idMedicamento: string): Promise <Pedido>{
+        return this.http.patch(this.pedidoURL + '/'+'agregarPedido/'  + idPaciente + '/' + idMedicamento,
+        JSON.stringify({}), {headers: this.headers})
+    .toPromise()
+    .then(response => response.json().obj as Paciente)
+    .catch(this.handleError); 
     }
 
     private handleError(error: any): Promise<any> {

@@ -63,9 +63,6 @@
                                 </tr>
                             </ng-template>
                         </p-table>
-                
-                        
-
                     </div>
                     <div class="card-footer">
                         <div class="pull-right">
@@ -122,7 +119,7 @@
     </div>
 </div>
 
-<!-- MODAL AGREGAR MEDICO -->
+<!-- MODAL AGREGAR PEDIDO -->
 <p-dialog [(visible)]="modalAgregarPedido" [width]="400" [contentStyle]="{'max-height':'40%'}" pedido="selectedPedido" >
     <p-header>
         Nuevo Pedido
@@ -146,6 +143,24 @@
             <input type="date" class="form-control" name="horaYFechaPedido" [(ngModel)]="model.horaYFechaPedido" #horaYFechaPedido="ngModel" autocomplete="off" required />
             <div *ngIf="f.submitted && !horaYFechaPedido.valid" role="alert" class="alert alert-danger">Ingresar la horaYFecha del Pedido</div>
         </div>
+
+
+      <!-- <p>Selected Car: {{selectedPaciente||'none'}}</p>
+
+        <p-dropdown #dd8  [options]="pacientes"  [(ngModel)]="selectedPaciente"  [style]="{'width':'100%'}"  scrollHeight="400px"  filter="true"  filterBy="value,label" resetFilterOnHide="true"  (onChange)="OnChange($event)">
+            <ng-template let-item pTemplate="selectedItem"> 
+            {{(item.title) ? 'TODO' : item.label}}
+        </ng-template>
+        <ng-template let-car pTemplate="item">
+            <mat-divider></mat-divider>
+            <mat-list-item>
+                <span class="item-value1">{{car.value}}</span>
+                <span *ngIf="car.value != '(TODO)'">{{car.label}}</span>
+        </mat-list-item>
+        </ng-template>    
+        </p-dropdown> -->
+        
+
 
         <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" name="cadenaFrioPedido" [(ngModel)]="model.cadenaFrioPedido" #cadenaFrioPedido="ngModel">

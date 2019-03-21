@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 
+
 // COMPONENTES
 import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
@@ -38,6 +39,8 @@ import { ClinicaService } from '../clinica/clinica.service';
 
 
 // PrimeNG
+import {DropdownModule} from 'primeng/dropdown';
+//import {Dropdown} from 'primeng/api';
 import {AccordionModule, CalendarModule} from 'primeng/primeng';
 import { SharedModule, PanelModule } from 'primeng/primeng';
 import { ButtonModule } from 'primeng/button';
@@ -74,6 +77,9 @@ import { AsignarRepartidorService } from '../asignar_repartidor/asignar_repartid
         TableModule,
         DialogModule,
         CalendarModule,
+        DropdownModule,
+        //Dropdown,
+
         NgbDropdownModule.forRoot()
     ],
     declarations: [

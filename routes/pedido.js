@@ -11,6 +11,9 @@ api.get('/',PedidoController.getPedidos);
 // PATCH
 api.patch('/:idPedido',PedidoController.editarPedido);
 api.patch('/agregarRepartidor/:idPedido/:idRepartidor', PedidoController.cargarRepartidor);
+//creo el pedido.
+api.patch('/agregarPedido/:idPaciente/:idMedicamento', PedidoController.cargarPedido2);
+
 
 // POST
 api.post('/',PedidoController.cargarPedido);

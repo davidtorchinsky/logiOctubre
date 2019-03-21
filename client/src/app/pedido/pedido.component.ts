@@ -1,9 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { routerTransition } from '../router.animations';
 import { Pedido } from './pedido';
 import { PedidoService } from './pedido.service';
 import { NgForm } from '@angular/forms';
 import swal from 'sweetalert2';
+import { Paciente } from '../paciente/paciente';
+import { PacienteService } from '../paciente/paciente.service';
+import { Medicamento } from '../medicamento/medicamento';
+import { MedicamentoService } from '../medicamento/medicamento.service';
+//import {Dropdown} from 'primeng/api';
+
 
 @Component({
     selector: 'app-productos',
@@ -20,10 +26,22 @@ export class PedidoComponent implements OnInit {
   modalEditarPedido = false;
   modalEliminarPedido = false;
   cadena:string = "";
+  
+  //Pacientes
+  pacientes: Paciente[] = [];
+  colsPacientes: any[];
+  selectedPaciente: Paciente;
+
+  //Medicamentos
+  medicamentos: Medicamento[] = [];
+  colsMedicamentos: any[];
+  selectedMedicamento: Medicamento;
 
 
   constructor(
-    private pedidoService: PedidoService
+    private pedidoService: PedidoService,
+    private pacienteService:PacienteService,
+    private medicamentoService: MedicamentoService
   ) {}
 
 
@@ -34,8 +52,25 @@ export class PedidoComponent implements OnInit {
         { field: 'numero', header: 'Numero Pedido' },
         { field: 'estado', header: 'Estado' },       
         { field: 'hora', header: 'Hora y Fecha de la ultima modificacion' },
-        { field: 'cadenaFrio', header: 'Cadena Frio' }
+        { field: 'cadenaFrio', header: 'Cadena Frio' },
         
+        
+      ];
+
+      this.getPacientes();
+     
+      this.colsPacientes = [
+        { field: 'dni', header: 'DNI' },
+        { field: 'nombre', header: 'Nombre' },
+        { field: 'apellido', header: 'Apellido' },        
+        { field: 'direccion', header: 'Direccion' }
+        
+      ];
+
+      this.medicamentoService.getMedicamentos();
+      this.colsMedicamentos = [
+        { field: 'idMedicamento', header: 'Id Medicamento' },
+        { field: 'nombre', header: 'Nombre' }        
       ];
   }
 
@@ -48,12 +83,23 @@ export class PedidoComponent implements OnInit {
       });
     }
 
+    getPacientes() {
+      this.pacienteService.getPacientes()
+      .then(pacientes => {
+          this.pacientes = pacientes;          
+      });
+    }
+
   // CARGAR PEDIDO
     cargarPedido(
       numeroPedido: String,
       estadoPedido: String,
       horaYFechaPedido: Date,
-      cadenaFrioPedido: String,      
+      cadenaFrioPedido: String,
+      idPacientePedido: String,
+      
+      idMedicamentoPedido: String,
+            
       f: NgForm) {
       this.modalAgregarPedido = false;
       
@@ -65,7 +111,7 @@ export class PedidoComponent implements OnInit {
 
       
 
-      this.pedidoService.cargarPedido(numeroPedido, estadoPedido, horaYFechaPedido, this.cadena)
+      this.pedidoService.cargarPedido(numeroPedido, estadoPedido, horaYFechaPedido, this.cadena, idPacientePedido, idMedicamentoPedido)
       .then(pedidoAgregado => {
         // Muestro un mensajito de Agregado con Éxito
         swal({
@@ -196,5 +242,81 @@ export class PedidoComponent implements OnInit {
   cerrarModalEditar() {
     this.modalEditarPedido = false;
   }
+
+
+
+
+
+
+/// para el menu desplegable
+
+  /*counter = 0;
+  @ViewChild('dd') dropdown: Dropdown;
+
+
+  OnChange(ev) {
+    //console.log("OnChange", ev);
+    //console.log("OnChange", this.dropdown.panelVisible);
+
+    if (this.dropdown.panelVisible && this.counter == 0) {
+      this.counter = 1;
+      setTimeout(() => {
+        this.CheckClosePanel();
+      }, 100);
+    }
+  }
+
+  OnFocus() {
+    console.log("OnFocus");
+  }
+  OnBlur() {
+    console.log("OnBlur");
+  }
+  
+  CheckClosePanel() {
+    //console.log("CheckClosePanel");
+    if (this.dropdown.panelVisible) {
+      ++this.counter;
+      setTimeout(() => {
+        this.CheckClosePanel();
+      }, 100);
+    }
+    else {
+      console.log("CheckClosePanel - counter:", this.counter, " select:", this.selectedPaciente);
+      this.counter = 0;
+    }
+  }
+
+  MyItemClick(event) {
+    console.log("MyItemClick", event);
+    console.log(event.target.innerText);
+    if (event.target.classList.contains('disabled')) {
+      event.stopPropagation();
+    }
+  }
+
+  MyKeydown(event) {
+    console.log("MyKeydown", this.dropdown.selectedOption.disabled);
+    if (this.dropdown.selectedOption.disabled) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
+  }
+
+  MyKeydownEnter(event) {
+    console.log("MyKeydownEnter", this.dropdown.selectedOption.disabled);
+    if (this.dropdown.selectedOption.disabled) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
+  }
+
+  OnClickDisabled() {
+    console.log("OnClickDisabled");
+    event.stopPropagation();
+  }*/
 }
+
+
+
 

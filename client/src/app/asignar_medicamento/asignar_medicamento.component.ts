@@ -7,6 +7,7 @@ import { NgForm } from '@angular/forms';
 import swal from 'sweetalert2';
 import { Medicamento } from '../medicamento/medicamento';
 import { AsignarMedicamentoService } from './asignar_medicamento.service';
+import { Pedido } from '../pedido/pedido';
 
 
 @Component({
@@ -81,6 +82,9 @@ export class AsignarMedicamentoComponent implements OnInit {
                                                     this.selectedMedicamento._id,
                                                     frecuencia,
                                                     cantComp);
+
+     //llamar cargar pedido service  
+     this.asignarMedicamentoService.cargarPedido(this.selectedPaciente._id, this.selectedMedicamento._id);                                             
   }
 
   mostrarModalAsignarMedicamento() {
