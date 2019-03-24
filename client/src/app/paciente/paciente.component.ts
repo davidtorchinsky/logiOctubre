@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../router.animations';
 import { Paciente } from './paciente';
 import { PacienteService } from './paciente.service';
+import { HistorialPacienteService } from '../historial-paciente/historial-paciente.service';
 import { NgForm } from '@angular/forms';
 import swal from 'sweetalert2';
 
@@ -24,6 +25,7 @@ export class PacienteComponent implements OnInit {
 
 
   constructor(
+    private HistorialPacienteService: HistorialPacienteService,
     private pacienteService: PacienteService
   ) {}
 
@@ -136,6 +138,17 @@ export class PacienteComponent implements OnInit {
         this.selectedPaciente = null;
         f.resetForm();
       });
+      var hoy = new Date(Date.now());
+      this.HistorialPacienteService.cargarHistorialPaciente(this.selectedPaciente._id,
+        this.selectedPaciente.dni,
+        this.selectedPaciente.nombre,
+        this.selectedPaciente.apellido,
+        this.selectedPaciente.telefono,
+        this.selectedPaciente.direccion,
+        this.selectedPaciente.barrio,
+         hoy,
+        this.selectedPaciente.fechaNacimiento
+        );
     }
 
   // ELIMINAR PACIENTE

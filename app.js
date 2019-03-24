@@ -28,6 +28,7 @@ var repartidorRoutes=require('./routes/repartidor');
 var pedidoRoutes=require('./routes/pedido');
 var farmaciaRoutes=require('./routes/farmacia');
 var clinicaRoutes=require('./routes/clinica');
+var historialPacienteRoutes=require('./routes/historial_paciente');
 
 
 
@@ -40,6 +41,7 @@ app.use('/repartidor', repartidorRoutes);
 app.use('/pedido', pedidoRoutes);
 app.use('/farmacia', farmaciaRoutes);
 app.use('/clinica', clinicaRoutes);
+app.use('/historial_paciente',historialPacienteRoutes);
 
 
 app.listen(port, () => console.log('Servidor Corriendo!'));

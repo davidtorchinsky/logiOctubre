@@ -9,21 +9,17 @@ import { default as swal } from 'sweetalert2';
 @Injectable()
 export class HistorialPacienteService {
     private headers = new Headers({'Content-Type': 'application/json'});
-    private pacienteURL = this.urlService.getRestApiUrl() + '/historial-paciente';  // URL a la api
+    private pacienteURL = this.urlService.getRestApiUrl() + '/historial_paciente';  // URL a la api
 
     constructor(
         private http: Http,
         private urlService: UrlService
     ) {}
 
-    getHistorialPacientes(): Promise<HistorialPaciente[]> {
-        return this.http.get(this.pacienteURL)
-        .toPromise()
-        .then(response => response.json().obj as HistorialPaciente[])
-        .catch(this.handleError);
-    }
+ 
 
     getHistorialPaciente(dniPac: string,): Promise<HistorialPaciente[]> {
+        console.log(dniPac+"AAAA    ");
         return this.http.get(this.pacienteURL  + '/' + dniPac)
         .toPromise()
         .then(response => response.json().obj as HistorialPaciente[])
@@ -31,6 +27,7 @@ export class HistorialPacienteService {
     }
 
     cargarHistorialPaciente(
+        idPac: string,
         dniPac: string,
         nombrePac: string,
         apellidoPac: string,
@@ -40,10 +37,11 @@ export class HistorialPacienteService {
         fechaCambioPac:Date,
         fechaNacimientoPac: Date): Promise<HistorialPaciente> {
 
-            
+            console.log("entre a cargarHistorialPaciente");
+            console.log(dniPac,nombrePac);
 
         return this.http.post(this.pacienteURL,
-            JSON.stringify({dniPaciente: dniPac, nombrePaciente: nombrePac,
+            JSON.stringify({idPaciente:idPac,dniPaciente: dniPac, nombrePaciente: nombrePac,
                 apellidoPaciente: apellidoPac, telefonoPaciente: telefonoPac,direccionPaciente: direccionPac,
                 barrioPaciente: barrioPac, fechaNacimientoPaciente: fechaNacimientoPac,fechaCambioPaciente:fechaCambioPac}), {headers: this.headers})
         .toPromise()

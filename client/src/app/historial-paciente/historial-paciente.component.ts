@@ -70,7 +70,14 @@ export class HistorialPacienteComponent implements OnInit {
       .then(historialPacientes => {
           this.historialPacientes = historialPacientes;
           console.log(historialPacientes);
-      });
-  }
+          this.historialPacientes=historialPacientes;
+          console.log(this.historialPacientes);
 
+  });
+
+    // Reseteo el selectedPaciente y el formulario de editar
+    this.selectedPaciente = null;
+  }
 }
+
+
