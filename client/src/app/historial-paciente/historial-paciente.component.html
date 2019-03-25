@@ -111,7 +111,7 @@
                                                   <th *ngFor="let col of columns" [ngSwitch]="col.field">
                                                       <input *ngSwitchCase="'dni'" pInputText type="text" (input)="dt2.filter($event.target.value, col.field, col.filterMatchMode)" 
                                                       style="width:100%">
-                                                      <input *ngSwitchCase="'dosis'" pInputText type="text" (input)="dt2.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                                   
                                                       <input *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt2.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
                                                       <input *ngSwitchCase="'apellido'" pInputText type="text" (input)="dt2.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
                                                       <input *ngSwitchCase="'telefono'" pInputText type="text" (input)="dt2.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
@@ -124,8 +124,8 @@
                                               </tr>
                                           </ng-template>
 
-                                          <ng-template pTemplate="body" let-historial let-columns="columns">
-                                              <tr [pSelectableRow]="Historial">
+                                          <ng-template pTemplate="body" let-historialPacientes let-columns="columns">
+                                              <tr [pSelectableRow]="historial">
                                                   <td *ngFor="let col of columns">
                                                           {{historialPacientes[col.field]}}
                                                   </td>
