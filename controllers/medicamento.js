@@ -1,6 +1,8 @@
 'use strict'
 
+
 var Medicamento = require('../models/medicamento');
+var Paciente= require('../models/paciente');
 
 // FUNCIONES
 function getMedicamentos(req, res){
@@ -23,6 +25,48 @@ function getMedicamentos(req, res){
             obj: medicamentos
         });
     });
+}
+
+//Obtengo los medicamentos de un determinado paciente
+function getmedicamentosPaciente(req, res){
+    console.log('- GET MEDICAMENTOS PACIENTE -');
+    Paciente.findById(req.params.idPaciente, function (err, paciente) {
+        if (err) {
+            return res.status(400).json({
+                title: 'An error occurred',
+                error: err
+            });
+        }
+        if (!paciente) {
+            return res.status(404).json({
+                title: 'Error',
+                error: 'Paciente no encontrado'
+            });
+        }
+    })
+    //preguntar como itero y obtengo los valores..
+    console.log("id paciente: "+paciente._id+" Consumicion paciente: "+paciente.consumiciones);
+    paciente.consumiciones.forEach(element => {
+        Medicamento.find({}, function (err, medicamentos) {
+            if (err) {
+                return res.status(400).json({
+                    title: 'Error',
+                    error: err
+                });
+            }
+            if (!medicamentos) {
+                return res.status(404).json({
+                    title: 'Error',
+                    error: err
+                });
+            }
+            res.status(200).json({
+                message: 'Success',
+                obj: medicamentos
+            });
+        });
+    });
+    
 }
 
 function cargarMedicamento(req, res) {
@@ -172,6 +216,7 @@ module.exports = {
     getMedicamentos,
     cargarMedicamento,
     editarMedicamento,
-    eliminarMedicamento
+    eliminarMedicamento,
+    getmedicamentosPaciente
 }
 

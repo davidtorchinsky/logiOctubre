@@ -3,6 +3,7 @@ import { Headers, Http } from '@angular/http';
 import { UrlService } from '../shared/WindowProvider/window.provider.service';
 import { Medicamento } from './medicamento';
 import { default as swal } from 'sweetalert2';
+import { Paciente } from '../paciente/paciente';
 //import {medico2} from '../consultas/medicoConsultas.js';
 
 
@@ -20,6 +21,14 @@ export class MedicamentoService {
     getMedicamentos(): Promise<Medicamento[]> {
         console.log(this.medicamentoURL);
         return this.http.get(this.medicamentoURL)
+        .toPromise()
+        .then(response => response.json().obj as Medicamento[])
+        .catch(this.handleError);
+    }
+
+    getMedicamentosPaciente(paciente: Paciente): Promise<Medicamento[]> {
+        console.log(this.medicamentoURL);
+        return this.http.get(this.medicamentoURL+ '/' + paciente._id)
         .toPromise()
         .then(response => response.json().obj as Medicamento[])
         .catch(this.handleError);
