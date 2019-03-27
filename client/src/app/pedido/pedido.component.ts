@@ -92,7 +92,7 @@ export class PedidoComponent implements OnInit {
 
   // CARGAR PEDIDO
     cargarPedido(
-      numeroPedido: String,
+      numeroPedido: Number,
       estadoPedido: String,
       horaYFechaPedido: Date,
       cadenaFrioPedido: String,

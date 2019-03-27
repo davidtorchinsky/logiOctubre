@@ -59,6 +59,8 @@ import { AsignarMedicamentoFarmaciaComponent } from '../asignar_medicamento_farm
 import { AsignarMedicamentoFarmaciaService } from '../asignar_medicamento_farmacia/asignar_medicamento_farmacia.service';
 import { AsignarRepartidorComponent } from '../asignar_repartidor/asignar_repartidor.component';
 import { AsignarRepartidorService } from '../asignar_repartidor/asignar_repartidor.service';
+import { QuitarMedicamentoComponent } from '../quitar_medicamento/quitar_medicamento.component';
+import { QuitarMedicamentoService } from '../quitar_medicamento/quitar_medicamento.service';
 
 
 @NgModule({
@@ -103,7 +105,8 @@ import { AsignarRepartidorService } from '../asignar_repartidor/asignar_repartid
         AsignarClinicaComponent,
         AsignarMedicamentoFarmaciaComponent,
         AsignarRepartidorComponent,
-        HistorialPacienteComponent
+        HistorialPacienteComponent,
+        QuitarMedicamentoComponent
     ],
     providers: [
         WINDOW_PROVIDERS,
@@ -122,7 +125,8 @@ import { AsignarRepartidorService } from '../asignar_repartidor/asignar_repartid
         AsignarClinicaService,
         AsignarMedicamentoFarmaciaService,
         AsignarRepartidorService,
-        HistorialPacienteService
+        HistorialPacienteService,
+        QuitarMedicamentoService
     ]
 })
 export class LayoutModule {}

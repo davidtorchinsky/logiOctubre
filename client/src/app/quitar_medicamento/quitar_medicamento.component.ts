@@ -68,6 +68,7 @@ export class QuitarMedicamentoComponent implements OnInit {
   }
 
   getMedicamentosPaciente(event: any) {
+    console.log("entre a getmedicamentos component");
     this.medicamentoService.getMedicamentosPaciente(this.selectedPaciente)
       .then(medicamentos => {
           this.medicamentos = medicamentos;

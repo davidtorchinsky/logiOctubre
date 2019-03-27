@@ -1,7 +1,7 @@
 'use strict'
 
 var Pedido = require('../models/pedido');
-var medicamento =require('../models/medicamento');
+var Medicamento =require('../models/medicamento');
 
 // FUNCIONES
 function getPedidos(req, res){
@@ -25,6 +25,31 @@ function getPedidos(req, res){
         });
     });
 }
+
+function getPedidosEntreFechas(req, res){
+    console.log('- GET PEDIDOS ENTRE FECHAS-');
+    Pedido.find(req.params.fechaInicio<Pedido.horaYFechaPedido<Pedido.horaYFechaPedido, function (err, pedidos) {
+        if (err) {
+            return res.status(400).json({
+                title: 'Error',
+                error: err
+            });
+        }
+        if (!pedidos) {
+            return res.status(404).json({
+                title: 'Error',
+                error: err
+            });
+        }
+        res.status(200).json({
+            message: 'Success',
+            obj: pedidos
+        });
+    });
+}
+
+
+
 
 function cargarPedido(req, res) {
     console.log('CARGAR PEDIDO');
@@ -114,44 +139,66 @@ function cargarPedido(req, res) {
 
 function cargarPedido2(req, res) {
     console.log('CARGAR PEDIDO 2');
-
-   
-
-    if (!req.params.idPaciente) {
-        return res.status(400).json({
-            title: 'Error id paciente',
-            error: err
-        });
-    }
-    if (!req.params.idMedicamento) {
-        return res.status(400).json({
-            title: 'Error id medicamento',
-            error: err
-        });
-    }
     
-  
-    var nuevoPedido = new Pedido({
-        numero: Pedido.find.Count()++,
-        estado: "Generado",
-        hora: Date.now(),
-        cadenaFrio: medicamento.findById(req.params.idMedicamento).cadenaFrio
+    Pedido.countDocuments({}, function(err, count) {
+        if (err) { return handleError(err) } //handle possible errors
+        console.log("Cantidad de pedidos hasta el momento:",count)
+        //and do some other fancy stuff
+        if (!req.params.idPaciente) {
+            return res.status(400).json({
+                title: 'Error id paciente',
+                error: err
+            });
+        }
+        if (!req.params.idMedicamento) {
+            return res.status(400).json({
+                title: 'Error id medicamento',
+                error: err
+            });
+        }
+        var num=count+1;
+        
+        Medicamento.findById(req.params.idMedicamento, function (err, medicamento) {
+            if (err) {
+                return res.status(400).json({
+                    title: 'An error occurred',
+                    error: err
+                });
+            }
+            if (!medicamento) {
+                return res.status(404).json({
+                    title: 'Error',
+                    error: 'Pedido no encontrado'
+                });
+            }
+    
+            console.log("Numero pedido nuevo:",num);
+            console.log("El medicamento es:",medicamento);
+            console.log("cadena de frio:",medicamento.cadenaFrio);
+            var nuevoPedido = new Pedido({ 
+              
+            numero: num,
+        
+            estado: "Generado",
+            hora: Date.now(),
+        
+            cadenaFrio: medicamento.cadenaFrio
         
       
-    })
-    nuevoPedido.idPaciente=req.body.idPaciente;
-    nuevoPedido.idMedicamento=req.body.idMedicamento;
-    console.log(nuevoPedido);
+            })
+            nuevoPedido.idPaciente=req.body.idPaciente;
+            nuevoPedido.idMedicamento=req.body.idMedicamento;
+            console.log(nuevoPedido);
     
 
-    nuevoPedido.save().then(function (nuevoPedido) {
-        res.status(201).json({
+            nuevoPedido.save().then(function (nuevoPedido) {
+            res.status(201).json({
             message: 'Pedido creado',
             obj: nuevoPedido
-        });
+            });
 
-    }, function (err) {
-        if (err.code == 11000) {
+            }, function (err) {
+            if (err.code == 11000) {
             var msj = ""
             //Catching index name inside errmsg reported by mongo to determine the correct error and showing propper message
             if (err.errmsg.toString().includes("idPed"))
@@ -161,12 +208,15 @@ function cargarPedido2(req, res) {
                 title: 'Error',
                 error: msj + ' pedido existente.'
             });
-        }
-        return res.status(404).json({
+            }
+            return res.status(404).json({
             title: 'Error',
             error: err
-        });
-    });
+            });
+            });
+        });        
+    })
+    
 }
 
 
@@ -276,41 +326,7 @@ function cargarRepartidor(req, res) {
                 error: err
             });
         });
-    });
-
-    /*//Asocio el pedido a la Repartidor Social
-
-    console.log("salida 3");
-    Repartidor.findById(req.params.idRepartidor, function (err, repartidor) {
-        if (err) {
-            return res.status(400).json({
-                title: 'An error occurred',
-                error: err
-            });
-        }
-        if (!repartidor) {
-            return res.status(404).json({
-                title: 'Error',
-                error: 'Repartidor no encontrado'
-            });
-        }
-        repartidor.pedidos.push(req.params.idPedido );
-       
-
-        
-
-        repartidor.save().then(function (repartidor) {
-            res.status(200).json({
-                message: 'Success',
-                obj: repartidor
-            });
-        }, function (err) {
-            return res.status(404).json({
-                title: 'Error',
-                error: err
-            });
-        });
-    });*/
+    });    
 }
 
 
@@ -322,6 +338,7 @@ function cargarRepartidor(req, res) {
 // EXPORT
 module.exports = {
     getPedidos,
+    getPedidosEntreFechas,
     cargarPedido,
     editarPedido,
     eliminarPedido,

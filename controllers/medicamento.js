@@ -28,7 +28,7 @@ function getMedicamentos(req, res){
 }
 
 //Obtengo los medicamentos de un determinado paciente
-function getmedicamentosPaciente(req, res){
+function getMedicamentosPaciente(req, res){
     console.log('- GET MEDICAMENTOS PACIENTE -');
     Paciente.findById(req.params.idPaciente, function (err, paciente) {
         if (err) {
@@ -43,11 +43,39 @@ function getmedicamentosPaciente(req, res){
                 error: 'Paciente no encontrado'
             });
         }
-    })
+        paciente.consumiciones.forEach(consume => {
+            medi=Medicamento.findById(consume.medicamento, function (err, medicamentos) {
+                if (err) {
+                    return res.status(400).json({
+                        title: 'Error',
+                        error: err
+                    });
+                }
+                if (!medicamentos) {
+                    return res.status(404).json({
+                        title: 'Error',
+                        error: err
+                    });
+                }
+
+            });
+            
+            
+        });
+        res.status(200).json({
+            message: 'Success',
+            obj: paciente.consumiciones
+        }); 
+
+
+
+        /*console.log("El paciente: "+paciente);
     //preguntar como itero y obtengo los valores..
     console.log("id paciente: "+paciente._id+" Consumicion paciente: "+paciente.consumiciones);
+
+    
     paciente.consumiciones.forEach(element => {
-        Medicamento.find({}, function (err, medicamentos) {
+        Medicamento.findById(element.medicamento, function (err, medicamentos) {
             if (err) {
                 return res.status(400).json({
                     title: 'Error',
@@ -65,7 +93,12 @@ function getmedicamentosPaciente(req, res){
                 obj: medicamentos
             });
         });
-    });
+    });*/
+    })
+    
+    
+    
+
     
 }
 
@@ -217,6 +250,6 @@ module.exports = {
     cargarMedicamento,
     editarMedicamento,
     eliminarMedicamento,
-    getmedicamentosPaciente
+    getMedicamentosPaciente
 }
 

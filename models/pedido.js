@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 //Esquema pedido
 var PedidoSchema = Schema({
     numero: {
-        type: String,
+        type: Number,
         unique: true
     },
     estado: String,

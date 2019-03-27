@@ -35,7 +35,7 @@ export class PedidoService {
     }
 
     cargarPedido(
-        numeroPed: String,
+        numeroPed: Number,
         estadoPed: String,
         horaYFechaPed: Date,
         cadenaDeFrioPed: String,
