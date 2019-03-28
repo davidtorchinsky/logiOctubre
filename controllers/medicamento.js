@@ -43,28 +43,25 @@ function getMedicamentosPaciente(req, res){
                 error: 'Paciente no encontrado'
             });
         }
-        paciente.consumiciones.forEach(consume => {
-            medi=Medicamento.findById(consume.medicamento, function (err, medicamentos) {
-                if (err) {
-                    return res.status(400).json({
-                        title: 'Error',
-                        error: err
-                    });
+     var a= (Paciente.aggregate([
+            {
+              $lookup:
+                {
+                  from: "medicamentos",
+                  localField: "consumiciones.numeroMedicamento",
+                  foreignField:  "idMedicamento",
+                  as: "consumisionesJoin"
                 }
-                if (!medicamentos) {
-                    return res.status(404).json({
-                        title: 'Error',
-                        error: err
-                    });
-                }
+           }
+         ]));
 
-            });
-            
-            
-        });
+
+
+
+         console.log(a);
         res.status(200).json({
             message: 'Success',
-            obj: paciente.consumiciones
+            obj: a
         }); 
 
 

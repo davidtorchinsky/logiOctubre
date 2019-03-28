@@ -1,0 +1,34 @@
+//Esto hace un join con medicamentos en teoria    
+
+db.pacientes.aggregate([
+            {
+              $lookup:
+                {
+                  from: "medicamentos",
+                  localField: "consumisiones.medicamento",
+                  foreignField:  "_id",
+                  as: "consumisionesJoin"
+                }
+           }
+         ])
+
+
+db.pacientes.aggregate([
+            {
+              $lookup:
+                {
+                  from: "medicamentos",
+                  localField: "consumiciones.numeroMedicamento",
+                  foreignField:  "idMedicamento",
+                  as: "consumisionesJoin"
+                }
+           }
+         ])
+
+
+
+db.pacientes.find({ "barrio":"1" } )
+
+
+/cuando tengo un arreglo
+db.pacientes.find({ "consumiciones.frecuencia":1 } )

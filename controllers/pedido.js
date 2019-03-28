@@ -158,7 +158,7 @@ function cargarPedido2(req, res) {
         }
         var num=count+1;
         
-        Medicamento.findById(req.params.idMedicamento, function (err, medicamento) {
+        Medicamento.find({"numeroMedicamento":req.params.idMedicamento}, function (err, medicamento) {
             if (err) {
                 return res.status(400).json({
                     title: 'An error occurred',

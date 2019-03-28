@@ -199,6 +199,7 @@ function cargarConsumicion(req, res) {
         });
     }
 
+    console.log("idPaciente: "+req.params.idPaciente);
     Paciente.findById(req.params.idPaciente, function (err, paciente) {
         if (err) {
             return res.status(400).json({
@@ -207,17 +208,22 @@ function cargarConsumicion(req, res) {
             });
         }
         if (!paciente) {
+            console.log("paciente no encontrado");
             return res.status(404).json({
                 title: 'Error',
                 error: 'Paciente no encontrado'
             });
         }
 
+        console.log("_idMedicamento: "+req.params._idMedicamento);
+        console.log("idMedicamento: "+req.body.idMedicamento);
+        
         paciente.consumiciones.push({
-            medicamento: req.params.idMedicamento,
+            medicamento: req.params._idMedicamento,
             frecuencia: req.body.frecuencia,
             cantidadConsumicion: req.body.cantidadConsumicion,
-            diasRestantes: null
+            diasRestantes: null,
+            numeroMedicamento: req.body.idMedicamento,
         })
 
         paciente.save().then(function (paciente) {
