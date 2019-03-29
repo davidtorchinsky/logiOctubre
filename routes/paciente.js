@@ -11,7 +11,7 @@ api.get('/',PacienteController.getPacientes);
 // PATCH MODIFICACION
 api.patch('/:idPaciente',PacienteController.editarPaciente);
 api.patch('/agregarMedicamento/:idPaciente/:idMedicamento', PacienteController.cargarConsumicion);
-//api.patch('/quitarMedicamento/:idPaciente/:idMedicamento', PacienteController.quitarConsumicion);
+api.patch('/quitarMedicamento/:idPaciente/:idMedicamento', PacienteController.quitarConsumicion);
 api.patch('/agregarMedico/:idPaciente/:idMedico', PacienteController.cargarMedico);
 api.patch('/agregarObraSocial/:idPaciente/:idObra', PacienteController.cargarObra);
 

@@ -24,6 +24,6 @@ var FarmaciaSchema = Schema({
         ref: 'Medicamento'
     }]
 });
-var Farmacia = mongoose.model('farmacias', FarmaciaSchema);
+var Farmacia = mongoose.model('Farmacia', FarmaciaSchema);
 
 module.exports = Farmacia;

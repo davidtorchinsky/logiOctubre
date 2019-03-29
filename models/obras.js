@@ -18,6 +18,6 @@ var ObrasSchema = Schema({
         ref: 'Paciente'
     }]
 });
-var Obra = mongoose.model('obras', ObrasSchema);
+var Obra = mongoose.model('Obra', ObrasSchema);
 
 module.exports = Obra;

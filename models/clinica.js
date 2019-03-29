@@ -19,6 +19,6 @@ var ClinicaSchema = Schema({
         ref: 'Medico'
     }]
 });
-var Clinica = mongoose.model('clinicas', ClinicaSchema);
+var Clinica = mongoose.model('Clinica', ClinicaSchema);
 
 module.exports = Clinica;

@@ -30,7 +30,13 @@ function getMedicamentos(req, res){
 //Obtengo los medicamentos de un determinado paciente
 function getMedicamentosPaciente(req, res){
     console.log('- GET MEDICAMENTOS PACIENTE -');
-    Paciente.findById(req.params.idPaciente, function (err, paciente) {
+    var query = Paciente.findById(req.params.idPaciente);
+    
+    query.populate({
+        path: 'medicamentos',
+        model: 'Medicamento'
+    })
+    .exec(function (err, paciente) {
         if (err) {
             return res.status(400).json({
                 title: 'An error occurred',
@@ -43,29 +49,14 @@ function getMedicamentosPaciente(req, res){
                 error: 'Paciente no encontrado'
             });
         }
-        paciente.consumiciones.forEach(consume => {
-            medi=Medicamento.findById(consume.medicamento, function (err, medicamentos) {
-                if (err) {
-                    return res.status(400).json({
-                        title: 'Error',
-                        error: err
-                    });
-                }
-                if (!medicamentos) {
-                    return res.status(404).json({
-                        title: 'Error',
-                        error: err
-                    });
-                }
 
-            });
-            
-            
-        });
         res.status(200).json({
             message: 'Success',
-            obj: paciente.consumiciones
+            obj: paciente.medicamentos
         }); 
+    });
+        
+        
 
 
 
@@ -94,13 +85,68 @@ function getMedicamentosPaciente(req, res){
             });
         });
     });*/
-    })
     
-    
-    
-
-    
+ 
 }
+
+
+
+function getMedicamentosNoConsumePaciente(req, res){
+    console.log('- GET MEDICAMENTOS NO CONSUME PACIENTE-');
+    var query = Paciente.findById(req.params.idPaciente);
+    
+    query.exec(function (err, paciente) {
+        if (err) {
+            return res.status(400).json({
+                title: 'An error occurred',
+                error: err
+            });
+        }
+        if (!paciente) {
+            return res.status(404).json({
+                title: 'Error',
+                error: 'Paciente no encontrado'
+            });
+        }
+
+        if (paciente.medicamentos.length != 0) {
+            Medicamento.find({
+                '_id': {
+                    $ne: paciente.medicamentos
+                }
+            }, function (err, medicamentos) {
+                
+                console.log(medicamentos);
+                res.status(200).json({
+                    message: 'Success',
+                    obj: medicamentos
+                });
+            })
+        }
+        else{
+            Medicamento.find({}, function (err, medicamentos) {
+                if (err) {
+                    return res.status(400).json({
+                        title: 'An error occurred',
+                        error: err
+                    });
+                }
+                if (!medicamentos) {
+                    return res.status(404).json({
+                        title: 'Error',
+                        error: 'Medicamentos no encontrados'
+                    });
+                }
+                res.status(200).json({
+                    message: 'Success',
+                    obj: medicamentos
+                });
+            })
+        }
+    });
+}
+
+
 
 function cargarMedicamento(req, res) {
     console.log('CARGAR MEDICAMENTO');
@@ -250,6 +296,7 @@ module.exports = {
     cargarMedicamento,
     editarMedicamento,
     eliminarMedicamento,
-    getMedicamentosPaciente
+    getMedicamentosPaciente,
+    getMedicamentosNoConsumePaciente
 }
 

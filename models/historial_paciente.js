@@ -36,11 +36,11 @@ var hitorial_pacienteSchema = Schema({
     //Relacion con Obra
     obras:[{
         type: Schema.Types.ObjectId,
-        ref: 'Obras'
+        ref: 'Obra'
     }]
     
 });
 
-var Historial_paciente = mongoose.model('Historial_pacientes', hitorial_pacienteSchema);
+var Historial_paciente = mongoose.model('HistorialPaciente', hitorial_pacienteSchema);
 
 module.exports = Historial_paciente;

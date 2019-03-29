@@ -28,6 +28,6 @@ var MedicoSchema = Schema({
     }]
 
 });
-var Medico = mongoose.model('medicos', MedicoSchema);
+var Medico = mongoose.model('Medico', MedicoSchema);
 
 module.exports = Medico;

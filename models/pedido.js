@@ -37,6 +37,6 @@ var PedidoSchema = Schema({
     }
     
 });
-var Pedido = mongoose.model('pedidos', PedidoSchema);
+var Pedido = mongoose.model('Pedido', PedidoSchema);
 
 module.exports = Pedido;
