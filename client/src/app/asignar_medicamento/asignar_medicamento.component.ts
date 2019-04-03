@@ -67,8 +67,8 @@ export class AsignarMedicamentoComponent implements OnInit {
     });
   }
 
-  getMedicamentos(event: any) {
-    this.medicamentoService.getMedicamentos()
+  getMedicamentosNoConsumePaciente(event: any) {
+    this.medicamentoService.getMedicamentosNoConsumePaciente(this.selectedPaciente._id)
       .then(medicamentos => {
           this.medicamentos = medicamentos;
           console.log(medicamentos);

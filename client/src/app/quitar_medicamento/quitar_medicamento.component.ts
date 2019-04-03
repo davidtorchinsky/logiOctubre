@@ -76,14 +76,14 @@ export class QuitarMedicamentoComponent implements OnInit {
       });
   }
 
-  cargarConsumicion() {
-    this.cerrarModalQuitarMedicamento();
+  quitarConsumicion() {
+    //this.cerrarModalQuitarMedicamento();
 
     this.quitarMedicamentoService.quitarConsumicion(this.selectedPaciente._id,
                                                     this.selectedMedicamento._id);
 
      //llamar cargar pedido service  
-     this.quitarMedicamentoService.quitarPedido(this.selectedPaciente._id, this.selectedMedicamento._id);                                             
+     //this.quitarMedicamentoService.quitarPedido(this.selectedPaciente._id, this.selectedMedicamento._id);                                             
   }
 
   mostrarModalQuitarMedicamento() {

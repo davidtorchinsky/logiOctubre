@@ -21,6 +21,6 @@ pedidos:[{
     ref: 'Pedido'
 }]*/
 });
-var Repartidor = mongoose.model('repartidores', RepartidorSchema);
+var Repartidor = mongoose.model('Repartidor', RepartidorSchema);
 
 module.exports = Repartidor;

@@ -215,9 +215,8 @@ function cargarConsumicion(req, res) {
             });
         }
 
-        console.log("_idMedicamento: "+req.params._idMedicamento);
-        console.log("idMedicamento: "+req.body.idMedicamento);
-        
+        paciente.medicamentos.push(req.params.idMedicamento);
+
         paciente.consumiciones.push({
             medicamento: req.params._idMedicamento,
             frecuencia: req.body.frecuencia,
@@ -225,6 +224,55 @@ function cargarConsumicion(req, res) {
             diasRestantes: null,
             numeroMedicamento: req.body.idMedicamento,
         })
+
+        paciente.save().then(function (paciente) {
+            res.status(200).json({
+                message: 'Success',
+                obj: paciente
+            });
+        }, function (err) {
+            return res.status(404).json({
+                title: 'Error',
+                error: err
+            });
+        });
+    });
+    
+    
+}
+
+function quitarConsumicion(req, res) {
+
+    Paciente.findById(req.params.idPaciente, function (err, paciente) {
+        if (err) {
+            return res.status(400).json({
+                title: 'An error occurred',
+                error: err
+            });
+        }
+        if (!paciente) {
+            return res.status(404).json({
+                title: 'Error',
+                error: 'Paciente no encontrado'
+            });
+        }
+        let pos;
+        for (let index = 0; index < paciente.medicamentos.length; index++) {
+            const medicamento = paciente.medicamentos[index];
+            if (medicamento._id == req.params.idMedicamento) {
+                pos = index;
+            }
+        }
+        paciente.medicamentos.splice(pos, 1);
+
+        let pos2;
+        for (let index = 0; index < paciente.consumiciones.length; index++) {
+            const consumicion = paciente.consumiciones[index];
+            if (consumicion.medicamento._id == req.params.idMedicamento) {
+                pos2 = index;
+            }
+        }
+        paciente.consumiciones.splice(pos2, 1);
 
         paciente.save().then(function (paciente) {
             res.status(200).json({
@@ -403,7 +451,8 @@ module.exports = {
     eliminarPaciente,
     cargarConsumicion,
     cargarMedico,
-    cargarObra
+    cargarObra,
+    quitarConsumicion
   
   
 }

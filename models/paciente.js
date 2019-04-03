@@ -37,11 +37,16 @@ var pacienteSchema = Schema({
     //Relacion con Obra
     obras:[{
         type: Schema.Types.ObjectId,
-        ref: 'Obras'
+        ref: 'Obra'
+    }],
+    //Relacion con Medicamento
+    medicamentos:[{
+        type: Schema.Types.ObjectId,
+        ref: 'Medicamento'
     }]
     
 });
 
-var Paciente = mongoose.model('Pacientes', pacienteSchema);
+var Paciente = mongoose.model('Paciente', pacienteSchema);
 
 module.exports = Paciente;

@@ -14,6 +14,6 @@ var MedicamentosSchema = Schema({
     laboratorio: String,
     cantidadComprimidos: String
 });
-var Medicamento = mongoose.model('medicamentos', MedicamentosSchema);
+var Medicamento = mongoose.model('Medicamento', MedicamentosSchema);
 
 module.exports = Medicamento;
