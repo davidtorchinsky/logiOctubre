@@ -25,13 +25,13 @@ export class QuitarMedicamentoService {
         .catch(this.handleError);
     }
     //quitar pedido
-    quitarPedido(idPaciente: string, idMedicamento: string): Promise <Pedido>{
+    /*quitarPedido(idPaciente: string, idMedicamento: string): Promise <Pedido>{
         return this.http.patch(this.pedidoURL + '/'+'quitarPedido/'  + idPaciente + '/' + idMedicamento,
         JSON.stringify({}), {headers: this.headers})
     .toPromise()
     .then(response => response.json().obj as Paciente)
     .catch(this.handleError); 
-    }
+    }*/
 
     private handleError(error: any): Promise<any> {
         console.error('Ocurrio un error en Servicio de quitar medicamento: ', error);
