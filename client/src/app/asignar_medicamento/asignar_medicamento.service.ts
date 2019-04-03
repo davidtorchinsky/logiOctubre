@@ -16,10 +16,10 @@ export class AsignarMedicamentoService {
         private urlService: UrlService
     ) {}
 
-    cargarConsumicion(idPaciente: string, idMedicamento: string, frec: number, cantC: number): Promise <Paciente> {
+    cargarConsumicion(idPaciente: string, _idMedicamento: string, frec: number, cantC: number,idMedicamento:string): Promise <Paciente> {
         
-        return this.http.patch(this.pacienteURL + '/'+'agregarMedicamento/'  + idPaciente + '/' + idMedicamento,
-            JSON.stringify({frecuencia: frec, cantidadConsumicion: cantC}), {headers: this.headers})
+        return this.http.patch(this.pacienteURL + '/'+'agregarMedicamento/'  + idPaciente + '/' + _idMedicamento,
+            JSON.stringify({frecuencia: frec, cantidadConsumicion: cantC,idMedicamento:idMedicamento}), {headers: this.headers})
         .toPromise()
         .then(response => response.json().obj as Paciente)
         .catch(this.handleError);

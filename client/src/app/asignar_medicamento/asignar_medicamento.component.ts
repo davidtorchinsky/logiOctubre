@@ -81,10 +81,11 @@ export class AsignarMedicamentoComponent implements OnInit {
     this.asignarMedicamentoService.cargarConsumicion(this.selectedPaciente._id,
                                                     this.selectedMedicamento._id,
                                                     frecuencia,
-                                                    cantComp);
+                                                    cantComp,
+                                                    this.selectedMedicamento.idMedicamento,);
 
      //llamar cargar pedido service  
-     this.asignarMedicamentoService.cargarPedido(this.selectedPaciente._id, this.selectedMedicamento._id);                                             
+     this.asignarMedicamentoService.cargarPedido(this.selectedPaciente._id, this.selectedMedicamento.idMedicamento);                                             
   }
 
   mostrarModalAsignarMedicamento() {

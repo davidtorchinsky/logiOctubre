@@ -10,7 +10,8 @@ var Consume = Schema({
     },
     frecuencia: Number,
     cantidadConsumicion: Number,
-    diasRestantes: Number
+    diasRestantes: Number,
+    numeroMedicamento: String
     
 });
 
