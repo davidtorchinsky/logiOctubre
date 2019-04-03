@@ -75,4 +75,9 @@ export class SidebarComponent {
     statusPedi(){
         this.statusPed = !this.statusPed;       
     }
+    statusF: boolean = false;
+    statusFar(){
+        this.statusF = !this.statusF;       
+    }
+
 }

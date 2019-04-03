@@ -3,6 +3,7 @@
 
 var Medicamento = require('../models/medicamento');
 var Paciente= require('../models/paciente');
+var Farmacia=require('../models/farmacia')
 
 // FUNCIONES
 function getMedicamentos(req, res){
@@ -145,6 +146,69 @@ function getMedicamentosNoConsumePaciente(req, res){
         }
     });
 }
+
+
+function getMedicamentosNoFarmacia(req, res){
+    console.log('- GET MEDICAMENTOS NO CONSUME FARMACIA-');
+    var query = Farmacia.findById(req.params.idFarmacia);
+    
+    query.exec(function (err, farmacia) {
+        if (err) {
+            return res.status(400).json({
+                title: 'An error occurred',
+                error: err
+            });
+        }
+        if (!farmacia) {
+            return res.status(404).json({
+                title: 'Error',
+                error: 'Farmacia no encontrada'
+            });
+        }
+
+        if (farmacia.medicamentos.length != 0) {
+            Medicamento.find({
+                '_id': {
+                    $ne: farmacia.medicamentos
+                }
+            }, function (err, medicamentos) {
+                
+                console.log(medicamentos);
+                res.status(200).json({
+                    message: 'Success',
+                    obj: medicamentos
+                });
+            })
+        }
+        else{
+            Medicamento.find({}, function (err, medicamentos) {
+                if (err) {
+                    return res.status(400).json({
+                        title: 'An error occurred',
+                        error: err
+                    });
+                }
+                if (!medicamentos) {
+                    return res.status(404).json({
+                        title: 'Error',
+                        error: 'Medicamentos no encontrados'
+                    });
+                }
+                res.status(200).json({
+                    message: 'Success',
+                    obj: medicamentos
+                });
+            })
+        }
+    });
+}
+
+
+
+
+
+
+
 
 
 
@@ -297,6 +361,7 @@ module.exports = {
     editarMedicamento,
     eliminarMedicamento,
     getMedicamentosPaciente,
-    getMedicamentosNoConsumePaciente
+    getMedicamentosNoConsumePaciente,
+    getMedicamentosNoFarmacia
 }
 
