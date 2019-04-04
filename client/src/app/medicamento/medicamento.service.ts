@@ -27,9 +27,7 @@ export class MedicamentoService {
     }
 
     getMedicamentosPaciente(paciente: Paciente): Promise<Medicamento[]> {
-        console.log("entre a getmedicamentos service");
-        console.log(this.medicamentoURL);
-        console.log("ruta peticion get"+this.medicamentoURL+ '/' + paciente._id);
+       
         return this.http.get(this.medicamentoURL+ '/' + paciente._id)
         .toPromise()
         .then(response => response.json().obj as Medicamento[])

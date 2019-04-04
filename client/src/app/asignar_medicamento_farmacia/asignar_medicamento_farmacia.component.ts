@@ -74,7 +74,31 @@ export class AsignarMedicamentoFarmaciaComponent implements OnInit {
   
   cargarMedicamento() {
     this.asignarMedicamentoService.cargarConsumicion(this.selectedFarmacia._id,
-      this.selectedMedicamento._id);
+      this.selectedMedicamento._id).then(pacienteEditado => {
+        // Muestro un mensajito de Actualizado con Éxito
+        swal({
+          title: 'Actualizado!',
+          text: 'Se ha asignado el medicamento correctamente.',
+          type: 'success',
+          timer: 4000
+        }).then(
+          function () {
+  
+  
+          },
+          // handling the promise rejection
+          function (dismiss) {
+            if (dismiss === 'timer') {
+  
+            }
+          }
+        );
+  
+  
+        // Reseteo el selectedPaciente y el formulario de editar
+        this.selectedMedicamento = null;
+        this.selectedFarmacia = null;
+      });;
   }
 
   mostrarModalAsignarMedicamento() {

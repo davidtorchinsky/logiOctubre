@@ -6,7 +6,6 @@ var MedicoController = require('../controllers/medico');
 
 // GETS
 api.get('/',MedicoController.getMedicos);
-api.get('/noPaciente/:idPaciente',MedicoController.getMedicosNoPaciente);
 // api.get('/:idMedico/:idPaciente',MedicoController.editarMedico);
 
 // PATCH

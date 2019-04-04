@@ -166,6 +166,61 @@ function eliminarClinica(req, res){
     });
 }
 
+function getClinicasNoAsignadasMedico(req, res){
+    console.log('- GET CLINICAS NO ASIGNADAS MEDICO-');
+    var query = Medico.findById(req.params.idMedico);
+    
+    query.exec(function (err, medico) {
+        if (err) {
+            return res.status(400).json({
+                title: 'An error occurred',
+                error: err
+            });
+        }
+        if (!medico) {
+            return res.status(404).json({
+                title: 'Error',
+                error: 'medico no encontrado'
+            });
+        }
+
+        if (medico.clinicas.length != 0) {
+            Clinica.find({
+                '_id': {
+                    $ne: medico.clinicas
+                }
+            }, function (err, clinicas) {
+                
+                console.log(clinicas);
+                res.status(200).json({
+                    message: 'Success',
+                    obj: clinicas
+                });
+            })
+        }
+        else{
+            Clinica.find({}, function (err, clinicas) {
+                if (err) {
+                    return res.status(400).json({
+                        title: 'An error occurred',
+                        error: err
+                    });
+                }
+                if (!clinicas) {
+                    return res.status(404).json({
+                        title: 'Error',
+                        error: 'Clinicas no encontradas'
+                    });
+                }
+                res.status(200).json({
+                    message: 'Success',
+                    obj: clinicas
+                });
+            })
+        }
+    });
+}
+
 
 
 
@@ -177,5 +232,6 @@ module.exports = {
     getClinicas,
     cargarClinica,
     editarClinica,
-    eliminarClinica
+    eliminarClinica,
+    getClinicasNoAsignadasMedico
 }

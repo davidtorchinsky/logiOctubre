@@ -59,7 +59,7 @@ export class AsignarClinicaComponent implements OnInit {
     this.medicoService.getMedicos()
     .then(medicos => {
         this.medicos = medicos;
-        console.log(medicos);
+    
     });
   }
 
@@ -67,12 +67,42 @@ export class AsignarClinicaComponent implements OnInit {
     this.clinicaService.getClinicas()
       .then(clinicas => {
           this.clinicas = clinicas;
-          console.log(clinicas);
+       
+      });
+  }
+
+  getClinicasNoAsignadasMedico(event: any) {
+    this.clinicaService.getClinicasNoAsignadasMedico(this.selectedMedico._id)
+      .then(clinicas => {
+          this.clinicas = clinicas;
+
       });
   }
 
   cargarClinica() {
-    this.asignarClinicaService.cargarClinica(this.selectedMedico._id,this.selectedClinica._id);
+    this.asignarClinicaService.cargarClinica(this.selectedMedico._id,this.selectedClinica._id).then(pacienteEditado => {
+      // Muestro un mensajito de Actualizado con Éxito
+      swal({
+        title: 'Actualizado!',
+        text: 'Se ha asignado la clinica correctamente.',
+        type: 'success',
+        timer: 4000
+      }).then(
+        function () {
+        },
+        // handling the promise rejection
+        function (dismiss) {
+          if (dismiss === 'timer') {
+
+          }
+        }
+      );
+
+
+      // Reseteo el selectedPaciente y el formulario de editar
+      this.selectedMedico = null;
+      this.selectedClinica = null;
+    });
   }
 
   

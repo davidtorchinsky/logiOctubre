@@ -66,7 +66,7 @@ export class AsignarMedicoComponent implements OnInit {
   }
 
   getMedicos(event: any) {
-    this.medicoService.getMedicosNoPaciente(this.selectedPaciente._id)
+    this.medicoService.getMedicos()
       .then(medicos => {
           this.medicos = medicos;
           console.log(medicos);
@@ -74,7 +74,31 @@ export class AsignarMedicoComponent implements OnInit {
   }
 
   cargarMedico() {
-    this.asignarMedicoService.cargarMedico(this.selectedPaciente._id,this.selectedMedico._id);
+    this.asignarMedicoService.cargarMedico(this.selectedPaciente._id,this.selectedMedico._id).then(pacienteEditado => {
+      // Muestro un mensajito de Actualizado con Éxito
+      swal({
+        title: 'Actualizado!',
+        text: 'Se ha asignado el médico correctamente.',
+        type: 'success',
+        timer: 4000
+      }).then(
+        function () {
+
+
+        },
+        // handling the promise rejection
+        function (dismiss) {
+          if (dismiss === 'timer') {
+
+          }
+        }
+      );
+
+
+      // Reseteo el selectedPaciente y el formulario de editar
+      this.selectedMedico = null;
+      this.selectedPaciente = null;
+    });;
   }
 
   

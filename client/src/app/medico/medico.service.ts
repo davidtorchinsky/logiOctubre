@@ -24,14 +24,6 @@ export class MedicoService {
         .catch(this.handleError);
     }
 
-    getMedicosNoPaciente(idPaciente: string): Promise<Medico[]> {
-        console.log(this.medicoURL);
-        return this.http.get(this.medicoURL+ '/noPaciente' +'/'+ idPaciente)
-        .toPromise()
-        .then(response => response.json().obj as Medico[])
-        .catch(this.handleError);
-    }
-
     cargarMedico(
         dniMed: string,
         nombreMed: string,
