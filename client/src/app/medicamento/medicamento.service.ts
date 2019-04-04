@@ -45,6 +45,14 @@ export class MedicamentoService {
         .catch(this.handleError);
     }
 
+    getMedicamentosNoFarmacia(idFarmacia: string): Promise<Medicamento[]> {
+        
+        return this.http.get(this.medicamentoURL+ '/noConsumeFarmacia' +'/'+ idFarmacia)
+        .toPromise()
+        .then(response => response.json().obj as Medicamento[])
+        .catch(this.handleError);
+    }
+
     cargarMedicamento(
         idMedMedicam: string,
         nombreMedMedicam: string,

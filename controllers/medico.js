@@ -2,6 +2,7 @@
 
 var Medico = require('../models/medico');
 var Clinica = require('../models/clinica');
+var Paciente= require('../models/paciente');
 
 // FUNCIONES
 function getMedicos(req, res){
@@ -25,6 +26,66 @@ function getMedicos(req, res){
         });
     });
 }
+
+function getMedicosNoPaciente(req, res){
+    console.log('- GET MEDICOS NO PACIENTE-');
+    var query = Paciente.findById(req.params.idPaciente);
+    
+    query.exec(function (err, paciente) {
+        if (err) {
+            return res.status(400).json({
+                title: 'An error occurred',
+                error: err
+            });
+        }
+        if (!paciente) {
+            return res.status(404).json({
+                title: 'Error',
+                error: 'Paciente no encontrada'
+            });
+        }
+
+        if (paciente.medicos.length != 0) {
+            Medico.find({
+                '_id': {
+                    $ne: paciente.medicos
+                }
+            }, function (err, medicos) {
+                
+                console.log(medicos);
+                res.status(200).json({
+                    message: 'Success',
+                    obj: medicos
+                });
+            })
+        }
+        else{
+            Medico.find({}, function (err, medicos) {
+                if (err) {
+                    return res.status(400).json({
+                        title: 'An error occurred',
+                        error: err
+                    });
+                }
+                if (!medicos) {
+                    return res.status(404).json({
+                        title: 'Error',
+                        error: 'Medicos no encontrados'
+                    });
+                }
+                res.status(200).json({
+                    message: 'Success',
+                    obj: medicos
+                });
+            })
+        }
+    });
+}
+
+
+
+
+
 
 function cargarMedico(req, res) {
     console.log('CARGAR MEDICO')
@@ -121,7 +182,7 @@ function editarMedico(req, res) {
         medico.apellido = req.body.apellidoMedico;
         medico.telefono = req.body.telefonoMedico;
         medico.matricula = req.body.matriculaMedico;
-        especialidad: req.body.especialidadMedico;
+        medico.especialidad= req.body.especialidadMedico;
 
         medico.save().then(function (medico) {
             res.status(200).json({
@@ -245,6 +306,7 @@ module.exports = {
     cargarMedico,
     editarMedico,
     eliminarMedico, 
-    cargarClinica
+    cargarClinica,
+    getMedicosNoPaciente
 }
 
