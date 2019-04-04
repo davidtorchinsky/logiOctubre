@@ -66,7 +66,7 @@ export class AsignarMedicoComponent implements OnInit {
   }
 
   getMedicos(event: any) {
-    this.medicoService.getMedicos()
+    this.medicoService.getMedicosNoPaciente(this.selectedPaciente._id)
       .then(medicos => {
           this.medicos = medicos;
           console.log(medicos);
