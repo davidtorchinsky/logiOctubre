@@ -110,9 +110,11 @@ function getMedicamentosNoConsumePaciente(req, res){
         }
 
         if (paciente.medicamentos.length != 0) {
+            console.log(paciente.medicamentos[0]);
+      
             Medicamento.find({
                 '_id': {
-                    $ne: paciente.medicamentos
+                    $nin: paciente.medicamentos
                 }
             }, function (err, medicamentos) {
                 
