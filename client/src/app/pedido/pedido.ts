@@ -4,5 +4,7 @@ export class Pedido {
     estado: string;
     hora: Date;
     cadenaFrio: string;
+    horaString:string;
+
    
 }

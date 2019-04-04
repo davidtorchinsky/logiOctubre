@@ -18,7 +18,6 @@ export class PedidoService {
     ) {}
         //me conecto a la base de datos
     getPedidos(): Promise<Pedido[]> {
-        console.log(this.pedidoURL);
         return this.http.get(this.pedidoURL)
         .toPromise()
         .then(response => response.json().obj as Pedido[])//coneccion con exito
@@ -27,7 +26,6 @@ export class PedidoService {
 
 
     getPacientes(): Promise<Paciente[]> {
-        console.log(this.pedidoURL);
         return this.http.get(this.pedidoURL)
         .toPromise()
         .then(response => response.json().obj as Pedido[])//coneccion con exito
@@ -42,6 +40,7 @@ export class PedidoService {
         idPacientePed: String,        
         idMedicamentoPed: String,
         ): Promise<Pedido> {
+            console.log("entre a cagar pedido");
         return this.http.post(this.pedidoURL,
             JSON.stringify({numeroPedido: numeroPed, estadoPedido: estadoPed,
                             horaYFechaPedido: horaYFechaPed, cadenaFrioPedido: 

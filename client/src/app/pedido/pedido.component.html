@@ -47,7 +47,11 @@
                                      <input *ngSwitchCase="'numero'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" 
                                      style="width:100%">
                                      <input *ngSwitchCase="'estado'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
-                                     <input *ngSwitchCase="'hora'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                     <input *ngSwitchCase="'horaString'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                     <input *ngSwitchCase="'apellido'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                     <input *ngSwitchCase="'direccion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                     <input *ngSwitchCase="'repartidor'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                     <input *ngSwitchCase="'medicamento'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
                                      <input *ngSwitchCase="'cadenaFrio'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
                                      
                                     
@@ -120,54 +124,110 @@
 </div>
 
 <!-- MODAL AGREGAR PEDIDO -->
-<p-dialog [(visible)]="modalAgregarPedido" [width]="400" [contentStyle]="{'max-height':'40%'}" pedido="selectedPedido" >
+<p-dialog [(visible)]="modalAgregarPedido" [width]="800" [contentStyle]="{'max-height':'80%'}" pedido="selectedPedido" >    
     <p-header>
         Nuevo Pedido
     </p-header>
 
-    <form name="form" (ngSubmit)="f.form.valid && cargarPedido(numeroPedido.value,estadoPedido.value, horaYFechaPedido.value,cadenaFrioPedido.value, f);" #f="ngForm" novalidate>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !numeroPedido.valid }">
+    <form name="form" (ngSubmit)="f.form.valid && cargarPedido(numeroPedido.value,estadoPedido.value, horaYFechaPedido.value,selectedPaciente._id,selectedMedicamento.idMedicamento,cadenaFrioPedido.value, f);" #f="ngForm" novalidate>
+        <div class="form-group">
             <label for="numeroPedido">Numero:</label>
-            <input type="text" class="form-control" name="numeroPedido" [(ngModel)]="model.numeroPedido" #numeroPedido="ngModel" autocomplete="off" required />
-            <div *ngIf="f.submitted && !numeroPedido.valid" role="alert" class="alert alert-danger">Ingresar el Numero del Pedido</div>
+            <input type="text" class="form-control" name="numeroPedido" [(ngModel)]="ultimoNumero" #numeroPedido="ngModel" autocomplete="off" disabled />
         </div>
 
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !estadoPedido.valid }">
+        <div class="form-group" >
             <label for="estadoPedido">Estado:</label>
-            <input type="text" class="form-control" name="estadoPedido" [(ngModel)]="model.estadoPedido" #estadoPedido="ngModel" autocomplete="off" required />
-            <div *ngIf="f.submitted && !estadoPedido.valid" role="alert" class="alert alert-danger">Ingresar el Estado del Pedido</div>
+            <input type="text" class="form-control" name="estadoPedido" [(ngModel)]="estadoGenerado" #estadoPedido="ngModel" autocomplete="off" disabled />
+          
         </div>
 
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !horaYFechaPedido.valid }">
+        <div class="form-group">
             <label for="horaYFechaPedido">Hora y Fecha:</label>
-            <input type="date" class="form-control" name="horaYFechaPedido" [(ngModel)]="model.horaYFechaPedido" #horaYFechaPedido="ngModel" autocomplete="off" required />
-            <div *ngIf="f.submitted && !horaYFechaPedido.valid" role="alert" class="alert alert-danger">Ingresar la horaYFecha del Pedido</div>
+            <input type="text" class="form-control" name="horaYFechaPedido" [(ngModel)]="hoy" #horaYFechaPedido="ngModel" autocomplete="off" disabled />
+
         </div>
 
 
-      <!-- <p>Selected Car: {{selectedPaciente||'none'}}</p>
-
-        <p-dropdown #dd8  [options]="pacientes"  [(ngModel)]="selectedPaciente"  [style]="{'width':'100%'}"  scrollHeight="400px"  filter="true"  filterBy="value,label" resetFilterOnHide="true"  (onChange)="OnChange($event)">
-            <ng-template let-item pTemplate="selectedItem"> 
-            {{(item.title) ? 'TODO' : item.label}}
-        </ng-template>
-        <ng-template let-car pTemplate="item">
-            <mat-divider></mat-divider>
-            <mat-list-item>
-                <span class="item-value1">{{car.value}}</span>
-                <span *ngIf="car.value != '(TODO)'">{{car.label}}</span>
-        </mat-list-item>
-        </ng-template>    
-        </p-dropdown> -->
         
 
+ 
+<label>Paciente</label>
+        <div class="card-body">
+            <p-table #dt [columns]="colsPacientes" [value]="pacientes" selectionMode="single" [(selection)]="selectedPaciente">
+        
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns">
+                            {{col.header}}
+                        </th>
+                    </tr>
+                    <tr>
+                      <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                        
+                         <input *ngSwitchCase="'apellido'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                         <input *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                         <input *ngSwitchCase="'dni'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                        
+                        
+                      </th>
+                    </tr>
+                </ng-template>
 
+                <ng-template pTemplate="body" let-pedido let-columns="columns">
+                    <tr [pSelectableRow]="pedido">
+                        <td *ngFor="let col of columns">
+                                {{pedido[col.field]}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+
+        <label>Medicamento</label>
+        <div class="card-body">
+            <p-table #dt [columns]="colsMedicamentos" [value]="medicamentos" selectionMode="single" [(selection)]="selectedMedicamento">
+        
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns">
+                            {{col.header}}
+                        </th>
+                    </tr>
+                    <tr>
+                      <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                        
+                         <input *ngSwitchCase="'idMedicamento'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                         <input *ngSwitchCase="'laboratorio'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                         <input *ngSwitchCase="'dosis'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                         <input *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                      
+                        
+                      </th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-pedido let-columns="columns">
+                    <tr [pSelectableRow]="pedido">
+                        <td *ngFor="let col of columns">
+                                {{pedido[col.field]}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+
+
+
+        
         <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" name="cadenaFrioPedido" [(ngModel)]="model.cadenaFrioPedido" #cadenaFrioPedido="ngModel">
             <label class="form-check-label" for="defaultCheck1">
               Cadena de Frio
             </label>
         </div>
+
           <br>    
     
         <p-footer>
@@ -182,35 +242,44 @@
     </form>
 </p-dialog>
 
-<!-- MODAL EDITAR MEDICO -->
+
+
+
+
+
+<!-- MODAL EDITAR PEDIDO -->
 <p-dialog [(visible)]="modalEditarPedido" [width]="500" [contentStyle]="{'max-height':'40%'}" action="#selectedPedido" *ngIf="selectedPedido">
     <p-header>
         Editar Pedido
     </p-header>
     
     <form name="form" (ngSubmit)="f.form.valid && editarPedido(f);" #f="ngForm" novalidate >
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !numeroPedido.valid }" >
+        <div class="form-group"  >
             <label for="numeroPedido">Numero de Pedido:</label>
             <input type="text" class="form-control" name="numeroPedido" [(ngModel)]="selectedPedido.numero" #numeroPedido="ngModel" disabled />
-            <div *ngIf="f.submitted && !numeroPedido.valid" role="alert" class="alert alert-danger">Ingresar el Numero del Pedido</div>
+
         </div>
 
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !estadoPedido.valid }">
+        <div class="form-group">
             <label for="estadoPedido">Estado:</label>
-            <input type="text" class="form-control" name="estadoPedido" [(ngModel)]="selectedPedido.nombre" #estadoPedido="ngModel" autocomplete="off" required />
-            <div *ngIf="f.submitted && !estadoPedido.valid" role="alert" class="alert alert-danger">Ingresar el Estado del Pedido</div>
+
+            <p-dropdown [options]="estados" [(ngModel)]="selectedEstado" placeholder="Seleccione un estado" optionLabel="name" [showClear]="true"></p-dropdown>
+            
+
+
+
         </div>
 
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !horaYFechaPedido.valid }">
+        <div class="form-group">
             <label for="horaYFechaPedido">Hora y Fecha:</label>
-            <input type="date" class="form-control" name="horaYFechaPedido" [(ngModel)]="selectedPedido.hora" #horaYFechaPedido="ngModel" autocomplete="off" required />
-            <div *ngIf="f.submitted && !horaYFechaPedido.valid" role="alert" class="alert alert-danger">Ingresar la hora y Fecha del pedido</div>
+            <input type="text" class="form-control" name="horaYFechaPedido" [(ngModel)]="hoy" #horaYFechaPedido="ngModel" autocomplete="off" disabled />
+
         </div>
 
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !cadenaFrioPedido.valid }">
+        <div class="form-group">
             <label for="cadenaFrioPedido">Cadena de frio:</label>
-            <input type="text" class="form-control" name="cadenaFrioPedido" [(ngModel)]="selectedPedido.cadenaFrio" #cadenaFrioPedido="ngModel" autocomplete="off" required />
-            <div *ngIf="f.submitted && !cadenaFrioPedido.valid" role="alert" class="alert alert-danger">Ingresar la cadena de frio</div>
+            <input type="text" class="form-control" name="cadenaFrioPedido" [(ngModel)]="selectedPedido.cadenaFrio" #cadenaFrioPedido="ngModel" autocomplete="off" disabled />
+          
         </div>
 
         

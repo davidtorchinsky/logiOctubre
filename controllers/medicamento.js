@@ -49,32 +49,9 @@ function getMedicamentosPaciente(req, res){
                 error: 'Paciente no encontrado'
             });
         }
-<<<<<<< HEAD
-
         res.status(200).json({
             message: 'Success',
             obj: paciente.medicamentos
-=======
-     var a= (Paciente.aggregate([
-            {
-              $lookup:
-                {
-                  from: "medicamentos",
-                  localField: "consumiciones.numeroMedicamento",
-                  foreignField:  "idMedicamento",
-                  as: "consumisionesJoin"
-                }
-           }
-         ]));
-
-
-
-
-         console.log(a);
-        res.status(200).json({
-            message: 'Success',
-            obj: a
->>>>>>> master
         }); 
     });
         

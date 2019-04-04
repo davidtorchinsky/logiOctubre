@@ -10,13 +10,8 @@ api.get('/',PacienteController.getPacientes);
 
 // PATCH MODIFICACION
 api.patch('/:idPaciente',PacienteController.editarPaciente);
-<<<<<<< HEAD
 api.patch('/agregarMedicamento/:idPaciente/:idMedicamento', PacienteController.cargarConsumicion);
 api.patch('/quitarMedicamento/:idPaciente/:idMedicamento', PacienteController.quitarConsumicion);
-=======
-api.patch('/agregarMedicamento/:idPaciente/:_idMedicamento', PacienteController.cargarConsumicion);
-//api.patch('/quitarMedicamento/:idPaciente/:idMedicamento', PacienteController.quitarConsumicion);
->>>>>>> master
 api.patch('/agregarMedico/:idPaciente/:idMedico', PacienteController.cargarMedico);
 api.patch('/agregarObraSocial/:idPaciente/:idObra', PacienteController.cargarObra);
 

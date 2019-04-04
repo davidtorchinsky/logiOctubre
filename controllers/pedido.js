@@ -81,13 +81,17 @@ function cargarPedido(req, res) {
         });
     }
 
-    if (!req.params.idPaciente) {
+    console.log("idpaciente "+req.body.idPacientePedido);
+
+    if (!req.body.idPacientePedido) {
         return res.status(400).json({
             title: 'Error id paciente',
             error: err
         });
     }
-    if (!req.params.idMedicamento) {
+
+    console.log("idMedicamento "+req.body.idMedicamentoPedido);
+    if (!req.body.idMedicamentoPedido) {
         return res.status(400).json({
             title: 'Error id medicamento',
             error: err
@@ -99,14 +103,14 @@ function cargarPedido(req, res) {
         numero: req.body.numeroPedido,
         estado: req.body.estadoPedido,
         hora: req.body.horaYFechaPedido,
-        cadenaFrio: req.body.cadenaFrioPedido
-        
-      
-    })
-    nuevoPedido.idPaciente=req.body.idPaciente;
-    nuevoPedido.idMedicamento=req.body.idMedicamento;
+        cadenaFrio: req.body.cadenaFrioPedido,
+    });
+    nuevoPedido.idPaciente=req.body.idPacientePedido;
+    nuevoPedido.idMedicamento=req.body.idMedicamentoPedido;
     console.log(nuevoPedido);
     
+    console.log( nuevoPedido.idPaciente);
+    console.log(nuevoPedido.idMedicamento);
 
     nuevoPedido.save().then(function (nuevoPedido) {
         res.status(201).json({

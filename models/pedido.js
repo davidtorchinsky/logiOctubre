@@ -24,7 +24,7 @@ var PedidoSchema = Schema({
         type: Schema.Types.ObjectId,
         ref: 'Repartidor'
     },
-    //Relacion con Farmacia
+    //Relacion con Farmacia 
     farmacia:{
         type: Schema.Types.ObjectId,
         ref: 'Farmacia'
