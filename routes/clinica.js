@@ -6,6 +6,7 @@ var ClinicaController = require('../controllers/clinica');
 
 // GETS
 api.get('/',ClinicaController.getClinicas);
+api.get('/noAsignada/:idMedico',ClinicaController.getClinicasNoAsignadasMedico);
 // api.get('/:idMedico/:idClinica',MedicoController.editarMedico);
 
 // PATCH MODIFICACION

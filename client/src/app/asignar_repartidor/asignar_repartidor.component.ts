@@ -74,7 +74,31 @@ export class AsignarRepartidorComponent implements OnInit {
 
 
   cargarRepartidor() {
-    this.asignarRepartidorService.cargarRepartidor(this.selectedPedido._id,this.selectedRepartidor._id);
+    this.asignarRepartidorService.cargarRepartidor(this.selectedPedido._id,this.selectedRepartidor._id).then(pacienteEditado => {
+      // Muestro un mensajito de Actualizado con Éxito
+      swal({
+        title: 'Actualizado!',
+        text: 'Se ha asignado el repartidor correctamente.',
+        type: 'success',
+        timer: 4000
+      }).then(
+        function () {
+
+
+        },
+        // handling the promise rejection
+        function (dismiss) {
+          if (dismiss === 'timer') {
+
+          }
+        }
+      );
+
+
+      // Reseteo el selectedPaciente y el formulario de editar
+      this.selectedPedido = null;
+      this.selectedRepartidor = null;
+    });;
   }
 
   

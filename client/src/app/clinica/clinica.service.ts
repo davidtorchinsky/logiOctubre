@@ -66,6 +66,14 @@ export class ClinicaService {
         .catch(this.handleError);
     }
 
+    getClinicasNoAsignadasMedico(idMedico: string): Promise<Clinica[]> {
+        
+        return this.http.get(this.clinicaURL+ '/noAsignada' +'/'+ idMedico)
+        .toPromise()
+        .then(response => response.json().obj as Clinica[])
+        .catch(this.handleError);
+    }
+
     private handleError(error: any): Promise<any> {
         console.error('Ocurrio un error en Servicio de Clinicas: ', error);
             swal(

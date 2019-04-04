@@ -56,7 +56,7 @@
                                                         [value]="medicos" 
                                                         selectionMode="single" [(selection)]="selectedMedico"
                                                         [scrollable]="true" scrollHeight="200px"
-                                                        (onRowSelect)="getClinicas($event)">
+                                                        (onRowSelect)="getClinicasNoAsignadasMedico($event)">
                                                 <ng-template pTemplate="caption">
                                                         <div style="text-align: right">        
                                                         <i class="fa fa-search" style="margin:4px 4px 0 0"></i>

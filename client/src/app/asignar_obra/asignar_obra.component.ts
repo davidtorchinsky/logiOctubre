@@ -74,7 +74,31 @@ export class AsignarObraComponent implements OnInit {
   }
 
   cargarObraSocial() {
-    this.asignarObraSocialService.cargarObraSocial(this.selectedPaciente._id,this.selectedObraSocial._id);
+    this.asignarObraSocialService.cargarObraSocial(this.selectedPaciente._id,this.selectedObraSocial._id).then(pacienteEditado => {
+      // Muestro un mensajito de Actualizado con Éxito
+      swal({
+        title: 'Actualizado!',
+        text: 'Se ha asignado la obra social correctamente.',
+        type: 'success',
+        timer: 4000
+      }).then(
+        function () {
+
+
+        },
+        // handling the promise rejection
+        function (dismiss) {
+          if (dismiss === 'timer') {
+
+          }
+        }
+      );
+
+
+      // Reseteo el selectedPaciente y el formulario de editar
+      this.selectedObraSocial = null;
+      this.selectedPaciente = null;
+    });;
   }
 
   

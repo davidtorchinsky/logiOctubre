@@ -71,7 +71,8 @@ export class AsignarMedicamentoComponent implements OnInit {
     this.medicamentoService.getMedicamentosNoConsumePaciente(this.selectedPaciente._id)
       .then(medicamentos => {
           this.medicamentos = medicamentos;
-          console.log(medicamentos);
+       
+       
       });
   }
 
@@ -82,11 +83,38 @@ export class AsignarMedicamentoComponent implements OnInit {
                                                     this.selectedMedicamento._id,
                                                     frecuencia,
                                                     cantComp,
-                                                    this.selectedMedicamento.idMedicamento,);
+                                                    this.selectedMedicamento.idMedicamento,).then(pacienteEditado => {
+                                                      // Muestro un mensajito de Actualizado con Éxito
+                                                      swal({
+                                                        title: 'Actualizado!',
+                                                        text: 'Se ha asignado el medicamento correctamente.',
+                                                        type: 'success',
+                                                        timer: 4000
+                                                      }).then(
+                                                        function () {
+                                                
+                                                
+                                                        },
+                                                        // handling the promise rejection
+                                                        function (dismiss) {
+                                                          if (dismiss === 'timer') {
+                                                
+                                                          }
+                                                        }
+                                                      );
+                                                
+                                                
+                                                      // Reseteo el selectedPaciente y el formulario de editar
+                                                      this.selectedPaciente = null;
+                                                      this.selectedMedicamento = null;
+                                                    });;
 
      //llamar cargar pedido service  
      this.asignarMedicamentoService.cargarPedido(this.selectedPaciente._id, this.selectedMedicamento.idMedicamento);                                             
-  }
+ 
+    
+ 
+    }
 
   mostrarModalAsignarMedicamento() {
     this.modalAsignarMedicamento = true;
