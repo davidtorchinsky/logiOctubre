@@ -15,6 +15,7 @@
     "url": "ssh://57ed99900c1e668ad3000144@testdires-dessin3.rhcloud.com/~/git/testdires.git/"
   },
   "dependencies": {
+    "@angular/cdk": "^7.3.6",
     "body-parser": "^1.18.3",
     "chai-json-schema": "^1.5.0",
     "cors": "^2.8.4",

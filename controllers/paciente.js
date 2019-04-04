@@ -333,7 +333,7 @@ function cargarMedico(req, res) {
 
     //Asocio el paciente al Medico
 
-    console.log("salida 3");
+  
     Medico.findById(req.params.idMedico, function (err, medico) {
         if (err) {
             return res.status(400).json({
