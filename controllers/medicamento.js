@@ -50,10 +50,6 @@ function getMedicamentosPaciente(req, res){
                 error: 'Paciente no encontrado'
             });
         }
-<<<<<<< HEAD
-
-=======
->>>>>>> master
         res.status(200).json({
             message: 'Success',
             obj: paciente.medicamentos

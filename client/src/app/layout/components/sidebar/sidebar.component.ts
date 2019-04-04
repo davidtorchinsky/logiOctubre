@@ -79,8 +79,4 @@ export class SidebarComponent {
     statusFar(){
         this.statusF = !this.statusF;       
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> ricoGABO
 }
