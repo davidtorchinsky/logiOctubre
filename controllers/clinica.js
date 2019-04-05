@@ -187,7 +187,7 @@ function getClinicasNoAsignadasMedico(req, res){
         if (medico.clinicas.length != 0) {
             Clinica.find({
                 '_id': {
-                    $ne: medico.clinicas
+                    $nin: medico.clinicas
                 }
             }, function (err, clinicas) {
                 
