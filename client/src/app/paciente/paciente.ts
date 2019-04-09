@@ -7,4 +7,5 @@ export class Paciente {
     direccion: string;
     fechaNacimiento: Date;
     barrio: string;
+    fechaString:string;
 }

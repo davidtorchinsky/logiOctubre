@@ -21,7 +21,7 @@ export class AsignarRepartidorComponent implements OnInit {
     pedidos: Pedido[] = [];
     colsPedidos: any[];
     selectedPedido: Pedido;
-
+    fechaString = String;
     repartidores: Repartidor[] = [];
     colsRepartidores: any[];
     selectedRepartidor: Repartidor;
@@ -40,18 +40,17 @@ export class AsignarRepartidorComponent implements OnInit {
 
       this.colsPedidos = [
         { field: 'numero', header: 'Numero' },
-        { field: 'estado', header: 'Nombre' },
-        { field: 'hora', header: 'Apellido' },
-        { field: 'cadenaFrio', header: 'Telefono' }
+        { field: 'estado', header: 'Estado' },
+        { field: 'fechaString', header: 'Fecha Modificación' },
+        { field: 'apellidoCliente', header: 'Apellido Cliente' }
         
       ];
 
       this.colsRepartidores = [
         { field: 'dni', header: 'DNI' },
         { field: 'nombre', header: 'Nombre' },
-        { field: 'apellido', header: 'Dosis' },
-        { field: 'telefono', header: 'Cadena Frio' },
-        { field: 'legajo', header: 'Laboratorio' }
+        { field: 'apellido', header: 'Apellido Repartidor' },
+        { field: 'telefono', header: 'Telefono' },
         
       ];
   }

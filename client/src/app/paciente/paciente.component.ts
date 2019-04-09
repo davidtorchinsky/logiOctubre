@@ -20,6 +20,7 @@ export class PacienteComponent implements OnInit {
   selectedPaciente: Paciente;
   modalAgregarPaciente = false;
   modalEditarPaciente = false;
+  hoy: String;
   modalEliminarPaciente = false;
   
 
@@ -40,20 +41,26 @@ export class PacienteComponent implements OnInit {
         { field: 'telefono', header: 'Telefono' },
         { field: 'direccion', header: 'Direccion' },        
         { field: 'barrio', header: 'Barrio' },
-        { field: 'fechaNacimiento', header: 'Fecha de Nacimiento' }
+        { field: 'fechaString', header: 'Fecha de Nacimiento' }
       ];
   }
 
-  // GET MEDICAMENTOS
+  // GET Pacientes
     getPacientes() {
+      this.hoy=new Date(Date.now()).toLocaleString().slice(0,14);
       this.pacienteService.getPacientes()
       .then(pacientes => {
           this.pacientes = pacientes;
-          console.log(pacientes);
+          this.pacientes.forEach(paciente => {  
+            paciente.fechaString = paciente.fechaNacimiento.toLocaleString().slice(0,10);
+            
+          }
+          )
+          
       });
     }
 
-  // CARGAR MEDICAMENTO
+  // CARGAR Pacientes
     cargarPaciente(
       dniPaciente: string,
       nombrePaciente: string,
