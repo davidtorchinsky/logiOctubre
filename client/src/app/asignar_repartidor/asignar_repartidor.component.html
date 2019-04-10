@@ -73,8 +73,8 @@
                                                         <th *ngFor="let col of columns" [ngSwitch]="col.field">                                                            
                                                             <input *ngSwitchCase="'numero'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
                                                             <input *ngSwitchCase="'estado'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
-                                                            <input *ngSwitchCase="'hora'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
-                                                            <input *ngSwitchCase="'cadenaFrio'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                                            <input *ngSwitchCase="'fechaString'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                                            <input *ngSwitchCase="'apellidoCliente'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
                                                             
                                                         </th>
                                                     </tr>
@@ -133,7 +133,7 @@
                                                         <input *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt2.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
                                                         <input *ngSwitchCase="'apellido'" pInputText type="text" (input)="dt2.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
                                                         <input *ngSwitchCase="'telefono'" pInputText type="text" (input)="dt2.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
-                                                        <input *ngSwitchCase="'legajo'" pInputText type="text" (input)="dt2.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                                                        
                                                     
                                                     </th>
                                                 </tr>

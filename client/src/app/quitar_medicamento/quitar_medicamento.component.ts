@@ -45,8 +45,7 @@ export class QuitarMedicamentoComponent implements OnInit {
         { field: 'apellido', header: 'Apellido' },
         { field: 'telefono', header: 'Telefono' },
         { field: 'direccion', header: 'Direccion' },
-        { field: 'barrio', header: 'Barrio' },
-        { field: 'fechaNacimiento', header: 'Fecha de Nacimiento' }
+        { field: 'barrio', header: 'Barrio' }
       ];
 
       this.colsMedicamentos = [

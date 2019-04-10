@@ -8,4 +8,5 @@ export class HistorialPaciente {
     fechaNacimientoViejo: Date;
     barrioViejo: string;
     fechaCambio: Date;
+    fechaCambioString:String;
 }

@@ -46,7 +46,6 @@ export class AsignarMedicamentoComponent implements OnInit {
         { field: 'telefono', header: 'Telefono' },
         { field: 'direccion', header: 'Direccion' },
         { field: 'barrio', header: 'Barrio' },
-        { field: 'fechaNacimiento', header: 'Fecha de Nacimiento' }
       ];
 
       this.colsMedicamentos = [
