@@ -218,11 +218,11 @@ function cargarConsumicion(req, res) {
         paciente.medicamentos.push(req.params.idMedicamento);
 
         paciente.consumiciones.push({
-            medicamento: req.params._idMedicamento,
+            medicamento: req.params.idMedicamento,
             frecuencia: req.body.frecuencia,
             cantidadConsumicion: req.body.cantidadConsumicion,
             diasRestantes: null,
-            numeroMedicamento: req.body.idMedicamento,
+            numeroMedicamento: req.params.idMedicamento,
         })
 
         paciente.save().then(function (paciente) {
@@ -264,15 +264,22 @@ function quitarConsumicion(req, res) {
             }
         }
         paciente.medicamentos.splice(pos, 1);
+        //no carga el medicamento en la consumicion, por eso no lo recupera.. como posee el mismo indice en los 2 arreglos busco una sola vez
+        paciente.consumiciones.splice(pos, 1);
 
-        let pos2;
+        /*let pos2;
+        console.log("consumiciones del paciente "+ paciente.consumiciones);
+        //console.log("id del primer medicameneto que consume "+paciente.consumicione[0].medicamento._id);
         for (let index = 0; index < paciente.consumiciones.length; index++) {
             const consumicion = paciente.consumiciones[index];
+            console.log("la consumicion que quiero verificar "+consumicion);
+            console.log("el id del medicamento que quiero eliminar "+req.params.idMedicamento);
+            console.log("prueba de id medicamento de la consumicion "+ consumicion.medicamento._id);
             if (consumicion.medicamento._id == req.params.idMedicamento) {
                 pos2 = index;
             }
         }
-        paciente.consumiciones.splice(pos2, 1);
+        paciente.consumiciones.splice(pos2, 1);*/
 
         paciente.save().then(function (paciente) {
             res.status(200).json({
