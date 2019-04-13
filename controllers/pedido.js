@@ -178,7 +178,7 @@ function cargarPedido2(req, res) {
     
             console.log("Numero pedido nuevo:",num);
             console.log("El medicamento es:",medicamento);
-            console.log("cadena de frio:",medicamento[5]);
+            console.log("cadena de frio:",medicamento[0].cadenaFrio);
             var nuevoPedido = new Pedido({ 
               
             numero: num,

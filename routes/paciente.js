@@ -14,6 +14,7 @@ api.patch('/agregarMedicamento/:idPaciente/:idMedicamento', PacienteController.c
 api.patch('/quitarMedicamento/:idPaciente/:idMedicamento', PacienteController.quitarConsumicion);
 api.patch('/agregarMedico/:idPaciente/:idMedico', PacienteController.cargarMedico);
 api.patch('/agregarObraSocial/:idPaciente/:idObra', PacienteController.cargarObra);
+api.get('/pacientePedido/:idPedido',PacienteController.getPacientePedido);
 
 
 // POST ALTA
