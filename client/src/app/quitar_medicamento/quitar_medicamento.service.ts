@@ -24,7 +24,7 @@ export class QuitarMedicamentoService {
         .then(response => response.json().obj as Paciente)
         .catch(this.handleError);
     }
-    //quitar pedido
+    //quitar pedido ver como hacer para que una vez que sea eliminado no lo vuelva a generar
     /*quitarPedido(idPaciente: string, idMedicamento: string): Promise <Pedido>{
         return this.http.patch(this.pedidoURL + '/'+'quitarPedido/'  + idPaciente + '/' + idMedicamento,
         JSON.stringify({}), {headers: this.headers})

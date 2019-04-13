@@ -11,6 +11,8 @@ var PedidoSchema = Schema({
     estado: String,
     hora: Date,
     cadenaFrio: String,
+   // pac:String,
+    //medica:String,
 
 
     //Relacion con Paciente

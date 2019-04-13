@@ -162,7 +162,7 @@ function cargarPedido2(req, res) {
         }
         var num=count+1;
         
-        Medicamento.find({"numeroMedicamento":req.params.idMedicamento}, function (err, medicamento) {
+        Medicamento.find({"idMedicamento":req.params.idMedicamento}, function (err, medicamento) {
             if (err) {
                 return res.status(400).json({
                     title: 'An error occurred',
@@ -172,28 +172,31 @@ function cargarPedido2(req, res) {
             if (!medicamento) {
                 return res.status(404).json({
                     title: 'Error',
-                    error: 'Pedido no encontrado'
+                    error: 'Medicamento no encontrado'
                 });
             }
     
             console.log("Numero pedido nuevo:",num);
             console.log("El medicamento es:",medicamento);
-            console.log("cadena de frio:",medicamento.cadenaFrio);
+            console.log("cadena de frio:",medicamento[5]);
             var nuevoPedido = new Pedido({ 
               
             numero: num,
         
             estado: "Generado",
             hora: Date.now(),
-        
-            cadenaFrio: medicamento.cadenaFrio
+        //a partir de aca no funciona.
+            cadenaFrio: medicamento[5],
+            medica: medicamento[1],
+            pac:req.body.idPaciente
         
       
             })
             nuevoPedido.idPaciente=req.body.idPaciente;
             nuevoPedido.idMedicamento=req.body.idMedicamento;
-            console.log(nuevoPedido);
-    
+            console.log("Todos los datos del pedido "+nuevoPedido);
+            console.log("El id del paciente: "+nuevoPedido.idPaciente);
+            console.log("El id del medicamento: "+nuevoPedido.idMedicamento);
 
             nuevoPedido.save().then(function (nuevoPedido) {
             res.status(201).json({
@@ -334,9 +337,12 @@ function cargarRepartidor(req, res) {
 }
 
 
+function quitarConsumicionPedido(req, res) {
 
-
-
+    
+    
+    
+}
 
 
 // EXPORT
@@ -347,6 +353,7 @@ module.exports = {
     editarPedido,
     eliminarPedido,
     cargarRepartidor,
-    cargarPedido2
+    cargarPedido2,
+    quitarConsumicionPedido
 }
 

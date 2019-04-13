@@ -14,6 +14,8 @@ api.patch('/:idPedido',PedidoController.editarPedido);
 api.patch('/agregarRepartidor/:idPedido/:idRepartidor', PedidoController.cargarRepartidor);
 //creo el pedido.
 api.patch('/agregarPedido/:idPaciente/:idMedicamento', PedidoController.cargarPedido2);
+//quito el pedido en forma automatica al eliminar una consumicion
+api.patch('/quitarPedido/:idPaciente/:idMedicamento', PedidoController.quitarConsumicionPedido);
 
 
 // POST
