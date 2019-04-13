@@ -79,10 +79,10 @@ export class PedidoComponent implements OnInit {
         { field: 'estado', header: 'Estado' },       
         { field: 'horaString', header: 'Última modificacion' },
        
-        { field: 'apellido', header: 'Apellido Cliente'},
+        { field: 'pac', header: 'Apellido Cliente'},
         { field: 'direccion', header: 'Dirección' },
         { field: 'repartidor', header: 'Apellido Repartidor'},
-        { field: 'medicamento', header: 'Medicamento'},
+        { field: 'medica', header: 'Medicamento'},
         { field: 'cadenaFrio', header: 'Cadena Frio' }  
       ];
 
@@ -110,7 +110,7 @@ export class PedidoComponent implements OnInit {
       this.pedidoService.getPedidos()
       .then(pedidos => {
           this.pedidos = pedidos;
-          console.log(pedidos[0]);
+          console.log("Lo que tengo guardado en la ultima posicion es: "+this.pedidos[16]);
           this.pedidos.forEach(elementoPedido => {  
               elementoPedido.horaString = elementoPedido.hora.toLocaleString().slice(0,10)+" " + elementoPedido.hora.toLocaleString().slice(12,16);
               

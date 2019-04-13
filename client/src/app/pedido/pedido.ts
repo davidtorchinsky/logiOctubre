@@ -5,6 +5,8 @@ export class Pedido {
     hora: Date;
     cadenaFrio: string;
     horaString:string;
+    pac:string;
+    medica: string;
 
    
 }

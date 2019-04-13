@@ -178,7 +178,7 @@ function cargarPedido2(req, res) {
     
             console.log("Numero pedido nuevo:",num);
             console.log("El medicamento es:",medicamento);
-            console.log("cadena de frio:",medicamento[5]);
+            console.log("cadena de frio:",medicamento[0].cadenaFrio);
             var nuevoPedido = new Pedido({ 
               
             numero: num,
@@ -186,17 +186,17 @@ function cargarPedido2(req, res) {
             estado: "Generado",
             hora: Date.now(),
         //a partir de aca no funciona.
-            cadenaFrio: medicamento[5],
-            medica: medicamento[1],
-            pac:req.body.idPaciente
+            cadenaFrio: medicamento[0].cadenaFrio,
+            medica: medicamento[0]._id,
+            pac:req.params.idPaciente
         
       
             })
-            nuevoPedido.idPaciente=req.body.idPaciente;
-            nuevoPedido.idMedicamento=req.body.idMedicamento;
+            nuevoPedido.idPaciente=req.params.idPaciente;
+            nuevoPedido.idMedicamento=req.params.idMedicamento;
             console.log("Todos los datos del pedido "+nuevoPedido);
-            console.log("El id del paciente: "+nuevoPedido.idPaciente);
-            console.log("El id del medicamento: "+nuevoPedido.idMedicamento);
+            console.log("El id del paciente: "+nuevoPedido.pac);
+            console.log("El id del medicamento: "+nuevoPedido.medica);
 
             nuevoPedido.save().then(function (nuevoPedido) {
             res.status(201).json({
