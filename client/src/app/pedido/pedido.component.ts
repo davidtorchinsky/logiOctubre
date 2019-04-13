@@ -110,6 +110,7 @@ export class PedidoComponent implements OnInit {
       this.pedidoService.getPedidos()
       .then(pedidos => {
           this.pedidos = pedidos;
+          console.log(pedidos[0]);
           this.pedidos.forEach(elementoPedido => {  
               elementoPedido.horaString = elementoPedido.hora.toLocaleString().slice(0,10)+" " + elementoPedido.hora.toLocaleString().slice(12,16);
               

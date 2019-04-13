@@ -28,6 +28,36 @@ function getPacientes(req, res){
     });
 }
 
+//Obtengo los pacientes de un determinado pedido
+function getPacientePedido(req, res){
+    console.log('- GET PACIENTE PEDIDO -');
+    var query = Pedido.findById(req.params.idPedido);
+    
+    query.populate({
+        path: 'pacienete',
+        model: 'Paciente'
+    })
+    .exec(function (err, pedido) {
+        if (err) {
+            return res.status(400).json({
+                title: 'An error occurred',
+                error: err
+            });
+        }
+        if (!pedido) {
+            return res.status(404).json({
+                title: 'Error',
+                error: 'Pedido no encontrado'
+            });
+        }
+        res.status(200).json({
+            message: 'Success',
+            obj: pedido.paciente
+        }); 
+    });
+}
+
+
 function cargarPaciente(req, res) {
     console.log('CARGAR PACIENTE');
 
@@ -453,6 +483,7 @@ function cargarObra(req, res) {
 // EXPORT
 module.exports = {
     getPacientes,
+    getPacientePedido,
     cargarPaciente,
     editarPaciente,
     eliminarPaciente,

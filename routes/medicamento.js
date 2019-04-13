@@ -9,6 +9,7 @@ api.get('/',MedicamentoController.getMedicamentos);
 api.get('/:idPaciente',MedicamentoController.getMedicamentosPaciente);
 api.get('/noConsume/:idPaciente',MedicamentoController.getMedicamentosNoConsumePaciente);
 api.get('/noConsumeFarmacia/:idFarmacia',MedicamentoController.getMedicamentosNoFarmacia);
+api.get('/medicamentoPedido/:idPedido',MedicamentoController.getMedicamentosPedido);
 // api.get('/:idMedico/:idPaciente',MedicoController.editarMedico);
 
 // PATCH
