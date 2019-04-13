@@ -238,6 +238,28 @@
                 icon="fas fa-check"
                 type="submit">
             </button>
+
+
+
+                <div class="pull-right">
+                    <button
+                        pButton
+                        class="ui-button-danger"
+                        label="Cancelar"
+                        icon="fas fa-ban"
+                        type="submit"
+                        onclick="document.getElementById('dniAgregar').value = '' ,
+                        document.getElementById('nombreAgregar').value = '',
+                        document.getElementById('apellidoAgregar').value = '' ,
+                        document.getElementById('telefonoAgregar').value = '' ,
+                        document.getElementById('legajoAgregar').value = ''"
+                       (click)= "cerrarModalAgregarPedido()">
+                    </button>
+                    
+                               
+                
+                </div>
+
         </p-footer>
     </form>
 </p-dialog>

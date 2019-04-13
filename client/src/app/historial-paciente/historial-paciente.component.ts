@@ -24,6 +24,7 @@ export class HistorialPacienteComponent implements OnInit {
   modalAgregarPaciente = false;
   modalEditarPaciente = false;
   modalEliminarPaciente = false;
+  historial:HistorialPaciente;
 
   constructor(private HistorialPacienteService: HistorialPacienteService,
     private PacienteService: PacienteService) { 
@@ -39,7 +40,7 @@ export class HistorialPacienteComponent implements OnInit {
       { field: 'telefono', header: 'Telefono' },
       { field: 'direccion', header: 'Direccion' },        
       { field: 'barrio', header: 'Barrio' },
-      { field: 'fechaNacimiento', header: 'Fecha de Nacimiento' }
+      { field: 'fechaString', header: 'Fecha de Nacimiento' }
     ];
 
     this.colHistorial= [
@@ -50,7 +51,7 @@ export class HistorialPacienteComponent implements OnInit {
       { field: 'direccion', header: 'Direccion' },        
       { field: 'barrio', header: 'Barrio' },
       { field: 'fechaNacimiento', header: 'Fecha de Nacimiento' },
-      { field: 'fechaCambio', header: 'Fecha del Cambio ' }
+      { field: 'fechaCambioString', header: 'Fecha del Cambio ' }
     ];
   }
 
@@ -60,7 +61,10 @@ export class HistorialPacienteComponent implements OnInit {
     this.PacienteService.getPacientes()
     .then(pacientes => {
         this.pacientes = pacientes;
-        console.log(pacientes);
+        pacientes.forEach(paciente => {
+          paciente.fechaString = paciente.fechaNacimiento.toLocaleString().slice(0,10);
+        })
+      
     });
   }
 
@@ -69,9 +73,10 @@ export class HistorialPacienteComponent implements OnInit {
     this.HistorialPacienteService.getHistorialPaciente(this.selectedPaciente.dni)
       .then(historialPacientes => {
           this.historialPacientes = historialPacientes;
-          console.log(historialPacientes);
-          this.historialPacientes=historialPacientes;
-          console.log(this.historialPacientes);
+      historialPacientes.forEach(historial =>{
+          historial.fechaCambioString = historial.fechaCambio.toLocaleString().slice(0,10);
+
+      })
 
   });
 
