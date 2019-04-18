@@ -7,9 +7,11 @@ import swal from 'sweetalert2';
 import { Paciente } from '../paciente/paciente';
 import { PacienteService } from '../paciente/paciente.service';
 import { Medicamento } from '../medicamento/medicamento';
+
 import { MedicamentoService } from '../medicamento/medicamento.service';
 import {DropdownModule} from 'primeng/dropdown';
 import {SelectItem} from 'primeng/api';
+import { AsignarMedicamentoService } from '../asignar_medicamento/asignar_medicamento.service';
 //import {Dropdown} from 'primeng/api';
 
 
@@ -36,6 +38,7 @@ export class PedidoComponent implements OnInit {
   estados:any[];
   selectedEstado: String;
 
+
   
   //Pacientes
   pacientes: Paciente[] = [];
@@ -51,7 +54,8 @@ export class PedidoComponent implements OnInit {
   constructor(
     private pedidoService: PedidoService,
     private pacienteService:PacienteService,
-    private medicamentoService: MedicamentoService
+    private medicamentoService: MedicamentoService,
+    private asignarMedicamentoService: AsignarMedicamentoService
   ) {
 
     this.estados = [
@@ -96,15 +100,15 @@ export class PedidoComponent implements OnInit {
         
       ];
 
-      this.getMedicamentos();
+     // this.getMedicamentos();
       this.colsMedicamentos = [
         { field: 'idMedicamento', header: 'Id Medicamento' },
         { field: 'nombre', header: 'Nombre' },
         { field: 'dosis', header: 'Dosis' },
         { field: 'laboratorio', header: 'Laboratorio' }
       ];
-  }
-
+  
+    }
   // GET PEDIDOS
     getPedidos() {
       this.pedidoService.getPedidos()
@@ -145,14 +149,10 @@ export class PedidoComponent implements OnInit {
       });
     }
 
-    
-    getMedicamentos() {
-      
-      this.medicamentoService.getMedicamentos()
-      .then(medicamentos => {
-          this.medicamentos = medicamentos;          
-      });
-    }
+  
+
+
+
 
   // CARGAR PEDIDO
     cargarPedido(
@@ -161,8 +161,6 @@ export class PedidoComponent implements OnInit {
       horaYFechaPedido: Date,
       idPacientePedido: String,
       idMedicamentoPedido: String,
-      cadenaFrioPedido: String,
-            
       f: NgForm) {
       this.modalAgregarPedido = false;
 
@@ -171,16 +169,10 @@ export class PedidoComponent implements OnInit {
       console.log(horaYFechaPedido);
       console.log(idPacientePedido);
       console.log(idMedicamentoPedido);
-      
-      this.cadena="No";
-        //Inspeccion de billeteras      
-      if(cadenaFrioPedido){
-        this.cadena="Si";
-      }
 
      
 
-      this.pedidoService.cargarPedido(numeroPedido, estadoPedido, new Date(Date.now()), this.cadena, idPacientePedido, idMedicamentoPedido)
+      this.asignarMedicamentoService.cargarPedido(this.selectedPaciente._id, this.selectedMedicamento._id)
       .then(pedidoAgregado => {
         // Muestro un mensajito de Agregado con Éxito
         swal({
@@ -206,6 +198,9 @@ export class PedidoComponent implements OnInit {
 
         // Reseteo el formulario/modal para que no haya nada en los input cuando se vuelva a abrir
         f.resetForm();
+
+        // aumento ultimo numero
+        this.ultimoNumero++;
       });
 
     }
@@ -317,6 +312,14 @@ export class PedidoComponent implements OnInit {
   
   cerrarModalAgregarPedido() {
     this.modalAgregarPedido = false;
+  }
+
+
+  getMedicamentosPaciente(event:any) {
+    this.medicamentoService.getMedicamentosPaciente(this.selectedPaciente)
+    .then(medicamentos => {
+        this.medicamentos = medicamentos;          
+    });
   }
 
 

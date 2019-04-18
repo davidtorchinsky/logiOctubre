@@ -109,7 +109,7 @@ export class AsignarMedicamentoComponent implements OnInit {
                                                     });;
 
      //llamar cargar pedido service  revisar bien
-     this.asignarMedicamentoService.cargarPedido(this.selectedPaciente._id, this.selectedMedicamento.idMedicamento);                                             
+     this.asignarMedicamentoService.cargarPedido(this.selectedPaciente._id, this.selectedMedicamento._id);                                             
  
     
  

@@ -129,7 +129,7 @@
         Nuevo Pedido
     </p-header>
 
-    <form name="form" (ngSubmit)="f.form.valid && cargarPedido(numeroPedido.value,estadoPedido.value, horaYFechaPedido.value,selectedPaciente._id,selectedMedicamento.idMedicamento,cadenaFrioPedido.value, f);" #f="ngForm" novalidate>
+    <form name="form" (ngSubmit)="cargarPedido(numeroPedido.value,estadoPedido.value, horaYFechaPedido.value,selectedPaciente._id,selectedMedicamento._id, f);" #f="ngForm" novalidate>
         <div class="form-group">
             <label for="numeroPedido">Numero:</label>
             <input type="text" class="form-control" name="numeroPedido" [(ngModel)]="ultimoNumero" #numeroPedido="ngModel" autocomplete="off" disabled />
@@ -153,7 +153,9 @@
  
 <label>Paciente</label>
         <div class="card-body">
-            <p-table #dt [columns]="colsPacientes" [value]="pacientes" selectionMode="single" [(selection)]="selectedPaciente">
+            <p-table #dt [columns]="colsPacientes" [value]="pacientes" selectionMode="single" [(selection)]="selectedPaciente"
+            [scrollable]="true" scrollHeigth="200px"
+            (onRowSelect)="getMedicamentosPaciente($event)">
         
                 <ng-template pTemplate="header" let-columns>
                     <tr>
@@ -221,12 +223,7 @@
 
 
         
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" name="cadenaFrioPedido" [(ngModel)]="model.cadenaFrioPedido" #cadenaFrioPedido="ngModel">
-            <label class="form-check-label" for="defaultCheck1">
-              Cadena de Frio
-            </label>
-        </div>
+        
 
           <br>    
     
@@ -298,11 +295,7 @@
 
         </div>
 
-        <div class="form-group">
-            <label for="cadenaFrioPedido">Cadena de frio:</label>
-            <input type="text" class="form-control" name="cadenaFrioPedido" [(ngModel)]="selectedPedido.cadenaFrio" #cadenaFrioPedido="ngModel" autocomplete="off" disabled />
-          
-        </div>
+    
 
         
         

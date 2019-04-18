@@ -163,8 +163,8 @@ function cargarPedido2(req, res) {
             });
         }
         var num=count+1;
-        
-        Medicamento.find({"idMedicamento":req.params.idMedicamento}, function (err, medicamento) {
+        console.log(req.params.idMedicamento);
+        Medicamento.find({"_id":req.params.idMedicamento}, function (err, medicamento) {
             if (err) {
                 return res.status(400).json({
                     title: 'An error occurred',
@@ -180,7 +180,7 @@ function cargarPedido2(req, res) {
     
             console.log("Numero pedido nuevo:",num);
             console.log("El medicamento es:",medicamento);
-            console.log("cadena de frio:",medicamento[0].cadenaFrio);
+            //console.log("cadena de frio:",medicamento[0].cadenaFrio);
             var nuevoPedido = new Pedido({ 
               
             numero: num,
@@ -188,7 +188,7 @@ function cargarPedido2(req, res) {
             estado: "Generado",
             hora: Date.now(),
         //a partir de aca no funciona.
-            cadenaFrio: medicamento[0].cadenaFrio,
+        //    cadenaFrio: medicamento[0].cadenaFrio,
             medica: medicamento[0]._id,
             pac:req.params.idPaciente
         
