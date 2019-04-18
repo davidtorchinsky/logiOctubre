@@ -27,6 +27,27 @@ function getMedicamentos(req, res){
         });
     });
 }
+function getMedicamentosID(req, res){
+    console.log('- GET MEDICAMENTOS -');
+    Medicamento.findById(req.params.idMedicamentos, function (err, medicamento) {
+        if (err) {
+            return res.status(400).json({
+                title: 'An error occurred',
+                error: err
+            });
+        }
+        if (!medicamento) {
+            return res.status(404).json({
+                title: 'Error',
+                error: 'Medicamento no encontrado'
+            });
+        }
+        res.status(200).json({
+            message: 'Success',
+            obj: medicamentos
+        });
+    });
+}
 
 //Obtengo los medicamentos de un determinado paciente
 function getMedicamentosPaciente(req, res){
@@ -364,6 +385,7 @@ function eliminarMedicamento(req, res){
 // EXPORT
 module.exports = {
     getMedicamentos,
+    getMedicamentosID,
     cargarMedicamento,
     editarMedicamento,
     eliminarMedicamento,

@@ -1,3 +1,7 @@
+import { Paciente } from "../paciente/paciente";
+import { Medicamento } from "../medicamento/medicamento";
+import { Repartidor } from "../repartidor/repartidor";
+
 export class Pedido {
     _id: string;
     numero: Number;
@@ -5,12 +9,15 @@ export class Pedido {
     hora: Date;
     cadenaFrio: string;
     horaString:string;
-<<<<<<< HEAD
     
-=======
-    pac:string;
-    medica: string;
->>>>>>> ricoGABO
+    pac:Paciente;    
+    medica: Medicamento;
+    repartidor:Repartidor;
+    repaApe:string;
+
+    pacApe:string;
+    pacDir:string;
+    medicaNom:string;
 
    
 }

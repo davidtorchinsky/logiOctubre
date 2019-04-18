@@ -6,7 +6,8 @@ var Medicamento =require('../models/medicamento');
 // FUNCIONES
 function getPedidos(req, res){
     console.log('- GET PEDIDOS -');
-    Pedido.find({}, function (err, pedidos) {
+    Pedido.find({}).populate({path: 'medica', select:'nombre', model:'Medicamento'}).populate({path:'pac',select: ['apellido','direccion'], model: 'Paciente'})
+    .populate({path:'repartidor', select: 'apellido', model:'Repartidor'}).exec( function (err, pedidos) {
         if (err) {
             return res.status(400).json({
                 title: 'Error',
@@ -19,6 +20,7 @@ function getPedidos(req, res){
                 error: err
             });
         }
+        console.log(pedidos);
         res.status(200).json({
             message: 'Success',
             obj: pedidos

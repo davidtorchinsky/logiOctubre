@@ -28,6 +28,28 @@ function getPacientes(req, res){
     });
 }
 
+function getPacienteID(req, res){
+    console.log('- GET PACIENTES -');
+    Paciente.findById(req.params.idPaciente, function (err, pacientes) {
+        if (err) {
+            return res.status(400).json({
+                title: 'Error',
+                error: err
+            });
+        }
+        if (!pacientes) {
+            return res.status(404).json({
+                title: 'Error',
+                error: err
+            });
+        }
+        res.status(200).json({
+            message: 'Success',
+            obj: pacientes
+        });
+    });
+}
+
 //Obtengo los pacientes de un determinado pedido
 function getPacientePedido(req, res){
     console.log('- GET PACIENTE PEDIDO -');
@@ -484,6 +506,7 @@ function cargarObra(req, res) {
 module.exports = {
     getPacientes,
     getPacientePedido,
+    getPacienteID,
     cargarPaciente,
     editarPaciente,
     eliminarPaciente,
