@@ -188,7 +188,7 @@ function cargarPedido2(req, res) {
             estado: "Generado",
             hora: Date.now(),
         //a partir de aca no funciona.
-        //    cadenaFrio: medicamento[0].cadenaFrio,
+           cadenaFrio: medicamento[0].cadenaFrio,
             medica: medicamento[0]._id,
             pac:req.params.idPaciente
         

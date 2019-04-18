@@ -124,7 +124,8 @@
 </div>
 
 <!-- MODAL AGREGAR PEDIDO -->
-<p-dialog [(visible)]="modalAgregarPedido" [width]="800" [contentStyle]="{'max-height':'80%'}" pedido="selectedPedido" >    
+<p-dialog [(visible)]="modalAgregarPedido"  [contentStyle]="{'max-height':'75%'}" pedido="selectedPedido" [style]="{width: '75%','max-height':'75%' ,'overflow':'scroll','left':'25%','top':'10%'}"
+>    
     <p-header>
         Nuevo Pedido
     </p-header>
@@ -154,8 +155,9 @@
 <label>Paciente</label>
         <div class="card-body">
             <p-table #dt [columns]="colsPacientes" [value]="pacientes" selectionMode="single" [(selection)]="selectedPaciente"
-            [scrollable]="true" scrollHeigth="200px"
+            [scrollable]="true" scrollHeight="200px"    
             (onRowSelect)="getMedicamentosPaciente($event)">
+
         
                 <ng-template pTemplate="header" let-columns>
                     <tr>
@@ -188,7 +190,8 @@
 
         <label>Medicamento</label>
         <div class="card-body">
-            <p-table #dt [columns]="colsMedicamentos" [value]="medicamentos" selectionMode="single" [(selection)]="selectedMedicamento">
+            [scrollable]="true" scrollHeight="200px"    
+            <p-table #dt [columns]="colsMedicamentos" [value]="medicamentos" selectionMode="single" [(selection)]="selectedMedicamento" >
         
                 <ng-template pTemplate="header" let-columns>
                     <tr>
