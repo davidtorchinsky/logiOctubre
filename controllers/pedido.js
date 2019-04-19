@@ -234,7 +234,6 @@ function cargarPedido2(req, res) {
 function editarPedido(req, res) {
     console.log('EDITAR PEDIDO');
     console.log(req.params.idPedido);
-    console.log(req.body.idPedido);
     Pedido.findById(req.params.idPedido, function (err, pedido) {
         if (err) {
             return res.status(400).json({
@@ -248,11 +247,12 @@ function editarPedido(req, res) {
                 error: 'Pedido no encontrado'
             });
         }
-
+console.log("pedido viejo "+pedido);
         pedido.estado = req.body.estadoPedido;
         pedido.horaYFecha = req.body.horaYFechaPedido;
-        pedido.cadenaFrio = req.body.cadenaFrioPedido;        
+ 
 
+        console.log("pedido nuevo: "+pedido);
         pedido.save().then(function (pedido) {
             res.status(200).json({
                 message: 'Success',

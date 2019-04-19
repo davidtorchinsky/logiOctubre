@@ -14,6 +14,9 @@ import {SelectItem} from 'primeng/api';
 import { AsignarMedicamentoService } from '../asignar_medicamento/asignar_medicamento.service';
 //import {Dropdown} from 'primeng/api';
 
+interface Estados {
+  name: String
+}
 
 @Component({
     selector: 'app-productos',
@@ -35,8 +38,8 @@ export class PedidoComponent implements OnInit {
   ultimoNumero:number;
   estadoGenerado="Generado";
 
-  estados:any[];
-  selectedEstado: String;
+  estados:Estados[];
+  selectedEstado: Estados;
 
 
   
@@ -59,12 +62,12 @@ export class PedidoComponent implements OnInit {
   ) {
 
     this.estados = [
-      {name: 'En Proceso', code: 'EP'},
-      {name: 'Retirado', code: 'RET'},
-      {name: 'Pendiente', code: 'PEN'},
-      {name: 'Entregado', code: 'EN'}
+      {name: 'En Proceso'},
+      {name: 'Retirado'},
+      {name: 'Pendiente'},
+      {name: 'Entregado'}
   ];
-  
+
 
 
   }
@@ -72,6 +75,7 @@ export class PedidoComponent implements OnInit {
 
   ngOnInit() {
 
+    this.selectedEstado = {name:'Generado'}
     
     this.hoy=new Date(Date.now()).toLocaleString().slice(0,15);
 
@@ -207,11 +211,10 @@ export class PedidoComponent implements OnInit {
 
   // EDITAR Pedido
     editarPedido(f: NgForm) {
-      console.log(this.selectedEstado);
+      console.log(this.selectedEstado.name);
       this.pedidoService.editarPedido(this.selectedPedido._id,
-                                      this.selectedPedido.estado,
-                                      this.selectedPedido.hora,
-                                      this.selectedPedido.cadenaFrio)
+                                      this.selectedEstado.name,
+                                      this.selectedPedido.hora)
       .then(pedidoEditado => {
         // Muestro un mensajito de Actualizado con Éxito
         swal({
@@ -235,16 +238,19 @@ export class PedidoComponent implements OnInit {
         // PARA ACTUALIZAR VISTA (TABLA)
         this.pedidos.forEach(elementoPedido => {
           if (elementoPedido._id === pedidoEditado._id) {
+            console.log(elementoPedido.numero);
             elementoPedido.estado = pedidoEditado.estado;
-            elementoPedido.horaString = pedidoEditado.hora.toLocaleTimeString();
-            elementoPedido.cadenaFrio = pedidoEditado.cadenaFrio;
-            
+            elementoPedido.horaString = pedidoEditado.hora.toLocaleString().slice(0,10)+" " + elementoPedido.hora.toLocaleString().slice(12,16);
+           
+        
           }
         });
-
+     
         // Reseteo el selectedPedido y el formulario de editar
-        this.selectedPedido = null;
         f.resetForm();
+        this.hoy=new Date(Date.now()).toLocaleString().slice(0,15);
+        this.selectedPedido = null;
+     
       });
     }
 

@@ -55,11 +55,12 @@ export class PedidoService {
     editarPedido(
         idPed: String,
         estadoPed: String,
-        horaYFechaPed: Date,
-        cadenaDeFrioPed: String): Promise<Pedido> {
+        horaYFechaPed: Date
+     ): Promise<Pedido> {
+            console.log("entre a pedido service editar");
         return this.http.patch(this.pedidoURL + '/' + idPed,
             JSON.stringify({estadoPedido: estadoPed,
-                horaYFechaPedido: horaYFechaPed, cadenaFrioPedido: cadenaDeFrioPed}), {headers: this.headers})
+                horaYFechaPedido: horaYFechaPed}), {headers: this.headers})
         .toPromise()
         .then(response => response.json().obj as Pedido)
         .catch(this.handleError);

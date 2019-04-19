@@ -190,8 +190,8 @@
 
         <label>Medicamento</label>
         <div class="card-body">
-            [scrollable]="true" scrollHeight="200px"    
-            <p-table #dt [columns]="colsMedicamentos" [value]="medicamentos" selectionMode="single" [(selection)]="selectedMedicamento" >
+           
+            <p-table #dt [columns]="colsMedicamentos" [value]="medicamentos" selectionMode="single" [(selection)]="selectedMedicamento"      [scrollable]="true" scrollHeight="200px" >
         
                 <ng-template pTemplate="header" let-columns>
                     <tr>
@@ -275,7 +275,7 @@
         Editar Pedido
     </p-header>
     
-    <form name="form" (ngSubmit)="f.form.valid && editarPedido(f);" #f="ngForm" novalidate >
+    <form name="form" (ngSubmit)="editarPedido(f);" #f="ngForm" novalidate >
         <div class="form-group"  >
             <label for="numeroPedido">Numero de Pedido:</label>
             <input type="text" class="form-control" name="numeroPedido" [(ngModel)]="selectedPedido.numero" #numeroPedido="ngModel" disabled />
@@ -283,9 +283,9 @@
         </div>
 
         <div class="form-group">
-            <label for="estadoPedido">Estado:</label>
+            <label for="estadoPedido">Estado:</label>x
 
-            <p-dropdown [options]="estados" [(ngModel)]="selectedEstado" placeholder="Seleccione un estado" optionLabel="name" [showClear]="true"></p-dropdown>
+            <p-dropdown [options]="estados" [(ngModel)]="selectedEstado" [ngModelOptions]="{standalone: true}" placeholder="Seleccione un estado" optionLabel="name" [showClear]="true"></p-dropdown>
             
 
 
