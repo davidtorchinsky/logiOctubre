@@ -21,6 +21,9 @@ import { AsignarRepartidorComponent } from '../asignar_repartidor/asignar_repart
 import { HistorialPacienteComponent } from '../historial-paciente/historial-paciente.component';
 import { QuitarMedicamentoComponent } from '../quitar_medicamento/quitar_medicamento.component';
 
+import { PedidoEntregadoComponent } from '../pedido_entregado/pedido_entregado.component';
+import { HistorialPedidosComponent } from '../historial-pedidos/historial-pedidos.component';
+
 const routes: Routes = [
     {
         path: '',
@@ -45,7 +48,10 @@ const routes: Routes = [
             { path: 'asignar_medicamento_farmacia', component: AsignarMedicamentoFarmaciaComponent},
             { path: 'asignar_repartidor', component: AsignarRepartidorComponent},
             { path: 'historial-paciente', component: HistorialPacienteComponent},
-            { path: 'quitar_medicamento', component: QuitarMedicamentoComponent}
+            { path: 'quitar_medicamento', component: QuitarMedicamentoComponent},
+            { path: 'pedido_entregado', component: PedidoEntregadoComponent},
+            { path: 'historial-pedidos', component: HistorialPedidosComponent},
+
 
         ]
     }

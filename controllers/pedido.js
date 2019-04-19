@@ -6,7 +6,7 @@ var Medicamento =require('../models/medicamento');
 // FUNCIONES
 function getPedidos(req, res){
     console.log('- GET PEDIDOS -');
-    Pedido.find({}).populate({path: 'medica', select:'nombre', model:'Medicamento'}).populate({path:'pac',select: ['apellido','direccion'], model: 'Paciente'})
+    Pedido.find({'estado': { $not: { $eq: "Entregado"}}}).populate({path: 'medica', select:'nombre', model:'Medicamento'}).populate({path:'pac',select: ['apellido','direccion'], model: 'Paciente'})
     .populate({path:'repartidor', select: 'apellido', model:'Repartidor'}).exec( function (err, pedidos) {
         if (err) {
             return res.status(400).json({
@@ -27,6 +27,41 @@ function getPedidos(req, res){
         });
     });
 }
+
+function getPedidosEntregados(req, res){
+    console.log('- GET PEDIDOS ENTREGADOS -');
+    Pedido.find({estado: 'Entregado'}).populate({path: 'medica', select:'nombre', model:'Medicamento'}).populate({path:'pac',select: ['apellido','direccion'], model: 'Paciente'})
+    .populate({path:'repartidor', select: 'apellido', model:'Repartidor'}).exec( function (err, pedidos) {
+        if (err) {
+            return res.status(400).json({
+                title: 'Error',
+                error: err
+            });
+        }
+        if (!pedidos) {
+            return res.status(404).json({
+                title: 'Error',
+                error: err
+            });
+        }
+        console.log(pedidos);
+        res.status(200).json({
+            message: 'Success',
+            obj: pedidos
+        });
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
 
 function getPedidosEntreFechas(req, res){
     console.log('- GET PEDIDOS ENTRE FECHAS-');
@@ -350,6 +385,7 @@ function quitarConsumicionPedido(req, res) {
 // EXPORT
 module.exports = {
     getPedidos,
+    getPedidosEntregados,
     getPedidosEntreFechas,
     cargarPedido,
     editarPedido,

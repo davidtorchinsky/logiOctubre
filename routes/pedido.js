@@ -7,6 +7,8 @@ var PedidoController = require('../controllers/pedido');
 // GETS
 api.get('/',PedidoController.getPedidos);
 api.get('/:fechaInicio/:fechaFin',PedidoController.getPedidosEntreFechas);
+api.get('/entregado/',PedidoController.getPedidosEntregados);
+
 // api.get('/:idMedico/:idPaciente',MedicoController.editarMedico);
 
 // PATCH

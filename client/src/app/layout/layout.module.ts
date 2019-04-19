@@ -25,6 +25,7 @@ import { AsignarMedicamentoComponent } from '../asignar_medicamento/asignar_medi
 import { FarmaciaComponent } from '../farmacia/farmacia.component';
 import { ClinicaComponent } from '../clinica/clinica.component';
 import { HistorialPacienteComponent } from '../historial-paciente/historial-paciente.component';
+import { HistorialPedidosComponent } from '../historial-pedidos/historial-pedidos.component';
 
 // SERVICIOS
 import { MedicoService } from '../medico/medico.service';
@@ -37,7 +38,7 @@ import { AsignarMedicamentoService } from '../asignar_medicamento/asignar_medica
 import { FarmaciaService } from '../farmacia/farmacia.service';
 import { ClinicaService } from '../clinica/clinica.service';
 import { HistorialPacienteService } from '../historial-paciente/historial-paciente.service';
-
+import { HistorialPedidosService } from '../historial-pedidos/historial-pedidos.service';
 // PrimeNG
 import {DropdownModule} from 'primeng/dropdown';
 //import {Dropdown} from 'primeng/api';
@@ -61,7 +62,8 @@ import { AsignarRepartidorComponent } from '../asignar_repartidor/asignar_repart
 import { AsignarRepartidorService } from '../asignar_repartidor/asignar_repartidor.service';
 import { QuitarMedicamentoComponent } from '../quitar_medicamento/quitar_medicamento.component';
 import { QuitarMedicamentoService } from '../quitar_medicamento/quitar_medicamento.service';
-
+import { PedidoEntregadoComponent } from '../pedido_entregado/pedido_entregado.component';
+import { PedidoEntregadoService } from '../pedido_entregado/pedido_entregado.service';
 
 @NgModule({
     imports: [
@@ -106,7 +108,9 @@ import { QuitarMedicamentoService } from '../quitar_medicamento/quitar_medicamen
         AsignarMedicamentoFarmaciaComponent,
         AsignarRepartidorComponent,
         HistorialPacienteComponent,
-        QuitarMedicamentoComponent
+        QuitarMedicamentoComponent,
+        PedidoEntregadoComponent,
+        HistorialPedidosComponent
     ],
     providers: [
         WINDOW_PROVIDERS,
@@ -126,7 +130,9 @@ import { QuitarMedicamentoService } from '../quitar_medicamento/quitar_medicamen
         AsignarMedicamentoFarmaciaService,
         AsignarRepartidorService,
         HistorialPacienteService,
-        QuitarMedicamentoService
+        QuitarMedicamentoService,
+        PedidoEntregadoService,
+        HistorialPedidosService
     ]
 })
 export class LayoutModule {}
