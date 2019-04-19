@@ -26,7 +26,11 @@ export class HistorialPedidosComponent implements OnInit {
   modalEliminarPaciente = false;
   historial:HistorialPedidos;
   hoy: String;
+  medicaNom:string;
+  apellidoRepa:string;
 
+
+  
   constructor(
     private HistorialPedidosService: HistorialPedidosService,
     private PedidoService: PedidoService) { 
@@ -50,9 +54,9 @@ export class HistorialPedidosComponent implements OnInit {
     this.colHistorial= [
         { field: 'numero', header: 'Numero Pedido' },
         { field: 'estado', header: 'Estado' },       
-        { field: 'horaString', header: 'Modificación' },
+        { field: 'horaCambioString', header: 'Modificación' },
         { field: 'pacApe', header: 'Apellido Cliente'},
-        { field: 'pacDir', header: 'Dirección' },
+        { field: 'pacDire', header: 'Dirección' },
         { field: 'repaApe', header: 'Apellido Repartidor'},
         { field: 'medicaNom', header: 'Medicamento'},
     ];
@@ -66,6 +70,17 @@ export class HistorialPedidosComponent implements OnInit {
         this.pedidos = pedidos;
         pedidos.forEach(pedido => {
           pedido.horaString = pedido.hora.toLocaleString().slice(0,10);
+          pedido.pacApe=pedido.pac.apellido;
+          pedido.pacDir=pedido.pac.direccion;
+          pedido.medicaNom=pedido.medica.nombre;
+          if(pedido.repartidor!=null)
+          {
+            pedido.repaApe=pedido.repartidor.apellido;
+          }
+          else
+          {
+            pedido.repaApe='Repartidor no asignado';
+          }
         })
       
     });
@@ -73,12 +88,32 @@ export class HistorialPedidosComponent implements OnInit {
 
   //get del seleccionado
   getHistorialPedido(event: any) {
+    console.log("este es el pedido "+this.selectedPedido.medicaNom);
+    this.medicaNom =this.selectedPedido.medicaNom;
+    
+    
+
     this.HistorialPedidosService.getHistorialPedidos(this.selectedPedido._id)
       .then(historialPedidos => {
+
+    
+
           this.historialPedidos = historialPedidos;
           historialPedidos.forEach(historial =>{
-          historial.horaCambioString = historial.horaCambio.toLocaleString().slice(0,10);
-
+          console.log(historial);
+          historial.horaCambioString = historial.hora.toLocaleString().slice(0,10) + " "+ historial.hora.toLocaleString().slice(11,16) ;
+          historial.pacApe=historial.pac.apellido;
+          historial.pacDire=historial.pac.direccion;
+          historial.medicaNom=this.medicaNom;
+   /*         if(this.historial.repaApe!=null)
+          {
+            historial.repaApe=this.historial.repartidor.apellido;
+          }
+          else
+          {
+            historial.repaApe='Repartidor no asignado';
+          } 
+ */
       })
 
   });

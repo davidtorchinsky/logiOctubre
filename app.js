@@ -29,7 +29,7 @@ var pedidoRoutes=require('./routes/pedido');
 var farmaciaRoutes=require('./routes/farmacia');
 var clinicaRoutes=require('./routes/clinica');
 var historialPacienteRoutes=require('./routes/historial_paciente');
-
+var historialPedidosRoutes=require('./routes/historial_pedidos');
 
 
 // USAR ROUTES
@@ -42,6 +42,7 @@ app.use('/pedido', pedidoRoutes);
 app.use('/farmacia', farmaciaRoutes);
 app.use('/clinica', clinicaRoutes);
 app.use('/historial_paciente',historialPacienteRoutes);
+app.use('/historial_pedidos',historialPedidosRoutes);
 
 
 app.listen(port, () => console.log('Servidor Corriendo!'));

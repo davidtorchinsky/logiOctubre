@@ -12,6 +12,7 @@ import { MedicamentoService } from '../medicamento/medicamento.service';
 import {DropdownModule} from 'primeng/dropdown';
 import {SelectItem} from 'primeng/api';
 import { AsignarMedicamentoService } from '../asignar_medicamento/asignar_medicamento.service';
+import { HistorialPedidosService } from '../historial-pedidos/historial-pedidos.service';
 //import {Dropdown} from 'primeng/api';
 
 interface Estados {
@@ -58,7 +59,8 @@ export class PedidoComponent implements OnInit {
     private pedidoService: PedidoService,
     private pacienteService:PacienteService,
     private medicamentoService: MedicamentoService,
-    private asignarMedicamentoService: AsignarMedicamentoService
+    private asignarMedicamentoService: AsignarMedicamentoService,
+    private historialPedidosService: HistorialPedidosService
   ) {
 
     this.estados = [
@@ -211,6 +213,12 @@ export class PedidoComponent implements OnInit {
 
   // EDITAR Pedido
     editarPedido(f: NgForm) {
+  
+
+      this.historialPedidosService.cargarHistorialPedidos(this.selectedPedido._id,this.selectedPedido.numero,
+        this.selectedEstado.name,this.selectedPedido.pac.nombre,this.selectedPedido.pacApe,this.selectedPedido.pacDir,
+        this.selectedPedido.pac.barrio,new Date(Date.now()),this.selectedPedido.medica._id,this.selectedPedido.pac._id);
+
       console.log(this.selectedEstado.name);
       this.pedidoService.editarPedido(this.selectedPedido._id,
                                       this.selectedEstado.name,
@@ -245,6 +253,10 @@ export class PedidoComponent implements OnInit {
         
           }
         });
+
+
+      
+
      
         // Reseteo el selectedPedido y el formulario de editar
         f.resetForm();

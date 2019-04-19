@@ -1,7 +1,7 @@
 'use strict'
 
 var Pedido = require('../models/pedido');
-var HistorialPedido = require('../models/historial_pedidos');
+var Historial_pedidos = require('../models/historial_pedidos');
 var Medicamento =require('../models/medicamento');
 
 
@@ -9,9 +9,11 @@ var Medicamento =require('../models/medicamento');
 // FUNCIONES
 function getHistorial(req, res){
     console.log('- GET HISTORIAL -');
-    console.log(req.params.idPed);
-
-Historial_pedidos.find({pedido: req.params.idPed }, function (err, historial) {
+    console.log(req.params.idPedido);
+//colocar select
+Historial_pedidos.find({pedido: req.params.idPed }).populate(
+    {path: 'ped', model:'Pedido'}
+).populate({path:'pac',model:'Paciente'}).exec(function (err, historial) {
         if (err) {
             return res.status(400).json({
                 title: 'Error',
@@ -32,8 +34,10 @@ Historial_pedidos.find({pedido: req.params.idPed }, function (err, historial) {
 }
 
 
-function cargarHistorialPedido(req, res) {
+function cargarHistorialPedidos(req, res) {
     console.log('CARGAR HISTORIAL PEDIDO');
+
+
 
     if (!req.body.numeroPedido) {
         return res.status(400).json({
@@ -41,58 +45,26 @@ function cargarHistorialPedido(req, res) {
             error: err
         });
     }
-    console.log('numeroPedido'); console.log(req.body.numeroPedido);
-    if (!req.body.estadoPedido) {
-        return res.status(400).json({
-            title: 'Error',
-            error: err
-        });
-    }
-    if (!req.body.horaYFechaPedido) {
-        return res.status(400).json({
-            title: 'Error',
-            error: err
-        });
-    }
-    console.log('fechaPedido'); console.log(req.body.horaYFechaPedido);
-    if (!req.body.cadenaFrioPedido) {
+
+    if (!req.body.estadoNuevo) {
         return res.status(400).json({
             title: 'Error',
             error: err
         });
     }
 
-    console.log("idpaciente "+req.body.idPacientePedido);
-
-    if (!req.body.idPacientePedido) {
-        return res.status(400).json({
-            title: 'Error id paciente',
-            error: err
-        });
-    }
-
-    console.log("idMedicamento "+req.body.idMedicamentoPedido);
-    if (!req.body.idMedicamentoPedido) {
-        return res.status(400).json({
-            title: 'Error id medicamento',
-            error: err
-        });
-    }
-    
+    console.log("idPaciente "+req.body.idPaciente);
   
-    var nuevoPedido = new HistorialPedido({
+    var nuevoPedido = new Historial_pedidos({
         numero: req.body.numeroPedido,
-        estado: req.body.estadoPedido,
-        hora: req.body.horaYFechaPedido,
-        cadenaFrio: req.body.cadenaFrioPedido,
+        estado: req.body.estadoNuevo,
+        hora: req.body.fechaCambioPedido,
+        ped: req.body.idPedido,
+        pac: req.body.idPaciente,
+        medica: req.body.idMedicamento
     });
-    nuevoPedido.Pedido=req.body.idPedido;
-    nuevoPedido.idPaciente=req.body.idPacientePedido;
-    nuevoPedido.idMedicamento=req.body.idMedicamentoPedido;
-    console.log(nuevoPedido);
-    
-    console.log( nuevoPedido.idPaciente);
-    console.log(nuevoPedido.idMedicamento);
+
+    console.log(nuevoPedido);   
 
     nuevoPedido.save().then(function (nuevoPedido) {
         res.status(201).json({
@@ -159,7 +131,7 @@ function eliminarHistorialPedidos(req, res){
 
 // EXPORT
 module.exports = {
-    getPedidos,getHistorial,
+    getHistorial,
     cargarHistorialPedidos,
     eliminarHistorialPedidos,
   
