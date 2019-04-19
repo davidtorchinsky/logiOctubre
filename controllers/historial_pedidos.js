@@ -58,6 +58,7 @@ function cargarHistorialPedidos(req, res) {
     var nuevoPedido = new Historial_pedidos({
         numero: req.body.numeroPedido,
         estado: req.body.estadoNuevo,
+        estadoAnterior:req.body.estadoAnterior,
         hora: req.body.fechaCambioPedido,
         ped: req.body.idPedido,
         pac: req.body.idPaciente,

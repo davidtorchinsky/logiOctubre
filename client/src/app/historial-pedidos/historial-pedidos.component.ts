@@ -53,7 +53,8 @@ export class HistorialPedidosComponent implements OnInit {
 
     this.colHistorial= [
         { field: 'numero', header: 'Numero Pedido' },
-        { field: 'estado', header: 'Estado' },       
+        { field: 'estado', header: 'Estado Nuevo' },       
+        { field: 'estadoAnterior', header: 'Estado Anterior' },    
         { field: 'horaCambioString', header: 'Modificación' },
         { field: 'pacApe', header: 'Apellido Cliente'},
         { field: 'pacDire', header: 'Dirección' },
@@ -105,6 +106,7 @@ export class HistorialPedidosComponent implements OnInit {
           historial.pacApe=historial.pac.apellido;
           historial.pacDire=historial.pac.direccion;
           historial.medicaNom=this.medicaNom;
+          historial.estadoAnterior=historial.estadoAnterior;
    /*         if(this.historial.repaApe!=null)
           {
             historial.repaApe=this.historial.repartidor.apellido;

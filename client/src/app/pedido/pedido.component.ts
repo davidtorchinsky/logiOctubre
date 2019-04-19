@@ -217,7 +217,7 @@ export class PedidoComponent implements OnInit {
 
       this.historialPedidosService.cargarHistorialPedidos(this.selectedPedido._id,this.selectedPedido.numero,
         this.selectedEstado.name,this.selectedPedido.pac.nombre,this.selectedPedido.pacApe,this.selectedPedido.pacDir,
-        this.selectedPedido.pac.barrio,new Date(Date.now()),this.selectedPedido.medica._id,this.selectedPedido.pac._id);
+        this.selectedPedido.pac.barrio,new Date(Date.now()),this.selectedPedido.medica._id,this.selectedPedido.pac._id,this.selectedPedido.estado);
 
       console.log(this.selectedEstado.name);
       this.pedidoService.editarPedido(this.selectedPedido._id,

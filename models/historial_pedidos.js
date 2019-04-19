@@ -9,6 +9,7 @@ var HistorialPedidosSchema = Schema({
         unique: true
     },
     estado: String,
+    estadoAnterior:String,
     hora: Date,
     ped:String,
     pac:String,

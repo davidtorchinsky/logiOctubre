@@ -6,6 +6,7 @@ export class HistorialPedidos{
 
     _id: string;
     estadoNuevo: string;
+    estadoAnterior:string;
     hora: Date;
     horaCambioString:string;
     pedidoViejo: Pedido;

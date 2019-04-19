@@ -38,7 +38,8 @@ export class HistorialPedidosService {
         fechaCambioPac:Date,
     //    idRep:string,
         idMed:string,
-        idPac:string): Promise<HistorialPedidos> {
+        idPac:string,
+        estadoAnte:string): Promise<HistorialPedidos> {
 
             console.log("entre a cargar historial pedidos");
             console.log(numeroPed);
@@ -48,7 +49,7 @@ export class HistorialPedidosService {
         return this.http.post(this.pedidoURL,
             JSON.stringify({idPedido:idPed,numeroPedido: numeroPed, estadoNuevo: estadoNue,nombrePaciente:nombrePac,
                 apellidoPaciente: apellidoPac,direccionPaciente: direccionPac,
-                barrioPaciente: barrioPac,fechaCambioPedido:fechaCambioPac,idPaciente:idPac,idMedicamento:idMed}), {headers: this.headers})
+                barrioPaciente: barrioPac,fechaCambioPedido:fechaCambioPac,idPaciente:idPac,idMedicamento:idMed,estadoAnterior:estadoAnte}), {headers: this.headers})
         .toPromise()
         .then(response => response.json().obj as HistorialPedidos)
         .catch(this.handleError);
