@@ -128,7 +128,7 @@ export class PacienteComponent implements OnInit {
             }
           }
         );
-
+          
         // PARA ACTUALIZAR VISTA (TABLA)
         this.pacientes.forEach(elementoPaciente => {
           if (elementoPaciente._id === pacienteEditado._id) {

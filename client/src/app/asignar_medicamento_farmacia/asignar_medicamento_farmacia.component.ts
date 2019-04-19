@@ -65,6 +65,7 @@ export class AsignarMedicamentoFarmaciaComponent implements OnInit {
   }
 
   getMedicamentos(event: any) {
+    console.log('entre al get medicamento del component');
     this.medicamentoService.getMedicamentosNoFarmacia(this.selectedFarmacia._id)
       .then(medicamentos => {
           this.medicamentos = medicamentos;

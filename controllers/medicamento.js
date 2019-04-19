@@ -179,7 +179,7 @@ function getMedicamentosNoConsumePaciente(req, res){
 function getMedicamentosNoFarmacia(req, res){
     console.log('- GET MEDICAMENTOS NO CONSUME FARMACIA-');
     var query = Farmacia.findById(req.params.idFarmacia);
-    
+    console.log('la farmacia que seleccione es: '+query._id);
     query.exec(function (err, farmacia) {
         if (err) {
             return res.status(400).json({
@@ -197,7 +197,7 @@ function getMedicamentosNoFarmacia(req, res){
         if (farmacia.medicamentos.length != 0) {
             Medicamento.find({
                 '_id': {
-                    $ne: farmacia.medicamentos
+                    $nin: farmacia.medicamentos
                 }
             }, function (err, medicamentos) {
                 
