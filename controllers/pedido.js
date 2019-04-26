@@ -2,6 +2,86 @@
 
 var Pedido = require('../models/pedido');
 var Medicamento =require('../models/medicamento');
+const CronJob= require('../node_modules/cron/lib/cron').CronJob;// necesario para la tarea una vez al dia. 
+var Paciente=require('../models/paciente');
+
+//Creo los pedidos automaticamente.
+const job=new CronJob('00 00 00 * * *', function(){
+
+
+    //Decremento en 1 los dias restantes.
+    Paciente.updateMany({"consumiciones.diasRestantes": {$gte:-20}},
+    {$inc: {"consumiciones.$.diasRestantes":-1}});
+
+
+    //Busco los pacientes que poseen menos de 7 dias de consumiciones y les genero un pedido nuevo.
+    Paciente.find({"consumiciones.diasRestantes":{$lte:7}}),function (err, pacientes){
+        pacientes.forEach(elementPac=>{
+            //obtener las consumiciones y verificar si diasRestantes es menor a 7
+            
+            pacientes.consumiciones.forEach(elemConsu=>{
+
+                if(elemConsu.diasRestantes<=7)
+                {
+                    Pedido.countDocuments({}, function(err, count) 
+                    {             
+                
+                        var num=count+1;//numerdo de pedido
+                        console.log(elemConsu.medicamento);
+                        
+                        var nuevoPedido = new Pedido({ 
+                              
+                            numero: num,
+                        
+                            estado: "Generado",
+                            hora: Date.now(),
+                            //a partir de aca no funciona.
+                            //cadenaFrio: medicamento[0].cadenaFrio,
+                            medica: elemConsu.medicamento,
+                            pac:elementPac._id
+                        
+                      
+                        });
+                        nuevoPedido.idPaciente=elementPac._id;
+                        nuevoPedido.idMedicamento=elemConsu.medicamento;
+                        console.log("Todos los datos del pedido "+nuevoPedido);
+                        console.log("El id del paciente: "+nuevoPedido.pac);
+                        console.log("El id del medicamento: "+nuevoPedido.medica);
+                
+                        nuevoPedido.save().then(function (nuevoPedido) {
+                        res.status(201).json({
+                        message: 'Pedido creado',
+                        obj: nuevoPedido
+                        });
+                
+                            }, function (err) {             
+                            
+                            });
+                        });        
+                    });
+
+                };
+
+
+            });
+
+            
+            
+
+
+            
+        });
+    };
+    console.log('pedido de tarea');
+
+});
+job.start();
+
+
+
+
+
+
 
 // FUNCIONES
 function getPedidos(req, res){

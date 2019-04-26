@@ -19,6 +19,7 @@
     "body-parser": "^1.18.3",
     "chai-json-schema": "^1.5.0",
     "cors": "^2.8.4",
+    "cron": "^1.7.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "jsreport": "^2.2.0",
