@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../router.animations';
+import { Pedido } from '../pedido/pedido';
+import { PedidoService } from '../pedido/pedido.service'
+import { PedidoComponent } from '../pedido/pedido.component'
 
 
 @Component({
@@ -11,10 +14,16 @@ import { routerTransition } from '../router.animations';
 export class InicioComponent implements OnInit {
     public alerts: Array<any> = [];
     public sliders: Array<any> = [];
+    pedidos: Pedido[] = [];
+    cols: any[];
+    selectedPedido: Pedido;
+    ped: PedidoComponent
 
    
 
     constructor() {
+
+        
         this.sliders.push(
             {
                 imagePath: 'assets/images/slider1.jpg',
@@ -55,7 +64,22 @@ export class InicioComponent implements OnInit {
         );
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+
+        //this.ped.getPedidos();
+
+        this.cols = [
+            { field: 'numero', header: 'Numero Pedido' },
+            { field: 'estado', header: 'Estado' },       
+            { field: 'horaString', header: 'Última modificacion' },
+           
+            { field: 'pacApe', header: 'Apellido Cliente'},
+            { field: 'pacDir', header: 'Dirección' },
+            { field: 'repaApe', header: 'Apellido Repartidor'},
+            { field: 'medicaNom', header: 'Medicamento'},
+            { field: 'cadenaFrio', header: 'Cadena Frio' }  
+          ];
+    }
 
     public closeAlert(alert: any) {
         const index: number = this.alerts.indexOf(alert);

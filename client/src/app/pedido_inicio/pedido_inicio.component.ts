@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { routerTransition } from '../router.animations';
-import { Pedido } from './pedido';
-import { PedidoService } from './pedido.service';
+import { Pedido } from './pedido_inicio';
+import { PedidoInicioService } from './pedido_inicio.service';
 import { NgForm } from '@angular/forms';
 import swal from 'sweetalert2';
 import { Paciente } from '../paciente/paciente';
@@ -20,12 +20,12 @@ interface Estados {
 }
 
 @Component({
-    selector: 'app-pedido',
-    templateUrl: './pedido.component.html',
-    styleUrls: ['./pedido.component.css'],
+    selector: 'app-pedidoInicio',
+    templateUrl: './pedido_inicio.component.html',
+    styleUrls: ['./pedido_inicio.component.css'],
     animations: [routerTransition()]
 })
-export class PedidoComponent implements OnInit {
+export class PedidoInicioComponent implements OnInit {
   model: any = {};
   pedidos: Pedido[] = [];
   cols: any[];
@@ -56,7 +56,7 @@ export class PedidoComponent implements OnInit {
 
 
   constructor(
-    private pedidoService: PedidoService,
+    private pedidoService: PedidoInicioService,
     private pacienteService:PacienteService,
     private medicamentoService: MedicamentoService,
     private asignarMedicamentoService: AsignarMedicamentoService,

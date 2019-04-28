@@ -1,0 +1,62 @@
+
+<div [@routerTransition]>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card card-default mb-3">
+                    <div class="card-header">
+                        <div>
+                            <a>
+                                <strong style="text-decoration: none;color: #333;">Pedidos NO Entregados</strong>
+                                <div class = 'pull-left'>
+                                </div>
+                            </a>                            
+                        </div>
+                    </div>
+                    <div class="card-body">
+                       
+
+                        <p-table #dt [columns]="cols" 
+                        [value]="pedidos" 
+                        selectionMode="single" [(selection)]="selectedPedido"
+                        [scrollable]="true" scrollHeight="200px"
+                        >
+                <ng-template pTemplate="caption">
+                        <div style="text-align: right">        
+                        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                        <input type="text" pInputText size="50" placeholder="Filtro" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns">
+                            {{col.header}}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                            <input *ngSwitchCase="'numero'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" 
+                            style="width:100%">
+                            <input *ngSwitchCase="'estado'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                            <input *ngSwitchCase="'horaString'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                            <input *ngSwitchCase="'pacApe'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                            <input *ngSwitchCase="'pacDir'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                            <input *ngSwitchCase="'repaApe'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                            <input *ngSwitchCase="'medicaNom'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"  style="width:100%">
+                        
+                        </th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-pedido let-columns="columns">
+                    <tr [pSelectableRow]="pedido">
+                        <td *ngFor="let col of columns">
+                                {{pedido[col.field]}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+

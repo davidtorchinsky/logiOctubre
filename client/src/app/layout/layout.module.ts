@@ -26,6 +26,8 @@ import { FarmaciaComponent } from '../farmacia/farmacia.component';
 import { ClinicaComponent } from '../clinica/clinica.component';
 import { HistorialPacienteComponent } from '../historial-paciente/historial-paciente.component';
 import { HistorialPedidosComponent } from '../historial-pedidos/historial-pedidos.component';
+import { PedidoInicioComponent}  from '../pedido_inicio/pedido_inicio.component';
+
 
 // SERVICIOS
 import { MedicoService } from '../medico/medico.service';
@@ -39,6 +41,7 @@ import { FarmaciaService } from '../farmacia/farmacia.service';
 import { ClinicaService } from '../clinica/clinica.service';
 import { HistorialPacienteService } from '../historial-paciente/historial-paciente.service';
 import { HistorialPedidosService } from '../historial-pedidos/historial-pedidos.service';
+import { PedidoInicioService}  from '../pedido_inicio/pedido_inicio.service';
 // PrimeNG
 import {DropdownModule} from 'primeng/dropdown';
 //import {Dropdown} from 'primeng/api';
@@ -110,7 +113,8 @@ import { PedidoEntregadoService } from '../pedido_entregado/pedido_entregado.ser
         HistorialPacienteComponent,
         QuitarMedicamentoComponent,
         PedidoEntregadoComponent,
-        HistorialPedidosComponent
+        HistorialPedidosComponent,
+        PedidoInicioComponent
     ],
     providers: [
         WINDOW_PROVIDERS,
@@ -132,7 +136,8 @@ import { PedidoEntregadoService } from '../pedido_entregado/pedido_entregado.ser
         HistorialPacienteService,
         QuitarMedicamentoService,
         PedidoEntregadoService,
-        HistorialPedidosService
+        HistorialPedidosService,
+        PedidoInicioService
     ]
 })
 export class LayoutModule {}

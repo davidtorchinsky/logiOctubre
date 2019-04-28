@@ -6,20 +6,27 @@ const CronJob= require('../node_modules/cron/lib/cron').CronJob;// necesario par
 var Paciente=require('../models/paciente');
 
 //Creo los pedidos automaticamente.
-const job=new CronJob('00 00 00 * * *', function(){
+const job=new CronJob('*/10 * * * * *', function(){
 
 
     //Decremento en 1 los dias restantes.
+    console.log('comienza tarea');
+    Paciente.findOne({}),function(err, pac){console.log(pac)}
+    {
+
+    }
     Paciente.updateMany({"consumiciones.diasRestantes": {$gte:-20}},
     {$inc: {"consumiciones.$.diasRestantes":-1}});
+    
 
 
-    //Busco los pacientes que poseen menos de 7 dias de consumiciones y les genero un pedido nuevo.
+    /*//Busco los pacientes que poseen menos de 7 dias de consumiciones y les genero un pedido nuevo.
     Paciente.find({"consumiciones.diasRestantes":{$lte:7}}),function (err, pacientes){
+        console.log(pacientes[0].nombre);
         pacientes.forEach(elementPac=>{
             //obtener las consumiciones y verificar si diasRestantes es menor a 7
-            
-            pacientes.consumiciones.forEach(elemConsu=>{
+            console.log(elementPac._id);
+            elementPac.consumiciones.forEach(elemConsu=>{
 
                 if(elemConsu.diasRestantes<=7)
                 {
@@ -49,32 +56,25 @@ const job=new CronJob('00 00 00 * * *', function(){
                         console.log("El id del medicamento: "+nuevoPedido.medica);
                 
                         nuevoPedido.save().then(function (nuevoPedido) {
-                        res.status(201).json({
-                        message: 'Pedido creado',
-                        obj: nuevoPedido
-                        });
-                
-                            }, function (err) {             
-                            
+                            res.status(201).json({
+                            message: 'Pedido creado',
+                            obj: nuevoPedido
                             });
-                        });        
-                    });
-
-                };
-
+                
+                        });
+                    })        
+                }
 
             });
 
-            
-            
 
-
-            
         });
-    };
-    console.log('pedido de tarea');
-
+            
+    };*/
 });
+console.log('pedido de tarea');
+
+
 job.start();
 
 
