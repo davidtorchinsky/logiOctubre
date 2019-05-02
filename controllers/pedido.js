@@ -10,19 +10,17 @@ const job=new CronJob('*/10 * * * * *', function(){
 
 
     //Decremento en 1 los dias restantes.
-    console.log('comienza tarea');
-    Paciente.findOne({}),function(err, pac){console.log(pac)}
-    {
-
-    }
-    Paciente.updateMany({"consumiciones.diasRestantes": {$gte:-20}},
-    {$inc: {"consumiciones.$.diasRestantes":-1}});
+    //console.log('comienza tarea');
+    
+   //No funciona correctamente, solo decrementa el primerl elemento de consumiciones.    
+    Paciente.updateMany({"consumiciones.diasRestantes": {$gte:0}},
+    {$inc: {"consumiciones.$.diasRestantes":-1}}).exec(function(err, pac){});
     
 
 
-    /*//Busco los pacientes que poseen menos de 7 dias de consumiciones y les genero un pedido nuevo.
-    Paciente.find({"consumiciones.diasRestantes":{$lte:7}}),function (err, pacientes){
-        console.log(pacientes[0].nombre);
+    //Busco los pacientes que poseen menos de 7 dias de consumiciones y les genero un pedido nuevo.
+    Paciente.find({"consumiciones.diasRestantes":{$lte:7}}).exec(function (err, pacientes){
+        //console.log(pacientes[0].nombre);
         pacientes.forEach(elementPac=>{
             //obtener las consumiciones y verificar si diasRestantes es menor a 7
             console.log(elementPac._id);
@@ -34,34 +32,64 @@ const job=new CronJob('*/10 * * * * *', function(){
                     {             
                 
                         var num=count+1;//numerdo de pedido
-                        console.log(elemConsu.medicamento);
-                        
-                        var nuevoPedido = new Pedido({ 
+                        console.log("Id del medicamento que estoy generando el pedido",elemConsu.medicamento);
+                        //Busco el medicamento para poder obtener la cadena de frio.
+                        Medicamento.findById(elemConsu.medicamento, function (err, medi) {
+                            if (err) {
+                                return res.status(400).json({
+                                    title: 'An error occurred',
+                                    error: err
+                                });
+                            }
+                            if (!medi) {
+                                return res.status(404).json({
+                                    title: 'Error',
+                                    error: 'Medicamento no encontrado'
+                                });
+                            }
+
+                            var nuevoPedido = new Pedido({ 
                               
-                            numero: num,
-                        
-                            estado: "Generado",
-                            hora: Date.now(),
-                            //a partir de aca no funciona.
-                            //cadenaFrio: medicamento[0].cadenaFrio,
-                            medica: elemConsu.medicamento,
-                            pac:elementPac._id
-                        
-                      
-                        });
-                        nuevoPedido.idPaciente=elementPac._id;
-                        nuevoPedido.idMedicamento=elemConsu.medicamento;
-                        console.log("Todos los datos del pedido "+nuevoPedido);
-                        console.log("El id del paciente: "+nuevoPedido.pac);
-                        console.log("El id del medicamento: "+nuevoPedido.medica);
-                
-                        nuevoPedido.save().then(function (nuevoPedido) {
-                            res.status(201).json({
-                            message: 'Pedido creado',
-                            obj: nuevoPedido
+                                numero: num,
+                            
+                                estado: "Generado",
+                                hora: Date.now(), 
+                                cadenaFrio: medi.cadenaFrio,
+                                medica: elemConsu.medicamento,
+                                pac:elementPac._id
+                            
+                          
                             });
-                
+                            nuevoPedido.idPaciente=elementPac._id;
+                            nuevoPedido.idMedicamento=elemConsu.medicamento;
+                            console.log("Todos los datos del pedido "+nuevoPedido);
+                            console.log("El id del paciente: "+nuevoPedido.pac);
+                            console.log("El id del medicamento: "+nuevoPedido.medica);
+                    
+                            nuevoPedido.save().then(function (nuevoPedido) {
+                                res.status(201).json({
+                                message: 'Pedido creado',
+                                obj: nuevoPedido
+                                });
+                    
+                            });
+                            //Actualizo la consumicion. no funciona!!!!!!
+                            console.log('Dias restantes antes de la actualizacion: ',elemConsu.diasRestantes);
+                            elemConsu.diasRestantes=(medi.cantidadComprimidos/elemConsu.cantidadConsumicion)/elemConsu.frecuencia;
+                            console.log('Dias restantes despues de la actualizacion: ',elemConsu.diasRestantes);
+                            let idt=elemConsu._id;
+                            let dias=(medi.cantidadComprimidos/elemConsu.cantidadConsumicion)/elemConsu.frecuencia;
+                            elementPac.update({"elemConsu._id":idt},{$set: {"elemConsu.$.diasRestantes":dias}});
+                            
+                            
+                            
+                            
+                            
                         });
+
+
+
+                        
                     })        
                 }
 
@@ -70,7 +98,7 @@ const job=new CronJob('*/10 * * * * *', function(){
 
         });
             
-    };*/
+    });
 });
 console.log('pedido de tarea');
 
@@ -168,7 +196,8 @@ function getPedidosEntreFechas(req, res){
 
 
 
-function cargarPedido(req, res) {
+function 
+cargarPedido(req, res) {
     console.log('CARGAR PEDIDO');
 
     if (!req.body.numeroPedido) {

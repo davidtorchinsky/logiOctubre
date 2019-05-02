@@ -4,6 +4,7 @@ var Paciente = require('../models/paciente');
 var Medico = require('../models/medico');
 var Obra=require('../models/obras');
 var Pedido= require('../models/pedido');
+var Medicamento= require('../models/medicamento');
 
 // FUNCIONES
 function getPacientes(req, res){
@@ -269,13 +270,46 @@ function cargarConsumicion(req, res) {
 
         paciente.medicamentos.push(req.params.idMedicamento);
 
-        paciente.consumiciones.push({
-            medicamento: req.params.idMedicamento,
-            frecuencia: req.body.frecuencia,
-            cantidadConsumicion: req.body.cantidadConsumicion,
-            diasRestantes: null,
-            numeroMedicamento: req.params.idMedicamento,
-        })
+        //Busco el medicamento y me quedo con la cantidad de comprimidos
+        Medicamento.findById(req.params.idMedicamento, function (err, medica) {
+            if (err) {
+                return res.status(400).json({
+                    title: 'An error occurred',
+                    error: err
+                });
+            }
+            if (!medica) {
+                return res.status(404).json({
+                    title: 'Error',
+                    error: 'Medicamento no encontrado'
+                });
+            }
+            paciente.consumiciones.push({
+                medicamento: req.params.idMedicamento,
+                frecuencia: req.body.frecuencia,
+                cantidadConsumicion: req.body.cantidadConsumicion,   
+                // calculo los dias restantes
+                diasRestantes: (medica.cantidadComprimidos/req.body.cantidadConsumicion)/req.body.frecuencia,
+                numeroMedicamento: req.params.idMedicamento,
+            })
+            paciente.save().then(function (paciente) {
+                res.status(200).json({
+                    message: 'Success',
+                    obj: paciente
+                });
+            }, function (err) {
+                return res.status(404).json({
+                    title: 'Error',
+                    error: err
+                });
+            });
+    
+            
+        });
+
+
+
+        
 
         paciente.save().then(function (paciente) {
             res.status(200).json({
