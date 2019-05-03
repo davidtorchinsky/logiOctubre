@@ -252,38 +252,42 @@ function cargarConsumicion(req, res) {
         });
     }
 
-    console.log("idPaciente: "+req.params.idPaciente);
-    Paciente.findById(req.params.idPaciente, function (err, paciente) {
+    
+
+    //Busco el medicamento y me quedo con la cantidad de comprimidos
+    Medicamento.findById(req.params.idMedicamento, function (err, medica) {
         if (err) {
             return res.status(400).json({
                 title: 'An error occurred',
                 error: err
             });
         }
-        if (!paciente) {
-            console.log("paciente no encontrado");
+        
+        if (!medica) {
             return res.status(404).json({
                 title: 'Error',
-                error: 'Paciente no encontrado'
+                error: 'Medicamento no encontrado'
             });
         }
 
-        paciente.medicamentos.push(req.params.idMedicamento);
-
-        //Busco el medicamento y me quedo con la cantidad de comprimidos
-        Medicamento.findById(req.params.idMedicamento, function (err, medica) {
+        console.log("idPaciente: "+req.params.idPaciente);
+        Paciente.findById(req.params.idPaciente, function (err, paciente) {
             if (err) {
                 return res.status(400).json({
                     title: 'An error occurred',
                     error: err
                 });
             }
-            if (!medica) {
+            if (!paciente) {
+                console.log("paciente no encontrado");
                 return res.status(404).json({
                     title: 'Error',
-                    error: 'Medicamento no encontrado'
+                    error: 'Paciente no encontrado'
                 });
             }
+            
+            paciente.medicamentos.push(req.params.idMedicamento);
+            
             paciente.consumiciones.push({
                 medicamento: req.params.idMedicamento,
                 frecuencia: req.body.frecuencia,
@@ -291,7 +295,8 @@ function cargarConsumicion(req, res) {
                 // calculo los dias restantes
                 diasRestantes: (medica.cantidadComprimidos/req.body.cantidadConsumicion)/req.body.frecuencia,
                 numeroMedicamento: req.params.idMedicamento,
-            })
+            });
+            console.log('el paciente que quiero guardar es: ',paciente);
             paciente.save().then(function (paciente) {
                 res.status(200).json({
                     message: 'Success',
@@ -303,25 +308,20 @@ function cargarConsumicion(req, res) {
                     error: err
                 });
             });
-    
-            
-        });
-
-
-
-        
-
-        paciente.save().then(function (paciente) {
-            res.status(200).json({
-                message: 'Success',
-                obj: paciente
-            });
-        }, function (err) {
-            return res.status(404).json({
-                title: 'Error',
-                error: err
-            });
-        });
+            /*paciente.save().then(function (paciente) {
+                res.status(200).json({
+                    message: 'Success',
+                    obj: paciente
+                });
+            }, function (err) {
+                console.log('error al guardar el paciente.');
+                return res.status(404).json({
+                    
+                    title: 'Error',
+                    error: err
+                });
+            });*/            
+        });        
     });
     
     

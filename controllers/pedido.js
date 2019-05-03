@@ -10,11 +10,12 @@ const job=new CronJob('*/10 * * * * *', function(){
 
 
     //Decremento en 1 los dias restantes.
-    //console.log('comienza tarea');
+    console.log('comienza tarea');
     
    //No funciona correctamente, solo decrementa el primerl elemento de consumiciones.    
     Paciente.updateMany({"consumiciones.diasRestantes": {$gte:0}},
     {$inc: {"consumiciones.$.diasRestantes":-1}}).exec(function(err, pac){});
+    //Paciente.update({"consumiciones.diasRestantes": {$gte:0}},{$inc: {"consumiciones.$.diasRestantes":-1}},{multi:true});
     
 
 
@@ -22,6 +23,7 @@ const job=new CronJob('*/10 * * * * *', function(){
     Paciente.find({"consumiciones.diasRestantes":{$lte:7}}).exec(function (err, pacientes){
         //console.log(pacientes[0].nombre);
         pacientes.forEach(elementPac=>{
+            let cont=0;
             //obtener las consumiciones y verificar si diasRestantes es menor a 7
             console.log(elementPac._id);
             elementPac.consumiciones.forEach(elemConsu=>{
@@ -76,11 +78,13 @@ const job=new CronJob('*/10 * * * * *', function(){
                             //Actualizo la consumicion. no funciona!!!!!!
                             console.log('Dias restantes antes de la actualizacion: ',elemConsu.diasRestantes);
                             elemConsu.diasRestantes=(medi.cantidadComprimidos/elemConsu.cantidadConsumicion)/elemConsu.frecuencia;
-                            console.log('Dias restantes despues de la actualizacion: ',elemConsu.diasRestantes);
+                            
                             let idt=elemConsu._id;
                             let dias=(medi.cantidadComprimidos/elemConsu.cantidadConsumicion)/elemConsu.frecuencia;
-                            elementPac.update({"elemConsu._id":idt},{$set: {"elemConsu.$.diasRestantes":dias}});
-                            
+                            console.log('el valor del cont antes: ',cont)
+                            Paciente.update({"_id":elementPac._id}, 
+                                {$set:{"consumiciones.cont.diasRestantes":dias}});
+                                console.log('Dias restantes despues de la actualizacion: ',elemConsu.diasRestantes);
                             
                             
                             
@@ -92,6 +96,8 @@ const job=new CronJob('*/10 * * * * *', function(){
                         
                     })        
                 }
+                cont=cont+1;
+                console.log('El valor de cont despues de actualizar: ',cont);
 
             });
 
