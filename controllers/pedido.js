@@ -12,15 +12,15 @@ const job=new CronJob('*/10 * * * * *', function(){
     //Decremento en 1 los dias restantes.
     console.log('comienza tarea');
     
-   //No funciona correctamente, solo decrementa el primerl elemento de consumiciones.    
+   //No funciona correctamente, solo decrementa el primerl elemento de consumiciones hasta que llega a un valor menor a 0 y recien ahi pasa al siguiente.    
     Paciente.updateMany({"consumiciones.diasRestantes": {$gte:0}},
     {$inc: {"consumiciones.$.diasRestantes":-1}}).exec(function(err, pac){});
-    //Paciente.update({"consumiciones.diasRestantes": {$gte:0}},{$inc: {"consumiciones.$.diasRestantes":-1}},{multi:true});
+    //Paciente.updateMany({"consumiciones.diasRestantes": {$gte:0}},{$inc: {"consumiciones.$.diasRestantes":-1}},{multi:true}).exec(function(err, pac){});
     
 
 
     //Busco los pacientes que poseen menos de 7 dias de consumiciones y les genero un pedido nuevo.
-    Paciente.find({"consumiciones.diasRestantes":{$lte:7}}).exec(function (err, pacientes){
+    Paciente.find({"consumiciones.diasRestantes":{$lte:0}}).exec(function (err, pacientes){
         //console.log(pacientes[0].nombre);
         pacientes.forEach(elementPac=>{
             let cont=0;
@@ -75,7 +75,8 @@ const job=new CronJob('*/10 * * * * *', function(){
                                 });
                     
                             });
-                            //Actualizo la consumicion. no funciona!!!!!!
+                            //Actualizo la consumicion. no funciona!!!!!! 
+                            //tendria que ser, todos los dias actualiza las consumiciones que fueron entregadas, sino hay sobre venta.
                             console.log('Dias restantes antes de la actualizacion: ',elemConsu.diasRestantes);
                             elemConsu.diasRestantes=(medi.cantidadComprimidos/elemConsu.cantidadConsumicion)/elemConsu.frecuencia;
                             
@@ -84,7 +85,7 @@ const job=new CronJob('*/10 * * * * *', function(){
                             console.log('el valor del cont antes: ',cont)
                             Paciente.update({"_id":elementPac._id}, 
                                 {$set:{"consumiciones.cont.diasRestantes":dias}});
-                                console.log('Dias restantes despues de la actualizacion: ',elemConsu.diasRestantes);
+                            //console.log('Dias restantes despues de la actualizacion: ',elemConsu.diasRestantes);
                             
                             
                             
