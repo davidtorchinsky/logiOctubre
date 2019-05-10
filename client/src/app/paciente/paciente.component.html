@@ -221,7 +221,7 @@
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !direccionPaciente.valid }">
             <label for="direccionPaciente">Direccion:</label>
-            <input type="text" class="form-control" name="direccionPaciente" [(ngModel)]="selectedPaciente.apellido" #direccionPaciente="ngModel" autocomplete="off" required />
+            <input type="text" class="form-control" name="direccionPaciente" [(ngModel)]="selectedPaciente.direccion" #direccionPaciente="ngModel" autocomplete="off" required />
             <div *ngIf="f.submitted && !direccionPaciente.valid" role="alert" class="alert alert-danger">Ingresar la direccion del paciente</div>
         </div>
 
