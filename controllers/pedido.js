@@ -11,13 +11,20 @@ const job=new CronJob('*/10 * * * * *', function(){
 
     //Decremento en 1 los dias restantes.
     console.log('comienza tarea');
-    
-   //No funciona correctamente, solo decrementa el primerl elemento de consumiciones hasta que llega a un valor menor a 0 y recien ahi pasa al siguiente.    
-    Paciente.updateMany({"consumiciones.diasRestantes": {$gte:0}},
-    {$inc: {"consumiciones.$.diasRestantes":-1}}).exec(function(err, pac){});
-    //Paciente.updateMany({"consumiciones.diasRestantes": {$gte:0}},{$inc: {"consumiciones.$.diasRestantes":-1}},{multi:true}).exec(function(err, pac){});
-    
 
+    Paciente.find({"consumiciones.diasRestantes": {$gte:0}}).exec((error, pacientes) => {
+        if (error) {
+            
+        }
+
+        pacientes.forEach(paciente => {
+            paciente.consumiciones.forEach(consumicion => {
+                consumicion.diasRestantes = consumicion.diasRestantes - 1;
+            });
+
+            paciente.save().then(function (pacienteGuardado) {});
+        });
+    })
 
     //Busco los pacientes que poseen menos de 7 dias de consumiciones y les genero un pedido nuevo.
     Paciente.find({"consumiciones.diasRestantes":{$lte:0}}).exec(function (err, pacientes){
@@ -30,9 +37,9 @@ const job=new CronJob('*/10 * * * * *', function(){
 
                 if(elemConsu.diasRestantes<=7)
                 {
-                    Pedido.countDocuments({}, function(err, count) 
+                    Pedido.countDocuments({}, (err, count) =>
                     {             
-                
+                        console.log('CONTADOR: ', count)
                         var num=count+1;//numerdo de pedido
                         console.log("Id del medicamento que estoy generando el pedido",elemConsu.medicamento);
                         //Busco el medicamento para poder obtener la cadena de frio.
@@ -68,13 +75,7 @@ const job=new CronJob('*/10 * * * * *', function(){
                             console.log("El id del paciente: "+nuevoPedido.pac);
                             console.log("El id del medicamento: "+nuevoPedido.medica);
                     
-                            nuevoPedido.save().then(function (nuevoPedido) {
-                                res.status(201).json({
-                                message: 'Pedido creado',
-                                obj: nuevoPedido
-                                });
-                    
-                            });
+                            nuevoPedido.save().then(function (nuevoPedido) {});
                             //Actualizo la consumicion. no funciona!!!!!! 
                             //tendria que ser, todos los dias actualiza las consumiciones que fueron entregadas, sino hay sobre venta.
                             console.log('Dias restantes antes de la actualizacion: ',elemConsu.diasRestantes);
@@ -83,28 +84,14 @@ const job=new CronJob('*/10 * * * * *', function(){
                             let idt=elemConsu._id;
                             let dias=(medi.cantidadComprimidos/elemConsu.cantidadConsumicion)/elemConsu.frecuencia;
                             console.log('el valor del cont antes: ',cont)
-                            Paciente.update({"_id":elementPac._id}, 
-                                {$set:{"consumiciones.cont.diasRestantes":dias}});
-                            //console.log('Dias restantes despues de la actualizacion: ',elemConsu.diasRestantes);
-                            
-                            
-                            
-                            
+                            elementPac.save().then(function (pacienteGuardado) {});
                         });
-
-
-
-                        
-                    })        
+                    });
                 }
                 cont=cont+1;
                 console.log('El valor de cont despues de actualizar: ',cont);
-
             });
-
-
         });
-            
     });
 });
 console.log('pedido de tarea');
@@ -404,11 +391,13 @@ console.log("pedido viejo "+pedido);
  
 
         console.log("pedido nuevo: "+pedido);
-        pedido.save().then(function (pedido) {
-            res.status(200).json({
-                message: 'Success',
-                obj: pedido
-            });
+        pedido.save().then(function (pedidoEditado) {
+            Pedido.populate(pedidoEditado,[{path: 'medica', model:'Medicamento'},{path: 'pac', model:'Paciente'}], (error, pedidoEditadoExpandido)=> {
+                res.status(200).json({
+                    message: 'Success',
+                    obj: pedidoEditadoExpandido
+                });
+            }); 
         }, function (err) {
             return res.status(404).json({
                 title: 'Error',

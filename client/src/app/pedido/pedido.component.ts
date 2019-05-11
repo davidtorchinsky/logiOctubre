@@ -87,7 +87,7 @@ export class PedidoComponent implements OnInit {
       this.cols = [
         { field: 'numero', header: 'Numero Pedido' },
         { field: 'estado', header: 'Estado' },       
-        { field: 'horaString', header: 'Última modificacion' },
+        { field: 'hora', header: 'Última modificacion' },
        
         { field: 'pacApe', header: 'Apellido Cliente'},
         { field: 'pacDir', header: 'Dirección' },
@@ -244,14 +244,16 @@ export class PedidoComponent implements OnInit {
         );
 
         // PARA ACTUALIZAR VISTA (TABLA)
+        console.log('PEDIDO EDITADO: ', pedidoEditado)
+        let i = 0;
         this.pedidos.forEach(elementoPedido => {
           if (elementoPedido._id === pedidoEditado._id) {
-            console.log(elementoPedido.numero);
-            elementoPedido.estado = pedidoEditado.estado;
-            elementoPedido.horaString = pedidoEditado.hora.toLocaleString().slice(0,10)+" " + elementoPedido.hora.toLocaleString().slice(12,16);
-           
-        
+            this.pedidos[i].numero = this.pedidos[i].numero;
+            this.pedidos[i].repaApe = pedidoEditado.repartidor.apellido;
+            this.pedidos[i].pacDir = pedidoEditado.pac.direccion;
+            this.pedidos[i].pacApe = pedidoEditado.pac.apellido;
           }
+          i++;
         });
 
 

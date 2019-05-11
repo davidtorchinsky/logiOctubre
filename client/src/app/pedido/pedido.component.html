@@ -66,7 +66,12 @@
                 <ng-template pTemplate="body" let-pedido let-columns="columns">
                     <tr [pSelectableRow]="pedido">
                         <td *ngFor="let col of columns">
-                                {{pedido[col.field]}}
+                            <div *ngIf='pedido[col.field] && col.field=="hora"'>
+                                    {{pedido[col.field] | date: 'dd/MM/yyyy - h:mm a'}}
+                            </div>
+                            <div *ngIf='pedido[col.field] && col.field!="hora"'>
+                                    {{pedido[col.field]}}
+                            </div>
                         </td>
                     </tr>
                 </ng-template>
